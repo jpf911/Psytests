@@ -1,0 +1,17 @@
+<!--required for allauth (fb and google) login-->
+{% load socialaccount %}
+{% providers_media_js %}
+
+<h3>Login</h3>
+
+<form action="{% url 'psytest:login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username: ">
+    <input type="text" name="password" placeholder="Password: ">
+
+    {{form.errors}}
+    <input type="submit">
+</form>
+
+<a href="{% provider_login_url 'facebook' method='js_sdk' %}">Facebook</a>
+<a href="{% provider_login_url 'google'%}">Google</a>
