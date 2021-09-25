@@ -1,0 +1,51 @@
+a {
+    text-decoration: none;
+    color: #555;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+    color: #6675df;
+}
+
+.social-bg1 {background: #3b5998;}
+.soical-bg2 {background: #1da1f2;}
+
+.login-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+  }
+
+.login-btn:hover {
+    background: #333333;
+  }
+
+.login-fb-social {
+    width: 36px;
+    height: 36px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 50%;
+}
+
+.login-fb-social:hover {
+    background: #333333;
+    color: #fff;
+}
+
+.flex-c-m {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+}
