@@ -48,6 +48,6 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required(login_url='login')
-@admin_only
+# @admin_only
 def home(request):
-    return render(request,'psytest/home.html')
+    return render(request,'psytest/homepage.html')
