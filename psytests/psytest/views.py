@@ -18,7 +18,7 @@ def loginPage(request):
 
         if user is not None:
             login(request,user)
-            return redirect('home')
+            return redirect('homepage')
 
         else:
             messages.error(request, 'Username or Password is incorrect')
@@ -48,6 +48,6 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required(login_url='login')
-@admin_only
+# @admin_only
 def home(request):
-    return render(request,'psytest/home.html')
+    return render(request,'psytest/homepage.html')
