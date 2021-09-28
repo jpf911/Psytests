@@ -21,7 +21,7 @@ def loginPage(request):
             return redirect('home')
 
         else:
-            messages.info(request, 'Username or Password is incorrect')
+            messages.error(request, 'Username or Password is incorrect')
     context={}
     return render(request,'psytest/login.html',context)
 
