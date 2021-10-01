@@ -1,9 +1,23 @@
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a href="#">PsyTest</a>
+<nav class="navbar navbar-expand-lg navbar-light border-bot">
+    <div class="container p-1">
+        <a class="navbar-brand" href="#">PsyTest</a>
+        <div class="collapse navbar-collapse">
+            <a href="#" class="nav-link active">Riasec Test</a>
+            <a href="#" class="nav-link">Personality Test</a>
+        </div>
         <div class="d-flex">
-            <a href="#">link</a>
+            {% if user.is_authenticated %}
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    @{{request.user.username}}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'psytest:logout' %}">Log out</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <a class="nav-link border border-primary" href="{% url 'psytest:login' %}">login</a>
+            {% endif %}
         </div>
     </div>
-
 </nav>

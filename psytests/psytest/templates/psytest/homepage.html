@@ -3,6 +3,23 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% include 'partials/_navbar.html' %}
-This is homepage
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+
+<div class="conainer-fluid">
+    <div class="row vh-91p3">
+        This is homepage
+    </div>
+    <div class="row vh-100">
+        Another content
+    </div>
+</div>
+
+<footer>
+    <h1>Footer</h1>
+    <p>Author: Team 4titude<br>
+        <a href="">team4titude@email.com</a>
+    </p>
+</footer>
 {% endblock %}

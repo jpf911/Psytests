@@ -36,21 +36,29 @@
                     <form action="{% url 'psytest:login' %}" method="post">
 
                         {% csrf_token %}
-                            <input type="email/text" class="form-control form-control-lg mb-3" placeholder="Username" name="username">
-                            <input type="password" class="form-control form-control-lg" placeholder="Password" name="password">
-                            <div class="d-flex justify-content-between custom-control custom-checkbox ">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="remember-me" value="rememberme">
-                                    <label class="form-check-label text-muted" for="remember-me">Remember me</label>
-                                </div>
-                                <div class="alert"></div>
-                                <a href="#">Forgot Password?</a>
+                        <div class="form-floating mb-3">
+                            <input type="email/text" class="form-control" id="username"
+                                placeholder="example@email.com" name='username'>
+                            <label for="username" class="text-muted">Username/Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email/text" class="form-control" id="password"
+                                placeholder="example@email.com" name='password'>
+                            <label for="password" class="text-muted">password</label>
+                        </div>
+                        <div class="d-flex justify-content-between custom-control custom-checkbox ">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="remember-me" value="rememberme">
+                                <label class="form-check-label text-muted" for="remember-me">Remember me</label>
                             </div>
+                            <div class="alert"></div>
+                            <a href="#">Forgot Password?</a>
+                        </div>
                         <button class="login-btn btn btn-primary w-100 fs-17 mt-4 p-2 rounded-pill">Login</button>
                     </form>
 
                     {% for message in messages %}
-                        <p class="m-t-25 text-center" id="messages" style="color:red;">{{message}}</p>
+                    <p class="m-t-25 text-center" id="messages" style="color:red;">{{message}}</p>
                     {% endfor %}
                     <div class="text-muted m-t-50 text-center">Don't have an account? <a href="#">Sign up</a></div>
 
@@ -59,7 +67,8 @@
                         <a href="{% provider_login_url 'facebook' method='js_sdk' %}"
                             class="login-fb-social shadow social-bg1 flex-c-m m-1"><i class="fa fa-facebook-f"
                                 aria-hidden="true"></i></a>
-                        <a href="{% provider_login_url 'google'%}" class="login-google-social shadow social-bg2 flex-c-m m-1"><i class="fa fa-google"
+                        <a href="{% provider_login_url 'google'%}"
+                            class="login-google-social shadow social-bg2 flex-c-m m-1"><i class="fa fa-google"
                                 aria-hidden="true"></i></a>
                     </div>
 

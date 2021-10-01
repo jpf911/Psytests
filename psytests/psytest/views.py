@@ -46,9 +46,9 @@ def registerPage(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('psytest:login')
 
-@login_required(login_url='login')
+# @login_required(login_url='psytest/login')
 # @admin_only
 def home(request):
     return render(request,'psytest/homepage.html')
