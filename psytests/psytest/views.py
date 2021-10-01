@@ -1,9 +1,10 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404, reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.http import HttpResponseRedirect
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 # Create your views here.
@@ -18,7 +19,7 @@ def loginPage(request):
 
         if user is not None:
             login(request,user)
-            return redirect('homepage')
+            return HttpResponseRedirect(reverse('psytest:homepage'))
 
         else:
             messages.error(request, 'Username or Password is incorrect')
