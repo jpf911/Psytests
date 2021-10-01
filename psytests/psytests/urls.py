@@ -21,7 +21,7 @@ from psytest import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.home, name="homepage"),
     path('psytest/', include('psytest.urls')), #Connects to psytest folder urls.py
     path('accounts/', include('allauth.urls')),
 ]
