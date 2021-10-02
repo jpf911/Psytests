@@ -9,7 +9,7 @@
             {% if user.is_authenticated %}
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    @{{request.user.username}}
+                    <small>@{{request.user.username}}</small>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="{% url 'psytest:logout' %}">Log out</a></li>
