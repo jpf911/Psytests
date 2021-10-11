@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     #local
     'psytest',
+    'riasec',
     
     #allauth
     'allauth',
