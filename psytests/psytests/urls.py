@@ -21,7 +21,6 @@ from psytest import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('psytest.urls')), #Connects to psytest folder urls.py
     path('riasec/',include('riasec.urls')), #Connects to riasec folder urls.py
     path('', views.home, name="homepage"),
     path('psytest/', include('psytest.urls')), #Connects to psytest folder urls.py

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from .forms import CreateUserForm
-from .decorators import unauthenticated_user,allowed_users,admin_only
+from .decorators import unauthenticated_user
 # Create your views here.
 
 @unauthenticated_user

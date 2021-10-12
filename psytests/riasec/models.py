@@ -19,11 +19,11 @@ class RIASEC_Test(models.Model):
 
 class Riasec_result (models.Model):
     user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-    reality = models.IntegerField()
-    investigative = models.IntegerField()
-    artistic = models.IntegerField()
-    social = models.IntegerField()
-    enterprising = models.IntegerField ()
-    conventional = models.IntegerField()
+    reality = models.FloatField()
+    investigative = models.FloatField()
+    artistic = models.FloatField()
+    social = models.FloatField()
+    enterprising = models.FloatField ()
+    conventional = models.FloatField()
     date_created = models.DateTimeField(auto_now_add=True)
 
