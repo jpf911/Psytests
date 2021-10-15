@@ -1,1 +1,24 @@
 <h1>Test Page</h1>
+
+<form action="add" method="POST">
+    <p>{{question.question}}</p>
+    <p>{{question.category}}</p>
+    {% csrf_token %}
+    <div><input type="radio" name="choices" id="dislike" value="0">
+    <label for="dislike">Dislike</label>
+    </div>
+    <div><input type="radio" name="choices" id="slightly dislike" value="0.25">
+    <label for="slightly dislike">Slightly dislike</label>
+    </div>
+    <div><input type="radio" name="choices" id="neutral" value="0.5">
+    <label for="neutral">Neutral</label>
+    </div>
+    <div><input type="radio" name="choices" id="slightly enjoy" value="0.75">
+    <label for="slightly enjoy">Slightly enjoy</label>
+    </div>
+    <div><input type="radio" name="choices" id="enjoy" value="1">
+    <label for="enjoy">Enjoy</label>
+    </div>
+    <input type="submit">
+</form>
+
