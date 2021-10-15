@@ -1,24 +1,26 @@
 <h1>Test Page</h1>
 
-<form action="add" method="POST">
+<form action="{% url 'riasec:test_evaluate'%}" method="POST">
+    {% for question in questions %}
     <p>{{question.question}}</p>
     <p>{{question.category}}</p>
     {% csrf_token %}
-    <div><input type="radio" name="choices" id="dislike" value="0">
+    <div><input type="radio" name="{{question.id}}" id="dislike" value="0">
     <label for="dislike">Dislike</label>
     </div>
-    <div><input type="radio" name="choices" id="slightly dislike" value="0.25">
+    <div><input type="radio" name="{{question.id}}" id="slightly dislike" value="0.25">
     <label for="slightly dislike">Slightly dislike</label>
     </div>
-    <div><input type="radio" name="choices" id="neutral" value="0.5">
+    <div><input type="radio" name="{{question.id}}" id="neutral" value="0.5">
     <label for="neutral">Neutral</label>
     </div>
-    <div><input type="radio" name="choices" id="slightly enjoy" value="0.75">
+    <div><input type="radio" name="{{question.id}}" id="slightly enjoy" value="0.75">
     <label for="slightly enjoy">Slightly enjoy</label>
     </div>
-    <div><input type="radio" name="choices" id="enjoy" value="1">
+    <div><input type="radio" name="{{question.id}}" id="enjoy" value="1">
     <label for="enjoy">Enjoy</label>
     </div>
+    {% endfor %}
     <input type="submit">
 </form>
 
