@@ -1,4 +1,4 @@
-#!c:\users\jerwi\documents\python\psytests\psytests\venv\scripts\python.exe
+#!C:\Users\jerwi\Documents\Capstone\Psytests\psytests\venv\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
