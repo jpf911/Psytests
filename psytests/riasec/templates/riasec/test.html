@@ -5,19 +5,19 @@
     <p>{{question.question}}</p>
     <p>{{question.category}}</p>
     {% csrf_token %}
-    <div><input type="radio" name="{{question.id}}" id="dislike" value="0">
+    <div><input type="radio" name="{{question.id}}" id="dislike" value="0" required>
     <label for="dislike">Dislike</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="slightly dislike" value="0.25">
+    <div><input type="radio" name="{{question.id}}" id="slightly dislike" value="0.25" required>
     <label for="slightly dislike">Slightly dislike</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="neutral" value="0.5">
+    <div><input type="radio" name="{{question.id}}" id="neutral" value="0.5" required>
     <label for="neutral">Neutral</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="slightly enjoy" value="0.75">
+    <div><input type="radio" name="{{question.id}}" id="slightly enjoy" value="0.75" required>
     <label for="slightly enjoy">Slightly enjoy</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="enjoy" value="1">
+    <div><input type="radio" name="{{question.id}}" id="enjoy" value="1" required>
     <label for="enjoy">Enjoy</label>
     </div>
     {% endfor %}
