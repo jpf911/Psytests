@@ -2,23 +2,23 @@
 
 <form action="{% url 'riasec:test_evaluate' %}" method="POST">
     {% for question in questions %}
-    <p>{{question.question}}</p>
+    <p>{{forloop.counter}}. {{question.question}}</p>
     <p>{{question.category}}</p>
     {% csrf_token %}
-    <div><input type="radio" name="{{question.id}}" id="dislike" value="0">
-    <label for="dislike">Dislike</label>
+    <div><input type="radio" name="{{question.id}}" id="dislike_{{question.id}}" value="0" required>
+    <label for="dislike_{{question.id}}">Dislike</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="slightly dislike" value="0.25">
-    <label for="slightly dislike">Slightly dislike</label>
+    <div><input type="radio" name="{{question.id}}" id="slightly dislike_{{question.id}}" value="0.25" required>
+    <label for="slightly dislike_{{question.id}}">Slightly dislike</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="neutral" value="0.5">
-    <label for="neutral">Neutral</label>
+    <div><input type="radio" name="{{question.id}}" id="neutral_{{question.id}}" value="0.5" required>
+    <label for="neutral_{{question.id}}">Neutral</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="slightly enjoy" value="0.75">
-    <label for="slightly enjoy">Slightly enjoy</label>
+    <div><input type="radio" name="{{question.id}}" id="slightly enjoy_{{question.id}}" value="0.75" required>
+    <label for="slightly enjoy_{{question.id}}">Slightly enjoy</label>
     </div>
-    <div><input type="radio" name="{{question.id}}" id="enjoy" value="1">
-    <label for="enjoy">Enjoy</label>
+    <div><input type="radio" name="{{question.id}}" id="enjoy_{{question.id}}" value="1" required>
+    <label for="enjoy_{{question.id}}">Enjoy</label>
     </div>
     {% endfor %}
     <input type="submit">

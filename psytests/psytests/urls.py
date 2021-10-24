@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import  settings
 from django.conf.urls.static import static
-from psytest import views
+from psytests.views import HomePageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('riasec/',include('riasec.urls')), #Connects to riasec folder urls.py
-    path('', views.home, name="homepage"),
-    path('psytest/', include('psytest.urls')), #Connects to psytest folder urls.py
+    path('', HomePageView.as_view(), name="homepage"),
+    path('psytest/', include('accounts.urls')), #Connects to psytest folder urls.py
     path('accounts/', include('allauth.urls')),
 ]
 

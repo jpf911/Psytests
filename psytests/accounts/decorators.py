@@ -4,7 +4,7 @@ from django.shortcuts import redirect, reverse
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args,**kwargs):
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('psytest:homepage'))
+            return HttpResponseRedirect(reverse('homepage'))
         else:
             return view_func(request,*args,**kwargs)
 

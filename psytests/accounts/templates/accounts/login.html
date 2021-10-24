@@ -33,7 +33,7 @@
             <div class="col-4 py-5 px-auto vh-100">
                 <div class="w-75 text-left mx-auto m-t-100 mb-5">
                     <h1 class="mb-5 text-center">Login to continue</h1>
-                    <form action="{% url 'psytest:login' %}" method="post">
+                    <form action="{% url 'accounts:login' %}" method="post">
 
                         {% csrf_token %}
                         <div class="form-floating mb-3">
@@ -60,15 +60,15 @@
                     {% for message in messages %}
                     <p class="m-t-25 text-center" id="messages" style="color:red;">{{message}}</p>
                     {% endfor %}
-                    <div class="text-muted m-t-50 text-center">Don't have an account? <a href="#">Sign up</a></div>
+                    <div class="text-muted m-t-50 text-center">Don't have an account? <a href="{% url 'accounts:register' %}">Sign up</a></div>
 
                     <!-- Social Media FB Login Button ni siya -->
                     <div class="flex-c-m m-4">
                         <a href="{% provider_login_url 'facebook' method='js_sdk' %}"
-                            class="login-fb-social shadow social-bg1 flex-c-m m-1"><i class="fa fa-facebook-f"
+                            class="login-fb-social social-bg1 flex-c-m m-1"><i class="fa fa-facebook-f"
                                 aria-hidden="true"></i></a>
                         <a href="{% provider_login_url 'google'%}"
-                            class="login-google-social shadow social-bg2 flex-c-m m-1"><img
+                            class="login-google-social social-bg2 flex-c-m m-1"><img
                                 src="{% static 'images/google.png' %}" alt="googleicon" id="google-icon"></a>
                     </div>
 
@@ -86,20 +86,3 @@
 </body>
 
 </html>
-
-
-
-<!-- 
-<h3>Login</h3>
-
-<form action="{% url 'psytest:login' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username ">
-    <input type="text" name="password" placeholder="Password ">
-
-    {{form.errors}}
-    <input type="submit">
-</form>
-
-<a href="{% provider_login_url 'facebook' method='js_sdk' %}">Facebook</a>
-<a href="{% provider_login_url 'google'%}">Google</a> -->

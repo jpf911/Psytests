@@ -20,35 +20,29 @@ def loginPage(request):
         if user is not None:
             login(request,user)
             return HttpResponseRedirect(reverse('homepage'))
-
         else:
             messages.error(request, 'Username or Password is incorrect')
-    context={}
-    return render(request,'psytest/login.html',context)
+    return render(request,'accounts/login.html')
 
 @unauthenticated_user
 def registerPage(request):
-    form = CreateUserForm()
     if request.method == 'POST':
         form=CreateUserForm(request.POST)
         if form.is_valid():
-            user=form.save()
-            username=form.cleaned_data.get('username') #Get Username
-
-            group=Group.objects.get(name='client')
-            user.groups.add(group)
-
-            messages.success(request, 'Account was created for' + username) #Show Success message
-            return redirect('login')
-
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.birth_date = form.cleaned_data.get('date_of_birth')
+            user.profile.gender = form.cleaned_data.get('gender')
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('homepage')
+    else:
+        form = CreateUserForm()
     context = {'form': form}
-    return render(request,'psytest/register.html',context)
+    return render(request,'accounts/register.html',context)
 
 def logoutUser(request):
     logout(request)
-    return redirect('psytest:login')
-
-# @login_required(login_url='psytest/login')
-# @admin_only
-def home(request):
-    return render(request,'psytest/homepage.html')
+    return redirect('accounts:login')
