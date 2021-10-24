@@ -17,25 +17,24 @@ def evaluate(request):
     c = []
     
     for id in range(1,43):
-        score = request.POST.get(f'{id}')
+        score = float(request.POST.get(f'{id}'))
         question = RIASEC_Test.objects.get(pk=id)
-        print('This is question', question)
+        print('This is question', question, type(score))
 
 
         if question.category == 'R':
-            r.append(int(request.POST.get(score)))
+            r.append(score)
         if question.category == 'I':
-            i.append(int(request.POST.get(score)))
+            i.append(score)
         if question.category == 'A':
-            a.append(int(request.POST.get(score)))
+            a.append(score)
         if question.category == 'S':
-            s.append(int(request.POST.get(score)))
+            s.append(score)
         if question.category == 'E':
-            e.append(int(request.POST.get(score)))
+            e.append(score)
         if question.category == 'C':
-            c.append(int(request.POST.get(score)))
+            c.append(score)
 
-    print(r)
     r = sum(r)
     i = sum(i)
     a = sum(a)
