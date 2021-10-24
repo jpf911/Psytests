@@ -1,3 +1,5 @@
+
+/* Login Page */
 a {
     text-decoration: none;
     color: #555;
@@ -69,4 +71,21 @@ a:hover {
 
 #google-icon {
     width: 20px;
+}
+
+/* Register Page */
+
+.register .col-6{
+    margin-top: 100px;
+    padding: 30px;
+    border-radius: 3%;
+    box-shadow: 0px 4px 8px 4px rgba(0,0,0,0.2);
+}
+
+.register  label {
+    margin-top: 10px;
+}
+
+.register input[type=submit] {
+    margin-top: 15px;
 }
