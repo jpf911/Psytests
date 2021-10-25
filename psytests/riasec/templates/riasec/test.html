@@ -1,5 +1,4 @@
 <h1>Test Page</h1>
-
 <form action="{% url 'riasec:test_evaluate' %}" method="POST">
     {% for question in questions %}
     <p>{{forloop.counter}}. {{question.question}}</p>

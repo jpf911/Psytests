@@ -4,18 +4,18 @@ from .models import RIASEC_Test, Riasec_result
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic.list import ListView
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 @login_required(login_url='accounts:login')
 def testPage(request):
-    y = 1
-    x = 0
+    obj = Riasec_result.objects.all()
     questions=RIASEC_Test.objects.all()
     return render(request,'riasec/test.html', {
         "questions":questions,
-        'x': x,
-        'y': y,
+        'obj': obj
         })
+
 
 def evaluate(request):
     r = []
@@ -24,7 +24,7 @@ def evaluate(request):
     s = []
     e = []
     c = []
-    
+
     for id in range(1,43):
         score = float(request.POST.get(f'{id}'))
         question = RIASEC_Test.objects.get(pk=id)
@@ -51,13 +51,15 @@ def evaluate(request):
     name=request.user
 
     try:
-        result = Riasec_result.objects.get(user=name)
-        result.update(reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
-    except result.DoesNotExist:
-        result = Riasec_result.objects.create(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
+        Riasec_result.objects.get(user=request.user)
+        Riasec_result.objects.update(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
+    
+    except ObjectDoesNotExist:
+        result=Riasec_result.objects.create(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
         result.save()
 
     return HttpResponseRedirect(reverse('riasec:home'))
+
 
 class Home(ListView):
     model = Riasec_result
