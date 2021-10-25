@@ -27,7 +27,7 @@ class Riasec_result (models.Model):
         verbose_name = _('RIASEC Result')
         verbose_name_plural = _('RIASEC Results')
 
-    user=models.ForeignKey(User, null=True,on_delete=models.CASCADE)
+    user=models.OneToOneField(User, null=True,on_delete=models.CASCADE)
     reality = models.FloatField(default=0)
     investigative = models.FloatField(default=0)
     artistic = models.FloatField(default=0)
