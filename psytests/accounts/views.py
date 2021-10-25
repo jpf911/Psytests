@@ -28,7 +28,7 @@ def registerPage(request):
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
-            user.profile.birth_date = form.cleaned_data.get('date_of_birth')
+            user.profile.date_of_birth = form.cleaned_data.get('date_of_birth')
             user.profile.gender = form.cleaned_data.get('gender')
             user.save()
             raw_password = form.cleaned_data.get('password1')

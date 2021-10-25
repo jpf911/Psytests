@@ -3,6 +3,7 @@ from django.http import  HttpResponseRedirect
 from .models import RIASEC_Test, Riasec_result
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.generic.list import ListView
 # Create your views here.
 
 @login_required(login_url='accounts:login')
@@ -41,16 +42,22 @@ def evaluate(request):
         if question.category == 'C':
             c.append(score)
 
-    r = sum(r)
-    i = sum(i)
-    a = sum(a)
-    s = sum(s)
-    e = sum(e)
-    c = sum(c)
+    r = (sum(r)/7) * 100
+    i = (sum(i)/7) * 100
+    a = (sum(a)/7) * 100
+    s = (sum(s)/7) * 100
+    e = (sum(e)/7) * 100
+    c = (sum(c)/7) * 100
     name=request.user
-    result = Riasec_result.objects.update(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
+    result = Riasec_result.objects.create(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
+    result.save()
     return HttpResponseRedirect(reverse('riasec:home'))
 
-def home(request):
-    return render(request,'riasec/riasec_home.html')
+class Home(ListView):
+    model = Riasec_result
+    template_name = 'riasec/riasec_home.html'
+    context_object_name = 'results'
 
+    def get_queryset(self):
+        result = Riasec_result.objects.filter(user=self.request.user)
+        return result

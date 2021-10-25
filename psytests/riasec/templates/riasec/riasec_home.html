@@ -1,1 +1,51 @@
-<h1>Home</h1>
+{% extends 'base.html' %}
+
+
+{% block title %}Riasec{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+
+<div class="row">
+    <h1>Your Results</h1>
+    <hr>
+    {% if results %}
+    {% for result in results %}
+    <div class="accordion accordion-flush" id="accordion_id">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading_id">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex justify-content-between">
+                        <div>result #{{forloop.counter}}</div> 
+                        <div> {{result.date_created}}</div>
+                    </div>
+                </button>
+
+            </h2>
+            <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
+                data-bs-parent="#accordion_id">
+                <div class="accordion-body">
+                    <p>Reality: {{result.reality}}</p>
+                    <p>Investigative: {{result.investigative}}</p>
+                    <p>Artistic: {{result.artistic}}</p>
+                    <p>Social: {{result.social}}</p>
+                    <p>Enterprising: {{result.enterprising}}</p>
+                    <p>Conventional: {{result.conventional}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>you haven't take a test yet. Take test
+        <a href="{% url 'riasec:test' %}">here</a>
+    </p>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
