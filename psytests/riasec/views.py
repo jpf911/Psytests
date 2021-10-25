@@ -49,8 +49,14 @@ def evaluate(request):
     e = (sum(e)/7) * 100
     c = (sum(c)/7) * 100
     name=request.user
-    result = Riasec_result.objects.create(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
-    result.save()
+
+    try:
+        result = Riasec_result.objects.get(user=name)
+        result.update(reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
+    except result.DoesNotExist:
+        result = Riasec_result.objects.create(user=name,reality=r, investigative=i, artistic=a, social=s,enterprising=e, conventional=c)
+        result.save()
+
     return HttpResponseRedirect(reverse('riasec:home'))
 
 class Home(ListView):
