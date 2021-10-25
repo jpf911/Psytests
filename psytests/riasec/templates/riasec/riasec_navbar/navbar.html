@@ -1,12 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light border-bot">
     <div class="container-fluid p-1">
         <a class="navbar-brand" href="{% url 'homepage' %}">PsyTest</a>
-        <div class="collapse navbar-collapse">
-            <a href="{% url 'riasec:home' %}" class="nav-link active">Riasec Test</a>
-            <a href="#" class="nav-link">Personality Test</a>
-        </div>
         <div class="d-flex">
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <small>@{{request.user.username}}</small>

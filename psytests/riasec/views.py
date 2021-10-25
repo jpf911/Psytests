@@ -5,15 +5,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic.list import ListView
 from django.core.exceptions import ObjectDoesNotExist
+
+from accounts.models import Profile
 # Create your views here.
 
 @login_required(login_url='accounts:login')
 def testPage(request):
+    range_num = range(42)
     obj = Riasec_result.objects.all()
     questions=RIASEC_Test.objects.all()
     return render(request,'riasec/test.html', {
         "questions":questions,
-        'obj': obj
+        'obj': obj,
+        'range': range_num
         })
 
 
@@ -64,7 +68,7 @@ def evaluate(request):
 class Home(ListView):
     model = Riasec_result
     template_name = 'riasec/riasec_home.html'
-    context_object_name = 'results'
+    context_object_name = 'result'
 
     def get_queryset(self):
         result = Riasec_result.objects.filter(user=self.request.user)
