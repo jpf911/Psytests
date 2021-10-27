@@ -28,13 +28,15 @@ input[type='checkbox']:checked{
     background-position: center;
     z-index: 1;
   }
-  .login-btn {
+  .btn-style {
     background: #008080;
+    color: white;
     border: none;
   }
 
-.login-btn:hover {
+.btn-style:hover {
     background: #008080;
+    color: white;
     opacity: 0.9;
   }
 
