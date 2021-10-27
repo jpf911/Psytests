@@ -2,6 +2,42 @@
     background: #3b5998;
 }
 
+.navlink {
+    color: #008080;
+    margin: 3px;
+    padding: 0px 5px 15px 5px;
+    text-decoration: none;
+}
+
+.navlink-active {
+    color: #008080;
+    border-bottom: 3px solid #008080;
+}
+
+.navlink:hover {
+    color: #008080;
+    border-bottom: 3px solid #008080;
+}
+
+.login-btn-color {
+    color: white;
+    background: #008080 ;
+}
+
+.login-btn-color:hover {
+    color: white;
+    background: #008080;
+    opacity: 0.9;
+}
+
 .border-bot {
-    border-bottom: thin solid rgba(0, 0, 0, 0.1);
+    border-bottom: thin solid #008080;
+}
+
+.dropdown-item:active {
+    background: #008080;
+}
+
+.btn:focus {
+    box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
 }

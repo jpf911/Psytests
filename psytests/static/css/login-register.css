@@ -11,7 +11,12 @@ a:focus {
  
 a:hover {
 	text-decoration: none;
-    color: #6675df;
+    color: #008080;
+}
+
+input[type='checkbox']:checked{
+    background-color: #008080;
+    border: none;
 }
 
 .social-bg1 {background: #3b5998;}
@@ -23,10 +28,14 @@ a:hover {
     background-position: center;
     z-index: 1;
   }
+  .login-btn {
+    background: #008080;
+    border: none;
+  }
 
 .login-btn:hover {
-    background: #07377f
-    ;
+    background: #008080;
+    opacity: 0.9;
   }
 
 .login-fb-social {
@@ -48,14 +57,14 @@ a:hover {
 }
 
 .login-fb-social:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.2);
     color: #fff;
     border-radius: 50%;
     
 }
 
 .login-google-social:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.2);
     border-radius: 50%;
 }
 .flex-c-m {
@@ -84,9 +93,4 @@ a:hover {
 
 .register  label {
     margin-top: 10px;
-}
-
-.register input[type=submit] {
-    margin-top: 15px;
-    width: 100%;
 }
