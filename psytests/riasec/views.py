@@ -1,12 +1,16 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
 from django.http import  HttpResponseRedirect
 from .models import RIASEC_Test, Riasec_result
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.views.generic.list import ListView
+from django.views.generic.edit import DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
 
-from accounts.models import Profile
+
+
 # Create your views here.
 
 @login_required(login_url='accounts:login')
@@ -65,7 +69,7 @@ def evaluate(request):
     return HttpResponseRedirect(reverse('riasec:home'))
 
 
-class Home(ListView):
+class Home(LoginRequiredMixin,ListView):
     model = Riasec_result
     template_name = 'riasec/riasec_home.html'
     context_object_name = 'result'
@@ -73,3 +77,24 @@ class Home(ListView):
     def get_queryset(self):
         result = Riasec_result.objects.filter(user=self.request.user)
         return result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = Riasec_result.objects.values('reality', 'investigative', 'artistic', 'social', 'enterprising', 'conventional').first()
+        if obj is not None:
+            sorted_obj = dict(sorted(obj.items(), key=lambda item: item[1]))
+            first_three_obj = dict(list(sorted_obj.items())[:2:-1])
+            context['ranks'] = first_three_obj
+        return context
+
+class DeleteRecord(LoginRequiredMixin,DeleteView):
+    model = Riasec_result
+    success_url = reverse_lazy('riasec:home')
+    success_message = "record deleted successfully."
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteRecord, self).delete(request, *args, **kwargs)

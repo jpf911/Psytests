@@ -15,6 +15,7 @@
         <div class="d-flex justify-content-between mt-2 mb-2">
             <h1>Your Record</h1>
             <div class="d-flex align-items-center">
+                <a href="{% url 'riasec:delete_record' obj.user obj.pk %}" class="btn btn-danger me-3">Delete Record</a>
                 <a href="{% url 'riasec:test' %}" class="btn btn-take-test ">Take the test again
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chevron-double-right" viewBox="0 0 16 16">
@@ -48,12 +49,25 @@
                             </div>
                             <div class="card-body">
                                 <blockquote class="blockquote mb-0">
-                                    <p>Reality: {{obj.reality|floatformat:1}}</p>
-                                    <p>Investigative: {{obj.investigative|floatformat:1}}</p>
-                                    <p>Artistic: {{obj.artistic|floatformat:1}}</p>
-                                    <p>Social: {{obj.social|floatformat:1}}</p>
-                                    <p>Enterprising: {{obj.enterprising|floatformat:1}}</p>
-                                    <p>Conventional: {{obj.conventional|floatformat:1}}</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>Reality: {{obj.reality|floatformat:1}}</p>
+                                            <p>Investigative: {{obj.investigative|floatformat:1}}</p>
+                                            <p>Artistic: {{obj.artistic|floatformat:1}}</p>
+                                            <p>Social: {{obj.social|floatformat:1}}</p>
+                                            <p>Enterprising: {{obj.enterprising|floatformat:1}}</p>
+                                            <p>Conventional: {{obj.conventional|floatformat:1}}</p>
+                                        </div>
+                                        <div class="col">
+                                            <h3>Top 3 interest with highest scores</h3>
+                                            <ul>
+                                                {% for key, value in ranks.items %}
+                                                    <li>{{key|title}}: {{value|floatformat:1}}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </blockquote>
                             </div>
                         </div>
@@ -64,6 +78,14 @@
         </div>
         {% endfor %}
         {% else %}
+        {% if messages %}
+        <div class="bg-danger text-white text-center">
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
             <div class="container">
                 <h1 class="display-4 text-center">Hello, {{user.username}}</h1>
@@ -81,9 +103,11 @@
     <div id='learnmore' class="container-fluid my-5">
         <div class="riasec-dfn-container">
             <h1>What is RIASEC Test?</h1>
-    
-            <p><dfn>RIASEC</dfn> stands for 6 characteristics: Realistic, Investigative, Artistic, Social, Enterprising, and
-                Conventional. The RIASEC test asks questions about your aspirations, activities, skills, and interests in
+
+            <p><dfn>RIASEC</dfn> stands for 6 characteristics: Realistic, Investigative, Artistic, Social, Enterprising,
+                and
+                Conventional. The RIASEC test asks questions about your aspirations, activities, skills, and interests
+                in
                 different jobs to help you discover careers and fields of study that are likely to satisfy you</p>
         </div>
 
@@ -263,7 +287,7 @@
                                 </li>
                             </ul>
                         </div>
-                </div>
+                    </div>
                 </div>
 
             </div>
