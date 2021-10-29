@@ -7,6 +7,13 @@
     {% include 'partials/_navbar.html' %}
 </header>
 <div class="conainer-fluid">
+    {% if messages %}
+    <div class="bg-success text-white text-center">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="row vh-91p3">
         <div id="carouselcontrols" class="carousel slide text-center d-flex align-items-center" data-bs-ride="carousel">
             <div class="carousel-inner">
