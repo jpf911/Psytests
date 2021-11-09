@@ -6,10 +6,37 @@
 <header>
     {% include 'partials/_navbar.html' %}
 </header>
-
 <div class="conainer-fluid">
+    {% if messages %}
+    <div class="bg-success text-white text-center">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="row vh-91p3">
-        This is homepage
+        <div id="carouselcontrols" class="carousel slide text-center d-flex align-items-center" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h1>Hello</h1>
+                </div>
+                <div class="carousel-item">
+                        <h1>Team 4titude</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, veritatis.</p>
+                </div>
+                <div class="carousel-item">
+                    <h1>Thank You</h1>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselcontrols" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselcontrols" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
     <div class="row vh-100">
         Another content

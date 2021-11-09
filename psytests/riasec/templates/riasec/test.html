@@ -1,6 +1,6 @@
 {% extends 'riasec/riasec_base.html' %}
 
-{% block title %}Test{% endblock %}
+{% block title %}RIASEC Test{% endblock %}
 
 
 {% block content %}
@@ -9,8 +9,10 @@
 </header>
 <div class="d-flex justify-content-center">
     <div class="container-test">
-        <h1>Test Page</h1>
-        <p class="p-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fringilla phasellus faucibus scelerisque eleifend donec. Bibendum enim facilisis gravida neque convallis a cras semper. Imperdiet massa tincidunt nunc pulvinar sapien et. Penatibus et magnis dis parturient. Integer enim neque volutpat ac. Est ultricies integer quis auctor. Arcu dui vivamus arcu felis bibendum. </p>
+        <h1>RIASEC</h1>
+        <p class="p-2">
+            Rate each task by how much you would enjoy performing them on a scale of <b>(1) Strongly Disagree (2) Disagree (3) Neutral (4) Agree (5) Strongly Agree</b>. Please answer as honestly as possible for an accurate result.
+        </p>
         <hr>
         <form action="{% url 'riasec:test_evaluate' %}" method="POST">
             {% for question in questions %}
@@ -38,17 +40,16 @@
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="{{question.id}}" id="enjoy_{{question.id}}" value="1"
-                    required>
+                    required checked>
                 <label for="enjoy_{{question.id}}">Strongly Agree</label>
             </div>
             <br>
             <hr>
             {% endfor %}
             <div class="d-flex flex-column p-2 justify-content-center">
-                <input type="submit" class="btn btn-primary btn-lg btn-block"></input>
+                <input id='submit' type="submit" class="btn riasec-btn btn-lg btn-block" value="Submit">
             </div>
         </form>
     </div>
 </div>
-
 {% endblock %}
