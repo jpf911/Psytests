@@ -42,3 +42,7 @@
 .icon-30 {
     width: 25px;
 }
+
+.carousel-item:active{
+    font-family: 'Source Sans Pro', sans-serif;
+}
