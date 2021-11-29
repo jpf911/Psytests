@@ -96,18 +96,26 @@ class Home(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        obj = Riasec_result.objects.values(
-            "realistic",
-            "investigative",
-            "artistic",
-            "social",
-            "enterprising",
-            "conventional",
-        ).first()
-        if obj is not None:
-            sorted_obj = dict(sorted(obj.items(), key=lambda item: item[1]))
-            first_three_obj = dict(list(sorted_obj.items())[:2:-1])
-            context["ranks"] = first_three_obj
+        
+        try:
+            Riasec_result.objects.get(user=self.request.user)
+            obj = Riasec_result.objects.filter(user=self.request.user).values(
+                "realistic",
+                "investigative",
+                "artistic",
+                "social",
+                "enterprising",
+                "conventional",
+            ).first()
+            if obj is not None:
+                sorted_obj = dict(sorted(obj.items(), key=lambda item: item[1]))
+                first_three_obj = dict(list(sorted_obj.items())[:2:-1])
+                context["ranks"] = first_three_obj
+                context['v'] = list(first_three_obj.values())
+                context['k'] = list(first_three_obj.keys())
+        except ObjectDoesNotExist:
+            pass
+
         return context
 
 

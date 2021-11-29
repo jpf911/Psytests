@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg border px-5">
         <div class="navbar-collapse">
-            <a class="navbar-brand" href="{% url 'homepage' %}">PSYTEST</a>
+            <a class="navbar-brand navlink-brand" href="{% url 'homepage' %}">PSYTEST</a>
         </div>
         <div class="navbar-nav">
             {% if request.user.is_authenticated %}
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <small class="roboto">{{request.user.username}}</small>
+                    <small>{{request.user.username}}</small>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item roboto" href="{% url 'accounts:logout' %}">Log out</a></li>
+                    <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>
                 </ul>
             </div>
             {% else %}

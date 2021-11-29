@@ -1,1 +1,96 @@
-<h1>Hello World</h1>
+{% extends 'personalityTest/base.html' %}
+{% load static %}
+
+{% block title %}Personality Test{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'personalityTest/components/navbar.html' %}
+</header>
+<main class="container-fluid">
+    {% if messages %}
+    <div class="bg-danger text-white text-center">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if results %}
+    {% for obj in results %}
+    <div class="d-flex justify-content-between mt-2 mb-2">
+        <h1>Your Personality Record</h1>
+        <div class="d-flex align-items-center">
+            <a href="#" class="btn btn-danger me-3" type="button" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Delete Record</a>
+            <!-- Modal -->
+            {% include 'personalityTest/components/delete_modal.html' %}
+            <a href="{% url 'personalityTest:test' %}" class="btn btn-take-test">Take the test again
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                    <path fill-rule="evenodd"
+                        d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="accordion accordion-flush mb-3 mt-2" id="accordion_id">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading_id">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex justify-content-between">
+                        <div> click to see result</div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
+                data-bs-parent="#accordion_id">
+                <div class="accordion-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="d-flex justify-content-end text-muted mb-0">Last test: {{obj.date_created}}
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="p-t-50">
+                                {% include 'personalityTest/result.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <h1 class="display-4">Hello, {{user.username}}</h1>
+                        <p class="lead">Discover your personality with the test, powered by a machine learning.</p>
+                        <div class="d-flex">
+                            <p><a class="btn pt-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
+                            <p><a class="btn pt-btn btn-lg mx-1" href="{% url 'personalityTest:test' %}"
+                                    role="button">Take
+                                    a test</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col pt-bg" style="background-image: url({% static 'images/pt-bg.jpg' %});">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock %}

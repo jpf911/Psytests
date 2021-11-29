@@ -1,4 +1,5 @@
 {% extends 'riasec/riasec_base.html' %}
+{% load static %}
 
 
 {% block title %}Riasec{% endblock %}
@@ -11,40 +12,20 @@
     <div class="row">
         {% if result %}
         {% for obj in result %}
-
-        <div class="d-flex justify-content-between mt-2 mb-2">
-            <h1>Your Record</h1>
+        <div class="d-flex justify-content-between my-2">
+            <h1>Your RIASEC Record</h1>
             <div class="d-flex align-items-center">
                 <a href="{% url 'riasec:delete_record' obj.user obj.pk %}" class="btn btn-danger me-3" type="button"
-                   data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Record</a>
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Record</a>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Delete Record</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close">
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure to Delete this record?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <a href="{% url 'riasec:delete_record' obj.user obj.pk %}" class="btn btn-danger me-3">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include 'riasec/components/delete_modal.html' %}
                 <a href="{% url 'riasec:test' %}" class="btn btn-take-test ">Take the test again
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
-                              d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
                         <path fill-rule="evenodd"
-                              d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
                     </svg>
                 </a>
             </div>
@@ -53,15 +34,15 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading_id">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false"
-                            aria-controls="collapseOne">
+                        data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false"
+                        aria-controls="collapseOne">
                         <div class="d-flex justify-content-between">
                             <div> click to see result</div>
                         </div>
                     </button>
                 </h2>
                 <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
-                     data-bs-parent="#accordion_id">
+                    data-bs-parent="#accordion_id">
                     <div class="accordion-body">
                         <div class="card">
                             <div class="card-header">
@@ -69,17 +50,25 @@
                                 </p>
                             </div>
                             <div class="card-body">
-                                <blockquote class="blockquote mb-0">
+                                <div>
                                     <div class="row">
-                                        <div class="col">
-                                            <p id="r">Realistic: {{obj.realistic|floatformat:1}}</p>
-                                            <p id="i">Investigative: {{obj.investigative|floatformat:1}}</p>
-                                            <p id="a">Artistic: {{obj.artistic|floatformat:1}}</p>
-                                            <p id="s">Social: {{obj.social|floatformat:1}}</p>
-                                            <p id="e">Enterprising: {{obj.enterprising|floatformat:1}}</p>
-                                            <p id="c">Conventional: {{obj.conventional|floatformat:1}}</p>
+                                        <div class="col-2 m-auto">
+
+                                                    <p id="r">Realistic: {{obj.realistic|floatformat:1}}</p>
+                                                    <p id="i">Investigative: {{obj.investigative|floatformat:1}}</p>
+                                                    <p id="a">Artistic: {{obj.artistic|floatformat:1}}</p>
+                                                    <p id="s">Social: {{obj.social|floatformat:1}}</p>
+                                                    <p id="e">Enterprising: {{obj.enterprising|floatformat:1}}</p>
+                                                    <p id="c">Conventional: {{obj.conventional|floatformat:1}}</p>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-8 m-auto">
+                                            <div class="chart-container" style="height: 700px; width: 700px">
+                                                <canvas id="pieChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-t-50">
+                                        <div class="col-4 m-auto">
                                             <h3>Top 3 interest with highest scores</h3>
                                             <ul>
                                                 {% for key, value in ranks.items %}
@@ -87,141 +76,20 @@
                                                 {% endfor %}
                                             </ul>
                                         </div>
+                                        <div class="col-8 m-auto">
+                                            <div class="chart-container" style="height:50vh; width:50vw">
+                                                <canvas id="barChart"></canvas>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <div class="chart-container" style="height:30vh; width:30vw" >
-                                        <canvas id="barChart" ></canvas>
-                                    </div>
-                                    <hr>
-                                    <div class="chart-container" style="height:50vh; width:30vw" >
-                                        <canvas id="pieChart" ></canvas>
-                                    </div>
-                                     <script>
-    let barChart = document.getElementById('barChart').getContext('2d');
-    // Global Options
-    Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 18;
-    Chart.defaults.global.defaultFontColor = '#777';
-
-    let riasecBarChart = new Chart(barChart, {
-      type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-      data:{
-        labels:['Realistic', 'Investigative', 'Artistic', 'Social', 'Enterprising', 'Conventional'],
-        datasets:[{
-          label:'Result',
-          data:[
-            {{obj.realistic|floatformat:1}},
-            {{obj.investigative|floatformat:1}},
-            {{obj.artistic|floatformat:1}},
-            {{obj.social|floatformat:1}},
-            {{obj.enterprising|floatformat:1}},
-            {{obj.conventional|floatformat:1}}
-          ],
-          backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ],
-          borderWidth:1,
-          borderColor:'#777',
-          hoverBorderWidth:3,
-          hoverBorderColor:'#000'
-        }]
-      },
-      options:{
-        title:{
-          display:true,
-          text:'Bar Chart',
-          fontSize:25
-        },
-        legend:{
-          display:false,
-          position:'right',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:50,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
-        }
-      }
-    });
-    let riasecPieChart = new Chart(pieChart, {
-      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-      data:{
-        labels:['Realistic', 'Investigative', 'Artistic', 'Social', 'Enterprising', 'Conventional'],
-        datasets:[{
-          label:'Result',
-          data:[
-            {{obj.realistic|floatformat:1}},
-            {{obj.investigative|floatformat:1}},
-            {{obj.artistic|floatformat:1}},
-            {{obj.social|floatformat:1}},
-            {{obj.enterprising|floatformat:1}},
-            {{obj.conventional|floatformat:1}}
-          ],
-          backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ],
-          borderWidth:1,
-          borderColor:'#777',
-          hoverBorderWidth:3,
-          hoverBorderColor:'#000'
-        }]
-      },
-      options:{
-        title:{
-          display:true,
-          text:'Pie Chart',
-          fontSize:25
-        },
-        legend:{
-          display:true,
-          position:'right',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:50,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
-        }
-      }
-    });
-  </script>
-                                </blockquote>
-
+                                    {% include 'riasec/scripts/piechart.html' %}
+                                    {% include 'riasec/scripts/barchart.html' %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         {% endfor %}
         {% else %}
@@ -240,7 +108,7 @@
                 <div class="d-flex justify-content-center">
                     <p><a class="btn riasec-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
                     <p><a class="btn riasec-btn btn-lg mx-1" href="{% url 'riasec:test' %}" role="button">Take a
-                        test</a>
+                            test</a>
                     </p>
                 </div>
             </div>
@@ -441,6 +309,4 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}
