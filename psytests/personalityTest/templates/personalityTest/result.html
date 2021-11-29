@@ -1,0 +1,40 @@
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <h1>Result Chart</h1>
+        </div>
+        <div class="chart-container mx-auto" style="height:50vh; width:50vw">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        {% for obj in results %}
+        {% include 'personalityTest/components/barchart.html' %}
+        {% endfor %}
+        <table class="table w-50 mx-auto">
+            <thead>
+                <th>Extroversion</th>
+                <th>Neurotic</th>
+                <th>Agreeable</th>
+                <th>Conscientious</th>
+                <th>Openness</th>
+                <th>Prediction</th>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for obj in results %}
+                    <td>{{obj.extroversion}}</td>
+                    <td>{{obj.neurotic}}</td>
+                    <td>{{obj.agreeable}}</td>
+                    <td>{{obj.conscientious}}</td>
+                    <td>{{obj.openness}}</td>
+                    <td>{{obj.prediction}}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

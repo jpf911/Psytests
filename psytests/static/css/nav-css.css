@@ -1,5 +1,14 @@
-.nav-bg {
-    background: #3b5998;
+.navlink-brand {
+    color: #008080;
+}
+
+.navlink-brand:hover {
+    color: rgb(0,128,128,0.8);
+}
+
+
+.btn:focus {
+    box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
 }
 
 .navlink {
@@ -30,19 +39,7 @@
     opacity: 0.9;
 }
 
-
 .dropdown-item:active {
     background: #008080;
 }
 
-.btn:focus {
-    box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
-}
-
-.icon-30 {
-    width: 25px;
-}
-
-.carousel-item:active{
-    font-family: 'Source Sans Pro', sans-serif;
-}
