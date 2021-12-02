@@ -5,7 +5,7 @@
 
 {% block content %}
 <header>
-    {% include 'personalityTest/components/navbar.html' %}
+    {% include 'partials/_navbar.html' %}
 </header>
 <main class="container-fluid">
     {% if messages %}
@@ -87,8 +87,45 @@
         <div class="row">
             <div class="row">
                 <div class="col">
+                    <div class="chart-container mx-auto" style="position: relative; height: 50vh; width: 80vh">
+                        <h3 class="m-4">Cluster 1</h3>
+                        <canvas id="cluster1"></canvas>
+                        {% include 'personalityTest/clusters/cluster1.html' %}
+                    </div>
                 </div>
                 <div class="col">
+                    <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                        <h3 class="m-4">Cluster 2</h3>
+                        <canvas id="cluster2"></canvas>
+    
+                        {% include 'personalityTest/clusters/cluster2.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                        <h3 class="m-4">Cluster 3</h3>
+                        <canvas id="cluster3"></canvas>
+    
+                        {% include 'personalityTest/clusters/cluster3.html' %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                        <h3 class="m-4">Cluster 4</h3>
+                        <canvas id="cluster4"></canvas>
+    
+                        {% include 'personalityTest/clusters/cluster4.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                    <h3 class="m-4">Cluster 5</h3>
+                    <canvas id="cluster5"></canvas>
+
+                    {% include 'personalityTest/clusters/cluster5.html' %}
                 </div>
             </div>
         </div>

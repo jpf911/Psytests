@@ -5,7 +5,7 @@
         <div class="text-center">
             <h1>Result Chart</h1>
         </div>
-        <div class="chart-container mx-auto" style="height:50vh; width:50vw">
+        <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
             <canvas id="barChart"></canvas>
         </div>
     </div>
@@ -31,7 +31,7 @@
                     <td>{{obj.agreeable}}</td>
                     <td>{{obj.conscientious}}</td>
                     <td>{{obj.openness}}</td>
-                    <td>{{obj.prediction}}</td>
+                    <td>Cluster {{obj.prediction}}</td>
                     {% endfor %}
                 </tr>
             </tbody>

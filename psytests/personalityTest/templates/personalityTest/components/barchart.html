@@ -5,7 +5,7 @@
   Chart.defaults.global.defaultFontSize = 18;
   Chart.defaults.global.defaultFontColor = '#777';
 
-  let riasecBarChart = new Chart(barChart, {
+  let personalityTestChart = new Chart(barChart, {
     type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
     data: {
       labels: ['extroversion', 'neurotic', 'agreeable', 'conscientious', 'openness'],
@@ -21,13 +21,11 @@
           ],
           
   backgroundColor: [
-    'rgba(255, 99, 132, 0.6)',
-    'rgba(54, 162, 235, 0.6)',
-    'rgba(255, 206, 86, 0.6)',
-    'rgba(75, 192, 192, 0.6)',
-    'rgba(153, 102, 255, 0.6)',
-    'rgba(255, 159, 64, 0.6)',
-    'rgba(255, 99, 132, 0.6)'
+  '#a7414a',
+  '#282726',
+  '#6a8a82',
+  '#a37c27',
+  '#563838',
   ],
     borderWidth: 1,
       borderColor: '#777',
@@ -36,12 +34,22 @@
         }]
       },
   options: {
+    responsive:true,
+    scales: {
+      yAxes: [{
+          display: true,
+          ticks: {
+              max: 5,
+              beginAtZero: true   // minimum value will be 0.
+          }
+      }]
+  },
     legend: {
       display: false,
     },
     layout: {
       padding: {
-        left: 50,
+        left: 0,
           right: 0,
             bottom: 0,
               top: 0
