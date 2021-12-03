@@ -8,14 +8,14 @@
     let riasecBarChart = new Chart(barChart, {
       type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
-        labels:['Top 1', 'Top 2', 'Top 3'],
+        labels:['Top 1'{% if top2 %},'Top 2'{% endif %}{% if top3 %}, 'Top 3'{% endif %}],
         datasets:[{
           label:'Result',
 
           data:[
           {{top1value|floatformat:1}},
-          {{top2value|floatformat:1}},
-          {{top3value|floatformat:1}},
+          {% if top2 %}{{top2value|floatformat:1}},{% endif %}
+          {% if top3 %}{{top3value|floatformat:1}},{% endif %}
           ],
           
           backgroundColor:[
@@ -30,11 +30,15 @@
         }]
       },
       options:{
-        title:{
-          display:false,
-          text:'Bar Chart',
-          fontSize:25
-        },
+        scales: {
+          yAxes: [{
+              display: true,
+              ticks: {
+                  max: 100,
+                  beginAtZero: true   // minimum value will be 0.
+              }
+          }]
+      },
         legend:{
           display:false,
           position:'right',

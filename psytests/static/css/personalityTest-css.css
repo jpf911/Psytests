@@ -18,6 +18,9 @@
   background: #008080;
   opacity: 0.9;
 }
+.pt-btn:focus {
+  box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
+}
 
 .pt-bg {
   background-repeat: no-repeat;
@@ -79,9 +82,6 @@
   border: none;
 }
 
-.btn:focus {
-  box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
-}
 
 .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);

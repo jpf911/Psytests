@@ -2,9 +2,6 @@
 
 <div class="container">
     <div class="row">
-        <div class="text-center">
-            <h1>Result Chart</h1>
-        </div>
         <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
             <canvas id="barChart"></canvas>
         </div>
@@ -31,7 +28,7 @@
                     <td>{{obj.agreeable}}</td>
                     <td>{{obj.conscientious}}</td>
                     <td>{{obj.openness}}</td>
-                    <td>Cluster {{obj.prediction}}</td>
+                    <td>{{obj.prediction}}</td>
                     {% endfor %}
                 </tr>
             </tbody>

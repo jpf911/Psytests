@@ -71,6 +71,17 @@ class TestView(LoginRequiredMixin, TemplateView):
 
         res = int(model.predict([lis])) + 1
 
+        if res == 1:
+            res = Cluster.objects.get(cluster='Cluster 1')
+        if res == 2:
+            res = Cluster.objects.get(cluster='Cluster 2')
+        if res == 3:
+            res = Cluster.objects.get(cluster='Cluster 3')
+        if res == 4:
+            res = Cluster.objects.get(cluster='Cluster 4')
+        if res == 5:
+            res = Cluster.objects.get(cluster='Cluster 5')
+
         df = pd.DataFrame(lis).transpose()
 
         # my_sums = pd.DataFrame()

@@ -48,13 +48,16 @@
             <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
                 data-bs-parent="#accordion_id">
                 <div class="accordion-body">
-                    <div class="card">
-                        <div class="card-header">
+                    <div>
+                        <div>
                             <p class="d-flex justify-content-end text-muted mb-0">Last test: {{obj.date_created}}
                             </p>
                         </div>
-                        <div class="card-body">
-                            <div class="p-t-50">
+                        <div>
+                            <div>
+                                <div class="mb-4 text-center">
+                                    <h1>Result</h1>
+                                </div>
                                 {% include 'personalityTest/result.html' %}
                             </div>
                         </div>
@@ -97,7 +100,7 @@
                     <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 2</h3>
                         <canvas id="cluster2"></canvas>
-    
+
                         {% include 'personalityTest/clusters/cluster2.html' %}
                     </div>
                 </div>
@@ -107,7 +110,7 @@
                     <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 3</h3>
                         <canvas id="cluster3"></canvas>
-    
+
                         {% include 'personalityTest/clusters/cluster3.html' %}
                     </div>
                 </div>
@@ -115,7 +118,7 @@
                     <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 4</h3>
                         <canvas id="cluster4"></canvas>
-    
+
                         {% include 'personalityTest/clusters/cluster4.html' %}
                     </div>
                 </div>

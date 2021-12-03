@@ -2246,3 +2246,18 @@
 .bg-color-f {
     background: rgba(255, 159, 64, 0.6);
 }
+.color-teal {
+    color: #008080;
+}
+.back-link {
+    color: #008080;
+    margin: 3px;
+    padding: 0px 5px 15px 5px;
+    text-decoration: none;
+}
+.back-link:hover {
+    color: #008080;
+    text-decoration: underline;
+    transition: 10s;
+}
+
