@@ -21,7 +21,10 @@
         <h1>Your Personality Record</h1>
         <div class="d-flex align-items-center">
             <a href="#" class="btn btn-danger me-3" type="button" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Delete Record</a>
+                data-bs-target="#exampleModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg></a>
             <!-- Modal -->
             {% include 'personalityTest/components/delete_modal.html' %}
             <a href="{% url 'personalityTest:test' %}" class="btn btn-take-test">Take the test again
@@ -87,16 +90,302 @@
             </div>
         </div>
         {% endif %}
+        <div class="row p-5">
+            <div class="dfn-box p-5">
+                <h1 class="">The Big Five Personality Traits</h1>
+                <p>The Big Five Model, also known as the Five-Factor Model, is the most widely accepted personality
+                    theory held by psychologists today. The theory states that personality can be boiled down to five
+                    core factors, known by the acronym CANOE or OCEAN</p>
+            </div>
+            <div class="row traits-box">
+                <div class="col-md-6 p-3">
+                    <h2>Conscientiousness</h2>
+                    <p>Conscientiousness describes a person’s ability to regulate their impulse control in order to
+                        engage
+                        in goal-directed behaviors (Grohol, 2019). It measures elements such as control, inhibition, and
+                        persistency of behavior.</p>
+                    <div>
+                        <div class="text-center">
+                            <h4>Conscientiousness vs. Lack of Direction</h4>
+                        </div>
+                        <p>Those who score high on conscientiousness can be described as organized, disciplined,
+                            detail-oriented, thoughtful, and careful. They also have good impulse control, which allows
+                            them
+                            to
+                            complete tasks and achieve goals.
+
+                        </p>
+                        <p>
+                            Those who score low on conscientiousness may struggle with impulse control, leading to
+                            difficulty in
+                            completing tasks and fulfilling goals.
+                        </p>
+                        <p>
+                            They tend to be more disorganized and may dislike too much structure. They may also engage
+                            in
+                            more
+                            impulsive and careless behavior.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 p-3 align-self-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>High</h5>
+                                <ul>
+                                    <li>Competence</li>
+                                    <li>Organized</li>
+                                    <li>Dutifulness</li>
+                                    <li>Achievement striving</li>
+                                    <li>Self-disciplined</li>
+                                    <li>Deliberation</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>Low</h5>
+                                <ul>
+                                    <li>Incompetent</li>
+                                    <li>Disorganized</li>
+                                    <li>Careless</li>
+                                    <li>Procrastinates</li>
+                                    <li>Indiscipline</li>
+                                    <li>Impulsive</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row traits-box">
+                <div class="col-md-6 p-3">
+                    <h2>Agreeableness</h2>
+                    <p>Agreeableness refers to how people tend to treat relationships with others. Unlike extraversion
+                        which
+                        consists of the pursuit of relationships, agreeableness focuses on people’s orientation and
+                        interactions with others (Ackerman, 2017).</p>
+                    <div>
+                        <div class="text-center">
+                            <h4>Agreeableness vs. Antagonism</h4>
+                        </div>
+                        <p>Those high in agreeableness can be described as soft-hearted, trusting, and well-liked. They
+                            are
+                            sensitive to the needs of others and are helpful and cooperative. People regard them as
+                            trustworthy and altruistic.
+                        </p>
+                        <p>
+                            Those low in agreeableness may be perceived as suspicious, manipulative, and uncooperative.
+                            They
+                            may be antagonistic when interacting with others, making them less likely to be well-liked
+                            and
+                            trusted.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-md-6 p-3 align-self-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>High</h5>
+                                <ul>
+                                    <li>Trust (forgiving)</li>
+                                    <li>Straightforwardness</li>
+                                    <li>Altruism (enjoys helping)</li>
+                                    <li>Compliance</li>
+                                    <li>Modesty</li>
+                                    <li>Sympathetic</li>
+                                    <li>Empathy</li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>Low</h5>
+                                <ul>
+                                    <li>Sceptical</li>
+                                    <li>Demanding</li>
+                                    <li>Insults and belittles others</li>
+                                    <li>Stubborn</li>
+                                    <li>Show-off</li>
+                                    <li>Unsympathetic</li>
+                                    <li>Doesn't care about how other people feel</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row traits-box">
+                <div class="col-md-6 p-3">
+                    <h2>Extraversion</h2>
+                    <p>Extraversion reflects the tendency and intensity to which someone seeks interaction with their
+                        environment, particularly socially. It encompasses the comfort and assertiveness levels of people in
+                        social situations.</p>
+                    <p>Additionally, it also reflects the sources from which someone draws energy.</p>
+                    <div>
+                        <div class="text-center">
+                            <h4>Extraversion vs. Introversion</h4>
+                        </div>
+                        <p>Those high on extraversion are generally assertive, sociable, fun-loving, and outgoing. They
+                            thrive in social situations and feel comfortable voicing their opinions. They tend to gain
+                            energy and become excited from being around others.
+                        </p>
+                        <p>Those who score low in extraversion are often referred to as introverts. These people tend to be
+                            more reserved and quieter. They prefer listening to others rather than needing to be heard.</p>
+                        <p>Introverts often need periods of solitude in order to regain energy as attending social events
+                            can be very tiring for them. Of importance to note is that introverts do not necessarily dislike
+                            social events, but instead find them tiring.</p>
+                    </div>
+    
+                </div>
+                <div class="col-md-6 p-3 align-self-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>High</h5>
+                                <ul>
+                                    <li>Sociable</li>
+                                    <li>Energized by social interaction</li>
+                                    <li>Excitement-seeking</li>
+                                    <li>Enjoys being the center of attention</li>
+                                    <li>Outgoing</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>Low</h5>
+                                <ul>
+                                    <li>Prefers solitude</li>
+                                    <li>Fatigued by too much social interaction</li>
+                                    <li>Reflective</li>
+                                    <li>Dislikes being the center of attention</li>
+                                    <li>Reserved</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row traits-box">
+                <div class="col-md-6 p-3">
+                    <h2>Openness to Experience</h2>
+                    <p>Openness to experience refers to one’s willingness to try new things as well as engage in imaginative
+                        and intellectual activities. It includes the ability to “think outside of the box.”</p>
+                    <div>
+                        <div class="text-center">
+                            <h4>Openness vs. Closedness to Experience</h4>
+                        </div>
+                        <p>Those who score high on openness to experience are perceived as creative and artistic. They
+                            prefer variety and value independence. They are curious about their surroundings and enjoy
+                            traveling and learning new things.
+                        </p>
+                        <p>
+                            People who score low on openness to experience prefer routine. They are uncomfortable with
+                            change and trying new things so they prefer the familiar over the unknown. As they are practical
+                            people, they often find it difficult to think creatively or abstractly.
+                        </p>
+                    </div>
+    
+                </div>
+                <div class="col-md-6 p-3 align-self-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>High</h5>
+                                <ul>
+                                    <li>Curious</li>
+                                    <li>Imaginative</li>
+                                    <li>Creative</li>
+                                    <li>Open to trying new things</li>
+                                    <li>Unconventional</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>Low</h5>
+                                <ul>
+                                    <li>Predictable</li>
+                                    <li>Not very imaginative</li>
+                                    <li>Dislikes change</li>
+                                    <li>Prefer routine</li>
+                                    <li>Traditional</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row traits-box">
+                <div class="col-md-6 p-3">
+                    <h2>Neuroticism</h2>
+                    <p>Neuroticism describes the overall emotional stability of an individual through how they perceive the
+                        world. It takes into account how likely a person is to interpret events as threatening or difficult.
+                    </p>
+                    <p>It also includes one’s propensity to experience negative emotions.</p>
+                    <div>
+                        <div class="text-center">
+                            <h4>Neuroticism vs. Emotional Stability</h4>
+                        </div>
+                        <p>Those who score high on neuroticism often feel anxious, insecure and self-pitying. They are often
+                            perceived as moody and irritable. They are prone to excessive sadness and low self-esteem.
+                        </p>
+                        <p>
+                            Those who score low on neuroticism are more likely to calm, secure and self-satisfied. They are
+                            less likely to be perceived as anxious or moody. They are more likely to have high self-esteem
+                            and remain resilient.
+                        </p>
+                    </div>
+    
+                </div>
+                <div class="col-md-6 p-3 align-self-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>High</h5>
+                                <ul>
+                                    <li>Anxious</li>
+                                    <li>Angry hostility (irritable)</li>
+                                    <li>Experiences a lot of stress</li>
+                                    <li>Self-consciousness (shy)</li>
+                                    <li>Vulnerability</li>
+                                    <li>Experiences dramatic shifts in mood</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mini-box p-3">
+                                <h5>Low</h5>
+                                <ul>
+                                    <li>Doesn't worry much</li>
+                                    <li>Calm</li>
+                                    <li>Emotionally stable</li>
+                                    <li>Confident</li>
+                                    <li>Resilient</li>
+                                    <li>Rarely feels sad or depressed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="row">
-                <div class="col">
+                <div class="col-sm-6">
                     <div class="chart-container mx-auto" style="position: relative; height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 1</h3>
                         <canvas id="cluster1"></canvas>
                         {% include 'personalityTest/clusters/cluster1.html' %}
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-sm-6">
                     <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 2</h3>
                         <canvas id="cluster2"></canvas>
@@ -106,7 +395,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-sm-6">
                     <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 3</h3>
                         <canvas id="cluster3"></canvas>
@@ -114,7 +403,7 @@
                         {% include 'personalityTest/clusters/cluster3.html' %}
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-sm-6">
                     <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
                         <h3 class="m-4">Cluster 4</h3>
                         <canvas id="cluster4"></canvas>

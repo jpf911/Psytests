@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}My Stats{% endblock %}
+{% block title %}{{ request.user|title }} | Stats{% endblock %}
 
 {% block content %}
 <header>
@@ -22,13 +22,13 @@
             <div class="col-10 border p-5">
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
+                    aria-labelledby="v-pills-home-tab">
+                    {% if riasec_result %}
                         <div class="row">
                             <div class="text-center m-b-80">
                                 <h2>Summary</h2>
                             </div>
                             <div class="col-3 align-self-center">
-                                {% if riasec_result %}
                                 <p id="r"> <span class="bg-color-a p-2">Realistic</span> =
                                     {{riasec_result.realistic|floatformat:1}}</p>
                                 <p id="i"><span class="bg-color-b p-2">Investigative</span> =
@@ -42,8 +42,8 @@
                                 <p id="c"><span class="bg-color-f p-2">Conventional</span> =
                                     {{riasec_result.conventional|floatformat:1}}</p>
                             </div>
-                            <div class="col-9">
-                                <div class="chart-container mx-auto" style="height: 50vh; width: 50vh">
+                            <div class="col">
+                                <div class="chart-container mx-auto" style="height: 75vh; width: 75vh">
                                     <canvas id="pieChart"></canvas>
                                 </div>
                                 {% include 'stats/riasec-scripts/pieChart.html' %}
@@ -101,7 +101,52 @@
                         {% endif %}
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                        aria-labelledby="v-pills-profile-tab">...</div>
+                    aria-labelledby="v-pills-profile-tab">
+                    {% if personalityTest_result %}
+                    <div class="text-center m-b-80">
+                        <h2>Summary</h2>
+                    </div>
+                        {{obj_prediction.extroversion}}
+                        <div class="row">
+                            <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+                                <canvas id="predictionBarChart"></canvas>
+                            </div>
+                        </div>
+                        {% include 'stats/personalityTest-scripts/predictionBarChart.html' %}
+
+                        <table class="table w-50 mx-auto">
+                            <thead>
+                                <th>Extroversion</th>
+                                <th>Neurotic</th>
+                                <th>Agreeable</th>
+                                <th>Conscientious</th>
+                                <th>Openness</th>
+                                <th>Prediction</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{personalityTest_result.extroversion}}</td>
+                                    <td>{{personalityTest_result.neurotic}}</td>
+                                    <td>{{personalityTest_result.agreeable}}</td>
+                                    <td>{{personalityTest_result.conscientious}}</td>
+                                    <td>{{personalityTest_result.openness}}</td>
+                                    <td>{{personalityTest_result.prediction}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center my-5">
+                            <h2>{{personalityTest_result.prediction}}</h2>
+                        </div>
+                        <div class="row">
+                            <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+                                <canvas id="clusterBarChart"></canvas>
+                            </div>
+                        </div>
+                        {% include 'stats/personalityTest-scripts/clusterBarChart.html' %}
+                    {% else %}
+                        <h1>no result</h1>
+                    {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

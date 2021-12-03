@@ -55,7 +55,6 @@ class StatPage(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            context['personalityTest_result'] = Result.objects.get(user=self.request.user)
             context['riasec_result'] = Riasec_result.objects.get(user=self.request.user)
             Riasec_result.objects.get(user=self.request.user)
             obj = Riasec_result.objects.filter(user=self.request.user).values(
@@ -98,6 +97,11 @@ class StatPage(TemplateView):
         except ObjectDoesNotExist:
             pass
 
-        
+        try:
+            context['personalityTest_result'] = Result.objects.get(user=self.request.user)
+            obj_prediction = Result.objects.get(user=self.request.user)
+            context['prediction'] = obj_prediction.prediction
+        except ObjectDoesNotExist:
+            pass
 
         return context
