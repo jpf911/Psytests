@@ -1,11 +1,11 @@
 <script>
-  let barChart = document.getElementById('barChart').getContext('2d');
+  let predictionbarChart= document.getElementById('predictionBarChart').getContext('2d');
   // Global Options
   Chart.defaults.global.defaultFontFamily = 'Lato';
   Chart.defaults.global.defaultFontSize = 18;
   Chart.defaults.global.defaultFontColor = '#777';
 
-  let personalityTestChart = new Chart(barChart, {
+  let predictionBarChart = new Chart(predictionbarChart, {
     type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
     data: {
       labels: ['extroversion', 'neurotic', 'agreeable', 'conscientious', 'openness'],
@@ -13,19 +13,19 @@
         label: 'Result',
 
         data: [
-          {{ obj.extroversion|floatformat:1}},
-          {{ obj.neurotic|floatformat:1 }},
-          {{ obj.agreeable|floatformat:1 }},
-          {{ obj.conscientious|floatformat:1 }},
-          {{ obj.openness|floatformat:1 }},
+          {{ personalityTest_result.extroversion|floatformat:1}},
+          {{ personalityTest_result.neurotic|floatformat:1 }},
+          {{ personalityTest_result.agreeable|floatformat:1 }},
+          {{ personalityTest_result.conscientious|floatformat:1 }},
+          {{ personalityTest_result.openness|floatformat:1 }},
           ],
           
   backgroundColor: [
-  '#a7414a',
-  '#282726',
-  '#6a8a82',
-  '#a37c27',
-  '#563838',
+    '#a7414a',
+    '#282726',
+    '#6a8a82',
+    '#a37c27',
+    '#563838',
   ],
     borderWidth: 1,
       borderColor: '#777',

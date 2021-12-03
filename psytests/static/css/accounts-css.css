@@ -1,0 +1,8 @@
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background: #008080;
+    color: white;
+}
+.nav-pills .nav-link {
+    color: #008080
+}
+

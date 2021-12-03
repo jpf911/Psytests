@@ -6,12 +6,12 @@
           datasets:[{
             label:'Result',
             data:[
-              {{result.realistic|floatformat:1}},
-              {{result.investigative|floatformat:1}},
-              {{result.artistic|floatformat:1}},
-              {{result.social|floatformat:1}},
-              {{result.enterprising|floatformat:1}},
-              {{result.conventional|floatformat:1}}
+              {{riasec_result.realistic|floatformat:1}},
+              {{riasec_result.investigative|floatformat:1}},
+              {{riasec_result.artistic|floatformat:1}},
+              {{riasec_result.social|floatformat:1}},
+              {{riasec_result.enterprising|floatformat:1}},
+              {{riasec_result.conventional|floatformat:1}}
             ],
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
@@ -29,11 +29,6 @@
           }]
         },
         options:{
-          title:{
-            display:false,
-            text:'Pie Chart',
-            fontSize:25
-          },
           legend:{
             display:true,
             position:'right',
@@ -43,8 +38,8 @@
           },
           layout:{
             padding:{
-              left:50,
-              right:0,
+              left:0,
+              right:30,
               bottom:0,
               top:0
             }

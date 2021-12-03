@@ -6,17 +6,20 @@
 
 {% block content %}
 <header>
-    {% include 'riasec/riasec_navbar/navbar.html' %}
+    {% include 'partials/_navbar.html' %}
 </header>
 <div class="container-fluid">
     <div class="row">
         {% if result %}
-        {% for obj in result %}
         <div class="d-flex justify-content-between my-2">
             <h1>Your RIASEC Record</h1>
+            <p>{{user.realistic}}</p>
             <div class="d-flex align-items-center">
-                <a href="{% url 'riasec:delete_record' obj.user obj.pk %}" class="btn btn-danger me-3" type="button"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Record</a>
+                <a href="{% url 'riasec:delete_record' result.user result.pk %}" class="btn btn-danger me-3"
+                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                      </svg></a>
                 <!-- Modal -->
                 {% include 'riasec/components/delete_modal.html' %}
                 <a href="{% url 'riasec:test' %}" class="btn btn-take-test ">Take the test again
@@ -44,46 +47,86 @@
                 <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
                     data-bs-parent="#accordion_id">
                     <div class="accordion-body">
-                        <div class="card">
-                            <div class="card-header">
-                                <p class="d-flex justify-content-end text-muted mb-0">Last test: {{obj.date_created}}
+                        <div>
+                            <div>
+                                <p class="d-flex justify-content-end text-muted mb-0">Last test: {{result.date_created}}
                                 </p>
                             </div>
-                            <div class="card-body">
+                            <div>
                                 <div>
+                                    <div class="mb-4 text-center">
+                                        <h1>Result</h1>
+                                    </div>
                                     <div class="row">
                                         <div class="col-2 m-auto">
-
-                                                    <p id="r">Realistic: {{obj.realistic|floatformat:1}}</p>
-                                                    <p id="i">Investigative: {{obj.investigative|floatformat:1}}</p>
-                                                    <p id="a">Artistic: {{obj.artistic|floatformat:1}}</p>
-                                                    <p id="s">Social: {{obj.social|floatformat:1}}</p>
-                                                    <p id="e">Enterprising: {{obj.enterprising|floatformat:1}}</p>
-                                                    <p id="c">Conventional: {{obj.conventional|floatformat:1}}</p>
+                                            {% if result %}
+                                            <p id="r"> <span class="bg-color-a p-2">Realistic</span> =
+                                                {{result.realistic|floatformat:1}}</p>
+                                            <p id="i"><span class="bg-color-b p-2">Investigative</span> =
+                                                {{result.investigative|floatformat:1}}</p>
+                                            <p id="a"><span class="bg-color-c p-2">Artistic</span> =
+                                                {{result.artistic|floatformat:1}}</p>
+                                            <p id="s"><span class="bg-color-d p-2">Social</span> =
+                                                {{result.social|floatformat:1}}</p>
+                                            <p id="e"><span class="bg-color-e p-2">Enterprising</span> =
+                                                {{result.enterprising|floatformat:1}}</p>
+                                            <p id="c"><span class="bg-color-f p-2">Conventional</span> =
+                                                {{result.conventional|floatformat:1}}</p>
+                                            {% endif %}
                                         </div>
-                                        <div class="col-8 m-auto">
-                                            <div class="chart-container" style="height: 700px; width: 700px">
+                                        <div class="col-6 mx-auto ">
+                                            <div class="chart-container mx-auto mt-4" style="height: 700px; width: 700px">
                                                 <canvas id="pieChart"></canvas>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-t-50">
-                                        <div class="col-4 m-auto">
-                                            <h3>Top 3 interest with highest scores</h3>
-                                            <ul>
-                                                {% for key, value in ranks.items %}
-                                                <li>{{key|title}}: {{value|floatformat:1}}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                        <div class="col-8 m-auto">
-                                            <div class="chart-container" style="height:50vh; width:50vw">
-                                                <canvas id="barChart"></canvas>
+                                    <div class="row mx-auto m-t-50">
+                                        <div class="col">
+                                            <div class="mx-auto">
+                                                <div class="chart-container" style="height:50vh; width:50vw">
+                                                    <canvas id="barChart"></canvas>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col">
+                                                    {% if top1 %}
+                                                    <h5 class="card-title">Top 1
+                                                        <span> = {{top1value|floatformat:1}}</span></h5>
+                                                    <ul>
+                                                        {% for obj in top1 %}
+                                                        <li>{{obj}}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col">
+                                                    {% if top2 %}
+                                                    <h5 class="card-title">Top 2
+                                                        <span> = {{top2value|floatformat:1}}</span></h5>
+                                                    {% for obj in top2 %}
+                                                    <li>{{obj}}</li>
+                                                    {% endfor %}
+                                                    {% endif %}
+
+                                                </div>
+                                                <div class="col">
+                                                    {% if top3 %}
+                                                    <h5 class="card-title">Top 3
+                                                        <span> = {{top3value|floatformat:1}}</span></h5>
+                                                    {% for obj in top3 %}
+                                                    <li>{{obj}}</li>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                     {% include 'riasec/scripts/piechart.html' %}
-                                    {% include 'riasec/scripts/barchart.html' %}
+                                    {% include 'riasec/scripts/barchart.html' %}>
                                 </div>
                             </div>
                         </div>
@@ -91,222 +134,222 @@
                 </div>
             </div>
         </div>
+    </div>
+    {% else %}
+    {% if messages %}
+    <div class="bg-danger text-white text-center">
+        {% for message in messages %}
+        {{message}}
         {% endfor %}
-        {% else %}
-        {% if messages %}
-        <div class="bg-danger text-white text-center">
-            {% for message in messages %}
-            {{message}}
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
-            <div class="container">
-                <h1 class="display-4 text-center">Hello, {{user.username}}</h1>
-                <p class="lead text-center">Discover which career pathway is right for you with RIASEC test.</p>
-                <div class="d-flex justify-content-center">
-                    <p><a class="btn riasec-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
-                    <p><a class="btn riasec-btn btn-lg mx-1" href="{% url 'riasec:test' %}" role="button">Take a
-                            test</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        {% endif %}
     </div>
-    <div id='learnmore' class="container-fluid my-5">
-        <div class="riasec-dfn-container">
-            <h1>What is RIASEC Test?</h1>
+    {% endif %}
 
-            <p><dfn>RIASEC</dfn> stands for 6 characteristics: Realistic, Investigative, Artistic, Social, Enterprising,
-                and
-                Conventional. The RIASEC test asks questions about your aspirations, activities, skills, and interests
-                in
-                different jobs to help you discover careers and fields of study that are likely to satisfy you</p>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="riasec-mini-container">
-                    <h2 class="mt-2">R = Realistic</h2>
-                    <hr>
-                    <p>These people are often good at mechanical or athletic
-                        jobs. Good college majors for Realistic people are:</p>
-                    <div class="row">
-                        <div class="col">
-                            <ul>
-                                <li>Agriculture</li>
-                                <li>Health Assistant</li>
-                                <li>Computers</li>
-                                <li>Construction</li>
-                                <li>Mechanic/Machinist</li>
-                                <li>Engineering</li>
-                                <li>Food and Hospitality</li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <h5>Related Pathways</h5>
-                            <ul>
-                                <li>Food and Hospitality</li>
-                                <li>Health Services</li>
-                                <li>Industrial and Engineering
-                                    Technology
-                                </li>
-                                <li>Arts and Communication
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="riasec-mini-container">
-                    <h2 class="mt-2">I = Investigative</h2>
-                    <hr>
-                    <p>These people like to watch, learn, analyze and solve
-                        problems. Good college majors for Investigative
-                        people are:</p>
-                    <div class="row">
-                        <div class="col">
-                            <ul>
-                                <li>Marine Biology</li>
-                                <li>Engineering</li>
-                                <li>Chemistry</li>
-                                <li>Zoology</li>
-                                <li>Medicine/Surgery</li>
-                                <li>Consumer Economics</li>
-                                <li>Psychology</li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <h5>Related Pathways</h5>
-                            <ul>
-                                <li>Health Services</li>
-                                <li>Business</li>
-                                <li>Public and Human Services</li>
-                                <li>Industrial and Engineering
-                                    Technology
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="riasec-mini-container">
-                    <h2 class="mt-2">A = Artistic</h2>
-                    <hr>
-                    <p>These people like to work in unstructured situations
-                        where they can use their creativity. Good majors for
-                        Artistic people are:</p>
-                    <div class="row">
-                        <div class="col">
-                            <ul>
-                                <li>Communications</li>
-                                <li>Cosmetology</li>
-                                <li>Fine and Performing Arts</li>
-                                <li>Photography</li>
-                                <li>Radio and TV</li>
-                                <li>Interior Design</li>
-                                <li>Architecture</li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <h5>Related Pathways</h5>
-                            <ul>
-                                <li>Public and Human Services</li>
-                                <li>Arts and Communication</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="riasec-mini-container">
-                    <h2 class="mt-2">S = Social</h2>
-                    <hr>
-                    <p>These people like to work with other people,
-                        rather than things. Good college majors for
-                        Social people are:</p>
-                    <div class="row">
-                        <div class="col">
-                            <ul>
-                                <li>Counseling</li>
-                                <li>Nursing</li>
-                                <li>Physical Therapy</li>
-                                <li>Travel</li>
-                                <li>Advertising</li>
-                                <li>Public Relations</li>
-                                <li>Education</li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <h5>Related Pathways</h5>
-                            <ul>
-                                <li>Health Services</li>
-                                <li>Public and Human Services</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="riasec-mini-container">
-                    <h2 class="mt-2">E = Enterprising</h2>
-                    <hr>
-                    <p>These people like to work with others and enjoy
-                        persuading and and performing. Good college majors
-                        for Enterprising people are:</p>
-                    <div class="row">
-                        <div class="col">
-                            <ul>
-                                <li>Fashion Merchandising</li>
-                                <li>Real Estate</li>
-                                <li>Marketing/Sales</li>
-                                <li>Law</li>
-                                <li>Political Science</li>
-                                <li>International Trade</li>
-                                <li>Banking/Finance</li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <h5>Related Pathways</h5>
-                            <ul>
-                                <li>Business</li>
-                                <li>Public and Human Services</li>
-                                <li>Arts and Communication</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="riasec-mini-container">
-                    <h2 class="mt-2">C = Conventional</h2>
-                    <hr>
-                    <p>These people are very detail oriented,organized
-                        and like to work with data. Good college majors
-                        for Conventional people are</p>
-                    <div class="row">
-                        <div class="col">
-                            <ul>
-                                <li>Accounting</li>
-                                <li>Court Reporting</li>
-                                <li>Insurance</li>
-                                <li>Administration</li>
-                                <li>Medical Records</li>
-                                <li>Banking</li>
-                                <li>Data Processing</li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <h5>Related Pathways</h5>
-                            <ul>
-                                <li>Health Services</li>
-                                <li>Business</li>
-                                <li>Industrial and Engineering
-                                    Technology
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
+    <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
+        <div class="container">
+            <h1 class="display-4 text-center">Hello, {{user.username}}</h1>
+            <p class="lead text-center">Discover which career pathway is right for you with RIASEC test.</p>
+            <div class="d-flex justify-content-center">
+                <p><a class="btn riasec-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
+                <p><a class="btn riasec-btn btn-lg mx-1" href="{% url 'riasec:test' %}" role="button">Take a
+                        test</a>
+                </p>
             </div>
         </div>
     </div>
+    {% endif %}
+</div>
+<div id='learnmore' class="container-fluid my-5">
+    <div class="riasec-dfn-container">
+        <h1>What is RIASEC Test?</h1>
+
+        <p><dfn>RIASEC</dfn> stands for 6 characteristics: Realistic, Investigative, Artistic, Social, Enterprising,
+            and
+            Conventional. The RIASEC test asks questions about your aspirations, activities, skills, and interests
+            in
+            different jobs to help you discover careers and fields of study that are likely to satisfy you</p>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="riasec-mini-container">
+                <h2 class="mt-2">R = Realistic</h2>
+                <hr>
+                <p>These people are often good at mechanical or athletic
+                    jobs. Good college majors for Realistic people are:</p>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>Agriculture</li>
+                            <li>Health Assistant</li>
+                            <li>Computers</li>
+                            <li>Construction</li>
+                            <li>Mechanic/Machinist</li>
+                            <li>Engineering</li>
+                            <li>Food and Hospitality</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h5>Related Pathways</h5>
+                        <ul>
+                            <li>Food and Hospitality</li>
+                            <li>Health Services</li>
+                            <li>Industrial and Engineering
+                                Technology
+                            </li>
+                            <li>Arts and Communication
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="riasec-mini-container">
+                <h2 class="mt-2">I = Investigative</h2>
+                <hr>
+                <p>These people like to watch, learn, analyze and solve
+                    problems. Good college majors for Investigative
+                    people are:</p>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>Marine Biology</li>
+                            <li>Engineering</li>
+                            <li>Chemistry</li>
+                            <li>Zoology</li>
+                            <li>Medicine/Surgery</li>
+                            <li>Consumer Economics</li>
+                            <li>Psychology</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h5>Related Pathways</h5>
+                        <ul>
+                            <li>Health Services</li>
+                            <li>Business</li>
+                            <li>Public and Human Services</li>
+                            <li>Industrial and Engineering
+                                Technology
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="riasec-mini-container">
+                <h2 class="mt-2">A = Artistic</h2>
+                <hr>
+                <p>These people like to work in unstructured situations
+                    where they can use their creativity. Good majors for
+                    Artistic people are:</p>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>Communications</li>
+                            <li>Cosmetology</li>
+                            <li>Fine and Performing Arts</li>
+                            <li>Photography</li>
+                            <li>Radio and TV</li>
+                            <li>Interior Design</li>
+                            <li>Architecture</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h5>Related Pathways</h5>
+                        <ul>
+                            <li>Public and Human Services</li>
+                            <li>Arts and Communication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="riasec-mini-container">
+                <h2 class="mt-2">S = Social</h2>
+                <hr>
+                <p>These people like to work with other people,
+                    rather than things. Good college majors for
+                    Social people are:</p>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>Counseling</li>
+                            <li>Nursing</li>
+                            <li>Physical Therapy</li>
+                            <li>Travel</li>
+                            <li>Advertising</li>
+                            <li>Public Relations</li>
+                            <li>Education</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h5>Related Pathways</h5>
+                        <ul>
+                            <li>Health Services</li>
+                            <li>Public and Human Services</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="riasec-mini-container">
+                <h2 class="mt-2">E = Enterprising</h2>
+                <hr>
+                <p>These people like to work with others and enjoy
+                    persuading and and performing. Good college majors
+                    for Enterprising people are:</p>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>Fashion Merchandising</li>
+                            <li>Real Estate</li>
+                            <li>Marketing/Sales</li>
+                            <li>Law</li>
+                            <li>Political Science</li>
+                            <li>International Trade</li>
+                            <li>Banking/Finance</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h5>Related Pathways</h5>
+                        <ul>
+                            <li>Business</li>
+                            <li>Public and Human Services</li>
+                            <li>Arts and Communication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="riasec-mini-container">
+                <h2 class="mt-2">C = Conventional</h2>
+                <hr>
+                <p>These people are very detail oriented,organized
+                    and like to work with data. Good college majors
+                    for Conventional people are</p>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>Accounting</li>
+                            <li>Court Reporting</li>
+                            <li>Insurance</li>
+                            <li>Administration</li>
+                            <li>Medical Records</li>
+                            <li>Banking</li>
+                            <li>Data Processing</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h5>Related Pathways</h5>
+                        <ul>
+                            <li>Health Services</li>
+                            <li>Business</li>
+                            <li>Industrial and Engineering
+                                Technology
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}

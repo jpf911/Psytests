@@ -2226,3 +2226,41 @@
     height: 91.3vh;
     margin: 0;
 }
+
+/* bg - Set of Colors */
+.bg-color-a {
+    background: rgba(255, 99, 132, 0.6);
+}
+.bg-color-b {
+    background: rgba(54, 162, 235, 0.6);
+}
+.bg-color-c {
+    background: rgba(255, 206, 86, 0.6);
+}
+.bg-color-d {
+    background: rgba(75, 192, 192, 0.6);
+}
+.bg-color-e {
+    background: rgba(153, 102, 255, 0.6);
+}
+.bg-color-f {
+    background: rgba(255, 159, 64, 0.6);
+}
+.color-teal {
+    color: #008080;
+}
+.color-white {
+    color:white;
+}
+.back-link {
+    color: #008080;
+    margin: 3px;
+    padding: 0px 5px 15px 5px;
+    text-decoration: none;
+}
+.back-link:hover {
+    color: #008080;
+    text-decoration: underline;
+    transition: 10s;
+}
+

@@ -20,6 +20,7 @@ class Questionnaire(models.Model):
     def __str__(self):
         return str(self.question)
 
+<<<<<<< HEAD
     def save(self,*args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.question)
@@ -27,16 +28,10 @@ class Questionnaire(models.Model):
 
 class Result(models.Model):
     user=models.OneToOneField(User,null=True, on_delete=models.CASCADE)
-    extroversion = models.FloatField(default=0)
-    neurotic = models.FloatField(default=0)
-    agreeable = models.FloatField(default=0)
-    conscientious = models.FloatField(default=0)
-    openness = models.FloatField (default=0)
-    prediction = models.IntegerField(null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-
+=======
 class Cluster(models.Model):
     cluster = models.CharField(max_length=10)
+>>>>>>> 9f16008129b99f5f4650eded9dd0aa4a5d4383c0
     extroversion = models.FloatField(default=0)
     neurotic = models.FloatField(default=0)
     agreeable = models.FloatField(default=0)
@@ -45,3 +40,13 @@ class Cluster(models.Model):
 
     def __str__(self):
         return self.cluster
+
+class Result(models.Model):
+    user=models.OneToOneField(User,null=True, on_delete=models.CASCADE)
+    extroversion = models.FloatField(default=0)
+    neurotic = models.FloatField(default=0)
+    agreeable = models.FloatField(default=0)
+    conscientious = models.FloatField(default=0)
+    openness = models.FloatField (default=0)
+    prediction = models.ForeignKey(Cluster, on_delete=models.CASCADE, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)

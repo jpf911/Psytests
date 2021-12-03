@@ -18,6 +18,9 @@
   background: #008080;
   opacity: 0.9;
 }
+.pt-btn:focus {
+  box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
+}
 
 .pt-bg {
   background-repeat: no-repeat;
@@ -79,12 +82,30 @@
   border: none;
 }
 
-.btn:focus {
-  box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
-}
 
 .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem rgb(0,128,128,0.2);
 }
 
+.dfn-box {
+  border: medium solid #008080;
+  border-radius: 25px;
+  margin: 10px 0 10px 0;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+}
 
+.traits-box {
+  border: medium solid #008080;
+  border-radius: 25px;
+  margin: 10px 0 10px 0;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+  transition: 0.5s;
+}
+.traits-box:hover {
+  transition: 0.5s;
+  box-shadow: 0px 4px 16px 4px rgba(0,0,0,0.2);
+}
+
+.mini-box {
+  border: thin solid #008080
+}

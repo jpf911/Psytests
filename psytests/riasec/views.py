@@ -24,7 +24,7 @@ def testPage(request):
         {"questions": questions, "obj": obj, "range": range_num},
     )
 
-
+@login_required(login_url="accounts:login")
 def evaluate(request):
     r = []
     i = []
@@ -56,23 +56,23 @@ def evaluate(request):
     s = (sum(s) / 7) * 100
     e = (sum(e) / 7) * 100
     c = (sum(c) / 7) * 100
-    name = request.user
+    
+
 
     try:
-        Riasec_result.objects.get(user=name)
-        Riasec_result.objects.filter(user=name).update(
-            user=name,
-            realistic=r,
-            investigative=i,
-            artistic=a,
-            social=s,
-            enterprising=e,
-            conventional=c,
-        )
+        obj = Riasec_result.objects.get(user=request.user)
+        obj.user=request.user
+        obj.realistic=r
+        obj.investigative=i
+        obj.artistic=a
+        obj.social=s
+        obj.enterprising=e
+        obj.conventional=c
+        obj.save()
 
     except ObjectDoesNotExist:
         result = Riasec_result.objects.create(
-            user=name,
+            user=request.user,
             realistic=r,
             investigative=i,
             artistic=a,
@@ -91,28 +91,53 @@ class Home(LoginRequiredMixin, ListView):
     context_object_name = "result"
 
     def get_queryset(self):
-        result = Riasec_result.objects.filter(user=self.request.user)
+        try:
+            result = Riasec_result.objects.get(user=self.request.user)
+        except ObjectDoesNotExist:
+            result = None
         return result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
         try:
-            Riasec_result.objects.get(user=self.request.user)
             obj = Riasec_result.objects.filter(user=self.request.user).values(
-                "realistic",
-                "investigative",
-                "artistic",
-                "social",
-                "enterprising",
-                "conventional",
+            "realistic",
+            "investigative",
+            "artistic",
+            "social",
+            "enterprising",
+            "conventional",
             ).first()
             if obj is not None:
-                sorted_obj = dict(sorted(obj.items(), key=lambda item: item[1]))
-                first_three_obj = dict(list(sorted_obj.items())[:2:-1])
-                context["ranks"] = first_three_obj
-                context['v'] = list(first_three_obj.values())
-                context['k'] = list(first_three_obj.keys())
+                objects = dict(sorted(obj.items(), key=lambda item: item[1], reverse=True))
+                top1 = {}
+                top2 = {}
+                top3 = {}
+                for x in objects:
+                    if not top1:
+                        top1[x] = objects[x]
+                    else:
+                        if objects[x] == list(top1.values())[0]:
+                            top1[x] = objects[x]
+                        if top2:
+                            if objects[x] < list(top2.values())[0] and not top3:
+                                top3[x] = objects[x]
+                                continue
+                        if objects[x] < list(top1.values())[0] and not top3:
+                            top2[x] = objects[x]
+                        if top3:
+                            if objects[x] == list(top3.values())[0]:
+                                top3[x] = objects[x]
+                context["top1"] = top1
+                context["top2"] = top2
+                context["top3"] = top3
+                if top1:
+                    context["top1value"] = list(top1.values())[0]
+                if top2:
+                    context["top2value"] = list(top2.values())[0]
+                if top3:
+                    context["top3value"] = list(top3.values())[0] 
         except ObjectDoesNotExist:
             pass
 

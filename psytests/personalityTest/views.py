@@ -24,7 +24,17 @@ class PersonalityTestHomeView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['results'] = Result.objects.all()
+        try:
+            context["results"] = Result.objects.filter(user=self.request.user)
+            context["cluster1"] = Cluster.objects.get(cluster="Cluster 1")
+            context["cluster2"] = Cluster.objects.get(cluster="Cluster 2")
+            context["cluster3"] = Cluster.objects.get(cluster="Cluster 3")
+            context["cluster4"] = Cluster.objects.get(cluster="Cluster 4")
+            context["cluster5"] = Cluster.objects.get(cluster="Cluster 5")
+        except ObjectDoesNotExist:
+            pass
+        
+        
         return context
 
 
@@ -33,9 +43,9 @@ class TestView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['questions'] = Questionnaire.objects.all()
+        context["questions"] = Questionnaire.objects.all()
         return context
-    
+
     def post(self, *args, **kwargs):
         name = self.request.user
         model = joblib.load("model/theModel.sav")
@@ -64,34 +74,43 @@ class TestView(LoginRequiredMixin, TemplateView):
             if question.category == "OPN":
                 opn.append(score)
 
-        res = model.predict([lis])
+        res = int(model.predict([lis])) + 1
+
+        if res == 1:
+            res = Cluster.objects.get(cluster='Cluster 1')
+        if res == 2:
+            res = Cluster.objects.get(cluster='Cluster 2')
+        if res == 3:
+            res = Cluster.objects.get(cluster='Cluster 3')
+        if res == 4:
+            res = Cluster.objects.get(cluster='Cluster 4')
+        if res == 5:
+            res = Cluster.objects.get(cluster='Cluster 5')
 
         df = pd.DataFrame(lis).transpose()
 
         # my_sums = pd.DataFrame()
-        extroversion = df[ext].sum(axis=1)/10
-        neurotic = df[est].sum(axis=1)/10
-        agreeable = df[agr].sum(axis=1)/10
-        conscientious = df[csn].sum(axis=1)/10
-        openness = df[opn].sum(axis=1)/10
-
+        extroversion = df[ext].sum(axis=1) / 10
+        neurotic = df[est].sum(axis=1) / 10
+        agreeable = df[agr].sum(axis=1) / 10
+        conscientious = df[csn].sum(axis=1) / 10
+        openness = df[opn].sum(axis=1) / 10
 
         try:
-            Result.objects.get(user=name)
-            Result.objects.filter(user=name).update(
-                user=name,
-                prediction = int(res),
-                extroversion=extroversion,
-                neurotic=neurotic,
-                agreeable=agreeable,
-                conscientious=conscientious,
-                openness=openness,
-            )
+            obj = Result.objects.get(user=name)
+            obj.user = name
+            obj.prediction = res
+            obj.extroversion = extroversion
+            obj.neurotic = neurotic
+            obj.agreeable = agreeable
+            obj.conscientious = conscientious
+            obj.openness = openness
+            obj.save()
 
         except ObjectDoesNotExist:
             result = Result.objects.create(
                 user=name,
-                prediction = int(res),
+                prediction=res,
                 extroversion=extroversion,
                 neurotic=neurotic,
                 agreeable=agreeable,
@@ -101,6 +120,7 @@ class TestView(LoginRequiredMixin, TemplateView):
             result.save()
 
         return HttpResponseRedirect(reverse("personalityTest:home"))
+
 
 class DeleteRecord(DeleteView):
     model = Result
