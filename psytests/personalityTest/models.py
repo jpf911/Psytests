@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -12,11 +13,17 @@ class Questionnaire(models.Model):
         ('OPN','Openness'),
     ]
     question=models.TextField()
+    slug=models.SlugField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=100, choices=category_choices)
 
     def __str__(self):
         return str(self.question)
+
+    def save(self,*args, **kwargs):
+        if not self.slug:
+            self.slug=slugify(self.question)
+            return super(Questionnaire, self).save(*args, **kwargs)
 
 class Result(models.Model):
     user=models.OneToOneField(User,null=True, on_delete=models.CASCADE)
