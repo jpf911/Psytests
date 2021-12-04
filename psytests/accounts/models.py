@@ -13,7 +13,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=6, choices=gender_choices, null=True, blank=True)
-
+    
     def __str__(self):
         return self.user.username
 

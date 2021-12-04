@@ -7,58 +7,63 @@
 <header>
     {% include 'partials/_navbar.html' %}
 </header>
-<main class="container-fluid">
-    {% if messages %}
-    <div class="bg-danger text-white text-center">
-        {% for message in messages %}
-        {{message}}
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% if results %}
-    <div class="d-flex justify-content-between mt-2 mb-2">
-        <h1>Your Personality Record</h1>
-        <div class="d-flex align-items-center">
-            {% if request.user.is_superuser %}
-            <a href="{% url 'personalityTest:questions' %}" class="btn btn-primary me-3" type="button" >Edit Questions</a>
-            {% endif %}
+<div class="container-fluid">
+    <div class="row">
+        {% if messages %}
+        <div class="bg-danger text-white text-center">
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
         </div>
-    </div>
-    <div class="accordion accordion-flush mb-3 mt-2" id="accordion_id">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading_id">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false" aria-controls="collapseOne">
-                    <div class="d-flex justify-content-between">
-                        <div> click to see result</div>
-                    </div>
-                </button>
-            </h2>
-            <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
-                data-bs-parent="#accordion_id">
-                <div class="accordion-body">
-                    <div>
-                        <div>
-                            <p class="d-flex justify-content-end text-muted mb-0">Last test: {{results.date_created}}
-                            </p>
+        {% endif %}
+        {% if results %}
+        <div class="d-flex justify-content-between mt-2 mb-2">
+            <h1>Your Personality Record</h1>
+            <div class="d-flex align-items-center">
+                {% if request.user.is_superuser %}
+                <a href="{% url 'personalityTest:questions' %}" class="btn btn-primary me-3" type="button">Edit
+                    Questions</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="accordion accordion-flush mb-3 mt-2" id="accordion_id">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading_id">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false"
+                        aria-controls="collapseOne">
+                        <div class="d-flex justify-content-between">
+                            <div> click to see result</div>
                         </div>
+                    </button>
+                </h2>
+                <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
+                    data-bs-parent="#accordion_id">
+                    <div class="accordion-body">
                         <div>
                             <div>
-                                <div class="mb-4 text-center">
-                                    <h1>Result</h1>
+                                <p class="d-flex justify-content-end text-muted mb-0">Last test:
+                                    {{results.date_created}}
+                                </p>
+                            </div>
+                            <div>
+                                <div>
+                                    <div class="mb-4 text-center">
+                                        <h1>Result</h1>
+                                    </div>
+                                    {% include 'personalityTest/result.html' %}
                                 </div>
-                                {% include 'personalityTest/result.html' %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {% else %}
-        <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-3">
+            {% else %}
+            <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center pt-bg"
+                style="background-image: url({% static 'images/pt-bg.jpg' %});">
+                <div class="container">
+                    <div class="row justify-content-start">
+
                         <h1 class="display-4">Hello, {{user.username}}</h1>
                         <p class="lead">Discover your personality with the test, powered by a machine learning.</p>
                         <div class="d-flex">
@@ -69,12 +74,10 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col pt-bg" style="background-image: url({% static 'images/pt-bg.jpg' %});">
-                    </div>
                 </div>
             </div>
+            {% endif %}
         </div>
-        {% endif %}
         <div class="row p-5" id="learnmore">
             <div class="dfn-box p-5">
                 <h1 class="">The Big Five Personality Traits</h1>
@@ -186,7 +189,7 @@
                                     <li>Empathy</li>
                                 </ul>
                             </div>
-                            
+
                         </div>
                         <div class="col">
                             <div class="mini-box p-3">
@@ -209,7 +212,8 @@
                 <div class="col-md-6 p-3">
                     <h2>Extraversion</h2>
                     <p>Extraversion reflects the tendency and intensity to which someone seeks interaction with their
-                        environment, particularly socially. It encompasses the comfort and assertiveness levels of people in
+                        environment, particularly socially. It encompasses the comfort and assertiveness levels of
+                        people in
                         social situations.</p>
                     <p>Additionally, it also reflects the sources from which someone draws energy.</p>
                     <div>
@@ -220,13 +224,17 @@
                             thrive in social situations and feel comfortable voicing their opinions. They tend to gain
                             energy and become excited from being around others.
                         </p>
-                        <p>Those who score low in extraversion are often referred to as introverts. These people tend to be
-                            more reserved and quieter. They prefer listening to others rather than needing to be heard.</p>
-                        <p>Introverts often need periods of solitude in order to regain energy as attending social events
-                            can be very tiring for them. Of importance to note is that introverts do not necessarily dislike
+                        <p>Those who score low in extraversion are often referred to as introverts. These people tend to
+                            be
+                            more reserved and quieter. They prefer listening to others rather than needing to be heard.
+                        </p>
+                        <p>Introverts often need periods of solitude in order to regain energy as attending social
+                            events
+                            can be very tiring for them. Of importance to note is that introverts do not necessarily
+                            dislike
                             social events, but instead find them tiring.</p>
                     </div>
-    
+
                 </div>
                 <div class="col-md-6 p-3 align-self-center">
                     <div class="row">
@@ -260,7 +268,8 @@
             <div class="row traits-box">
                 <div class="col-md-6 p-3">
                     <h2>Openness to Experience</h2>
-                    <p>Openness to experience refers to one’s willingness to try new things as well as engage in imaginative
+                    <p>Openness to experience refers to one’s willingness to try new things as well as engage in
+                        imaginative
                         and intellectual activities. It includes the ability to “think outside of the box.”</p>
                     <div>
                         <div class="text-center">
@@ -272,11 +281,12 @@
                         </p>
                         <p>
                             People who score low on openness to experience prefer routine. They are uncomfortable with
-                            change and trying new things so they prefer the familiar over the unknown. As they are practical
+                            change and trying new things so they prefer the familiar over the unknown. As they are
+                            practical
                             people, they often find it difficult to think creatively or abstractly.
                         </p>
                     </div>
-    
+
                 </div>
                 <div class="col-md-6 p-3 align-self-center">
                     <div class="row">
@@ -310,24 +320,29 @@
             <div class="row traits-box">
                 <div class="col-md-6 p-3">
                     <h2>Neuroticism</h2>
-                    <p>Neuroticism describes the overall emotional stability of an individual through how they perceive the
-                        world. It takes into account how likely a person is to interpret events as threatening or difficult.
+                    <p>Neuroticism describes the overall emotional stability of an individual through how they perceive
+                        the
+                        world. It takes into account how likely a person is to interpret events as threatening or
+                        difficult.
                     </p>
                     <p>It also includes one’s propensity to experience negative emotions.</p>
                     <div>
                         <div class="text-center">
                             <h4>Neuroticism vs. Emotional Stability</h4>
                         </div>
-                        <p>Those who score high on neuroticism often feel anxious, insecure and self-pitying. They are often
+                        <p>Those who score high on neuroticism often feel anxious, insecure and self-pitying. They are
+                            often
                             perceived as moody and irritable. They are prone to excessive sadness and low self-esteem.
                         </p>
                         <p>
-                            Those who score low on neuroticism are more likely to calm, secure and self-satisfied. They are
-                            less likely to be perceived as anxious or moody. They are more likely to have high self-esteem
+                            Those who score low on neuroticism are more likely to calm, secure and self-satisfied. They
+                            are
+                            less likely to be perceived as anxious or moody. They are more likely to have high
+                            self-esteem
                             and remain resilient.
                         </p>
                     </div>
-    
+
                 </div>
                 <div class="col-md-6 p-3 align-self-center">
                     <div class="row">
@@ -406,5 +421,5 @@
                 </div>
             </div>
         </div>
-</main>
-{% endblock %}
+        </main>
+        {% endblock %}

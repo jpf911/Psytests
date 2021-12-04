@@ -80,3 +80,10 @@
 .dropdown-item:active {
     background: #008080;
 }
+
+.riasec-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 92vh;
+  }

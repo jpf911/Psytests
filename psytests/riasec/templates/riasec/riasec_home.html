@@ -126,22 +126,21 @@
     </div>
     {% endif %}
 
-    <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
-        <div class="container">
-            <h1 class="display-4 text-center">Hello, {{user.username}}</h1>
-            <p class="lead text-center">Discover which career pathway is right for you with RIASEC test.</p>
-            <div class="d-flex justify-content-center">
+    <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center riasec-bg" style="background-image: url({% static 'images/riasec-bg.jpg' %})">
+        <div class="container" >
+            <h1 class="display-4 text-right">Hello, {{user.username}}</h1>
+            <p class="lead text-right">Discover which career pathway is right for you with RIASEC test.</p>
+            <div class="d-flex justify-content-start">
                 <p><a class="btn riasec-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
-                <p><a class="btn riasec-btn btn-lg mx-1" href="{% url 'riasec:test' %}" role="button">Take a
-                        test</a>
+                <p><a class="btn riasec-btn btn-lg mx-1" href="{% url 'riasec:test' %}" role="button">Take a test</a>
                 </p>
             </div>
         </div>
     </div>
     {% endif %}
 </div>
-<div id='learnmore' class="container-fluid my-5">
-    <div class="riasec-dfn-container">
+<div id='learnmore' class="container-fluid p-5">
+    <div class="riasec-dfn-container p-5">
         <h1>What is RIASEC Test?</h1>
 
         <p><dfn>RIASEC</dfn> stands for 6 characteristics: Realistic, Investigative, Artistic, Social, Enterprising,

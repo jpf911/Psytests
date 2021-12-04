@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
@@ -18,14 +19,26 @@
         <div id="carouselcontrols" class="carousel slide text-center d-flex align-items-center" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <h1>Hello</h1>
+                    <div class="carousel-bg" style="background-image: url({% static 'images/carousel-1.jpg' %})">
+                        <div class="move-header1">
+                            <h1 class="fs-190">Hello</h1>
+                        </div>
+                    </div>
                 </div>
                 <div class="carousel-item">
-                        <h1>Team 4titude</h1>
+                    <div class="carousel-bg" style="background-image: url({% static 'images/carousel-1.jpg' %})">
+                        <div class="move-header2">
+                            <h1>Team 4titude</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, veritatis.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="carousel-item">
-                    <h1>Thank You</h1>
+                    <div class="carousel-bg" style="background-image: url({% static 'images/carousel-1.jpg' %})">
+                        <div class="move-header3">
+                            <h1>Thank You</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselcontrols" data-bs-slide="prev">
