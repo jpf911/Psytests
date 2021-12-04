@@ -49,9 +49,7 @@ class TestView(LoginRequiredMixin, TemplateView):
     def post(self, *args, **kwargs):
         name = self.request.user
         model = joblib.load("model/theModel.sav")
-        get_first_pk = Questionnaire.objects.all().first()
-        get_last_pk = Questionnaire.objects.all().last()
-
+        q = Questionnaire.objects.all().order_by('pk').values_list('id', flat=True)
         lis = []
         ext = []
         est = []
@@ -59,7 +57,7 @@ class TestView(LoginRequiredMixin, TemplateView):
         csn = []
         opn = []
 
-        for id in range(int(get_first_pk.id),int(get_last_pk.id)+1):
+        for id in q.iterator():
             score = float(self.request.POST.get(f"{id}"))
             question = Questionnaire.objects.get(pk=id)
 
