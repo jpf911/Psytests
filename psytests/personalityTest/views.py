@@ -51,7 +51,7 @@ class TestView(LoginRequiredMixin, TemplateView):
         model = joblib.load("model/theModel.sav")
         get_first_pk = Questionnaire.objects.all().first()
         get_last_pk = Questionnaire.objects.all().last()
-
+        
         lis = []
         ext = []
         est = []
