@@ -105,3 +105,16 @@ class StatPage(TemplateView):
             pass
 
         return context
+
+class UsersResults(TemplateView):
+    template_name = 'accounts/results.html'
+    model=Riasec_result,Result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['riasec_result']=Riasec_result.objects.all()
+            context['personalityTest_result']=Result.objects.all()
+        except ObjectDoesNotExist:
+            pass
+        return context

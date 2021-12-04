@@ -26,6 +26,9 @@
                     <small>{{request.user.username}}</small>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                    {% if request.user.is_superuser %}
+                    <a  class="dropdown-item"  href="{% url 'personalityTest:questions' %}">Edit Questions</a>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{% url 'accounts:stats' %}"> Your Stats</a></li>
                     <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>
                 </ul>

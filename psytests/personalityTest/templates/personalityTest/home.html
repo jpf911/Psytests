@@ -19,12 +19,6 @@
         {% if results %}
         <div class="d-flex justify-content-between mt-2 mb-2">
             <h1>Your Personality Record</h1>
-            <div class="d-flex align-items-center">
-                {% if request.user.is_superuser %}
-                <a href="{% url 'personalityTest:questions' %}" class="btn btn-primary me-3" type="button">Edit
-                    Questions</a>
-                {% endif %}
-            </div>
         </div>
         <div class="accordion accordion-flush mb-3 mt-2" id="accordion_id">
             <div class="accordion-item">

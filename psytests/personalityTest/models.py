@@ -18,10 +18,9 @@ class Questionnaire(models.Model):
     category = models.CharField(max_length=100, choices=category_choices)
 
     def __str__(self):
-        return f"{str(self.question)} {str(self.id)}"
+        return f"{str(self.question)}"
 
     def save(self,*args, **kwargs):
-        if not self.slug:
             self.slug=slugify(self.question)
             return super(Questionnaire, self).save(*args, **kwargs)
 

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Results{% endblock %}
+
+{% block content%}
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+<main class="container-fluid">
+    <div class="row mt-5">
+    {% if riasec_result or personalityTest_result %}
+    <h2>RIASEC Result</h2>
+    <table border="1">
+        <tr>
+            <th>User ID</th>
+            <th>User</th>
+            <th>Realistic</th>
+            <th>Investigative</th>
+            <th>Artistic</th>
+            <th>Social</th>
+            <th>Enterprising</th>
+            <th>Conventional</th>
+            <th>Date Created</th>
+        </tr>
+        {% for result in riasec_result %}
+        <tr>
+            <td>{{ result.id }}</td>
+            <td>{{ result.user }}</td>
+            <td>{{ result.realistic }}</td>
+            <td>{{ result.investigative }}</td>
+            <td>{{ result.artistic }}</td>
+            <td>{{ result.social }}</td>
+            <td>{{ result.enterprising }}</td>
+            <td>{{ result.conventional }}</td>
+            <td>{{ result.date_created }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        <br>
+        <hr>
+        <br>
+        <h2>Personality Test Result</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Extroversion</th>
+            <th>Neurotic</th>
+            <th>Agreeable</th>
+            <th>Conscientious</th>
+            <th>Openness</th>
+            <th>Prediction</th>
+            <th>Date Created</th>
+        </tr>
+         {% for result in personalityTest_result %}
+        <tr>
+            <td>{{ result.id }}</td>
+            <td>{{ result.user }}</td>
+            <td>{{ result.extroversion }}</td>
+            <td>{{ result.neurotic }}</td>
+            <td>{{ result.agreeable }}</td>
+            <td>{{ result.conscientious }}</td>
+            <td>{{ result.openness }}</td>
+            <td>{{ result.prediction }}</td>
+            <td>{{ result.date_created }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    </div>
+</main>
+
+{% endblock %}
