@@ -49,6 +49,8 @@ class TestView(LoginRequiredMixin, TemplateView):
     def post(self, *args, **kwargs):
         name = self.request.user
         model = joblib.load("model/theModel.sav")
+        get_first_pk = Questionnaire.objects.all().first()
+        get_last_pk = Questionnaire.objects.all().last()
 
         lis = []
         ext = []
@@ -57,7 +59,7 @@ class TestView(LoginRequiredMixin, TemplateView):
         csn = []
         opn = []
 
-        for id in range(1, 51):
+        for id in range(int(get_first_pk.id),int(get_last_pk.id)+1):
             score = float(self.request.POST.get(f"{id}"))
             question = Questionnaire.objects.get(pk=id)
 
@@ -185,9 +187,6 @@ class QuestionsEditView(LoginRequiredMixin,UpdateView):
     template_name = 'personalityTest/questions_add.html'
     success_url = reverse_lazy('personalityTest:questions')
 
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super(QuestionsEditView, self).form_valid(form)
 
 class DeleteQuestions(LoginRequiredMixin,DeleteView):
     model = Questionnaire

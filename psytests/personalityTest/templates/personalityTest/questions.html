@@ -5,7 +5,7 @@
 
 {% block content %}
 <header>
-    {% include 'personalityTest/components/navbar.html' %}
+    {% include 'partials/_navbar.html' %}
 </header>
 <main class="container-fluid">
 
@@ -14,7 +14,7 @@
     <h4>Questions |  <a href="{% url 'personalityTest:questions_add' %}" class="btn btn-primary btn-sm me-3" type="button">+</a>
 </h4>
         {% for question in questions %}
-        {{ forloop.counter }}.)
+        {{ question.id }}.)
         <a href="{% url 'personalityTest:questions_detail' slug=question.slug %}" style="text-decoration:none;">{{question}}</a> -
         <a href="{% url 'personalityTest:questions_edit' slug=question.slug %}">Edit</a> |
         <a href="{% url 'personalityTest:questions_delete' slug=question.slug %}">Delete</a>

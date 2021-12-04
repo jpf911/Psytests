@@ -12,7 +12,7 @@ class Questionnaire(models.Model):
         ('CSN','Conscientious'),
         ('OPN','Openness'),
     ]
-    question=models.TextField()
+    question=models.TextField(editable=True)
     slug=models.SlugField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=100, choices=category_choices)
@@ -20,18 +20,14 @@ class Questionnaire(models.Model):
     def __str__(self):
         return str(self.question)
 
-<<<<<<< HEAD
     def save(self,*args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.question)
             return super(Questionnaire, self).save(*args, **kwargs)
 
-class Result(models.Model):
-    user=models.OneToOneField(User,null=True, on_delete=models.CASCADE)
-=======
+
 class Cluster(models.Model):
     cluster = models.CharField(max_length=10)
->>>>>>> 9f16008129b99f5f4650eded9dd0aa4a5d4383c0
     extroversion = models.FloatField(default=0)
     neurotic = models.FloatField(default=0)
     agreeable = models.FloatField(default=0)
