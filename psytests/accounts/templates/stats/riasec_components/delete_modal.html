@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="riasec_delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{% url 'personalityTest:delete' results.user results.pk %}" class="btn btn-danger me-3">Delete</a>
+                <a href="{% url 'riasec:delete_record' riasec_result.user riasec_result.pk %}" class="btn btn-danger me-3">Delete</a>
             </div>
         </div>
     </div>

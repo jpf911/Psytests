@@ -25,12 +25,12 @@ class PersonalityTestHomeView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            context["results"] = Result.objects.filter(user=self.request.user)
             context["cluster1"] = Cluster.objects.get(cluster="Cluster 1")
             context["cluster2"] = Cluster.objects.get(cluster="Cluster 2")
             context["cluster3"] = Cluster.objects.get(cluster="Cluster 3")
             context["cluster4"] = Cluster.objects.get(cluster="Cluster 4")
             context["cluster5"] = Cluster.objects.get(cluster="Cluster 5")
+            context["results"] = Result.objects.get(user=self.request.user)
         except ObjectDoesNotExist:
             pass
         
@@ -49,9 +49,7 @@ class TestView(LoginRequiredMixin, TemplateView):
     def post(self, *args, **kwargs):
         name = self.request.user
         model = joblib.load("model/theModel.sav")
-        get_first_pk = Questionnaire.objects.all().first()
-        get_last_pk = Questionnaire.objects.all().last()
-        
+        q = Questionnaire.objects.all().order_by('pk').values_list('id', flat=True)
         lis = []
         ext = []
         est = []
@@ -59,7 +57,7 @@ class TestView(LoginRequiredMixin, TemplateView):
         csn = []
         opn = []
 
-        for id in range(int(get_first_pk.id),int(get_last_pk.id)+1):
+        for id in q.iterator():
             score = float(self.request.POST.get(f"{id}"))
             question = Questionnaire.objects.get(pk=id)
 

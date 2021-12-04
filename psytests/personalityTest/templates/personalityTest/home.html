@@ -16,29 +16,12 @@
     </div>
     {% endif %}
     {% if results %}
-    {% for obj in results %}
     <div class="d-flex justify-content-between mt-2 mb-2">
         <h1>Your Personality Record</h1>
         <div class="d-flex align-items-center">
             {% if request.user.is_superuser %}
             <a href="{% url 'personalityTest:questions' %}" class="btn btn-primary me-3" type="button" >Edit Questions</a>
             {% endif %}
-            <a href="#" class="btn btn-danger me-3" type="button" data-bs-toggle="modal"
-                data-bs-target="#exampleModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                  </svg></a>
-            <!-- Modal -->
-            {% include 'personalityTest/components/delete_modal.html' %}
-            <a href="{% url 'personalityTest:test' %}" class="btn btn-take-test">Take the test again
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                    <path fill-rule="evenodd"
-                        d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                </svg>
-            </a>
         </div>
     </div>
     <div class="accordion accordion-flush mb-3 mt-2" id="accordion_id">
@@ -56,7 +39,7 @@
                 <div class="accordion-body">
                     <div>
                         <div>
-                            <p class="d-flex justify-content-end text-muted mb-0">Last test: {{obj.date_created}}
+                            <p class="d-flex justify-content-end text-muted mb-0">Last test: {{results.date_created}}
                             </p>
                         </div>
                         <div>
@@ -71,7 +54,6 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
         {% else %}
         <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center">
             <div class="container">
