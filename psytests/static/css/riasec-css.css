@@ -87,3 +87,20 @@
     background-position: center;
     height: 92vh;
   }
+
+/* Carousel */
+.carousel-inner {
+width: 75%;
+margin: auto;
+min-height: 500px;
+}
+
+.top-1-color {
+    background: #C9B037;
+}
+.top-2-color {
+    background: #B4B4B4;
+}
+.top-3-color {
+    background: #AD8A56;
+}

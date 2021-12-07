@@ -1,0 +1,38 @@
+{% if top3 %}
+<div id="top3carousel" class="carousel carousel-dark slide" data-bs-interval="false">
+    <div class="carousel-indicators">
+    {% for obj in top3len %}
+      <button type="button" data-bs-target="#top3carousel" data-bs-slide-to="{{obj}}" {% if obj == 0 %}class="active" aria-current="true"{% endif %} aria-label="Slide {{forloop.counter}}"></button>
+    {%  endfor %}
+    </div>
+    <div class="carousel-inner pb-5">
+        <span class="badge top-3-color ms-4">top 3</span>
+        {% for obj in top3 %}
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" data-bs-interval="false">
+            {% if obj == 'artistic' %}
+          {% include 'riasec/categories/artistic.html' %}
+            {% elif obj == 'investigative' %}
+          {% include 'riasec/categories/investigative.html' %}
+            {% elif obj == 'realistic' %}
+          {% include 'riasec/categories/realistic.html' %}
+            {% elif obj == 'social' %}
+          {% include 'riasec/categories/social.html' %}
+            {% elif obj == 'enterprising' %}
+          {% include 'riasec/categories/enterprising.html' %}
+            {% elif obj == 'conventional' %}
+          {% include 'riasec/categories/conventional.html' %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#top3carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#top3carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {% endif %}

@@ -86,8 +86,11 @@ class StatPage(TemplateView):
                             if objects[x] == list(top3.values())[0]:
                                 top3[x] = objects[x]
                 context["top1"] = top1
+                context["top1len"] = range(len(top1))
                 context["top2"] = top2
+                context["top2len"] = range(len(top2))
                 context["top3"] = top3
+                context["top3len"] = range(len(top3))
                 if top1:
                     context["top1value"] = list(top1.values())[0]
                 if top2:

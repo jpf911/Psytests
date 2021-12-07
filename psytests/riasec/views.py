@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.views.generic.base import TemplateView
 from .models import RIASEC_Test, Riasec_result
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
@@ -82,7 +83,7 @@ def evaluate(request):
         )
         result.save()
 
-    return HttpResponseRedirect(reverse("riasec:home"))
+    return HttpResponseRedirect(reverse("riasec:result"))
 
 
 class Home(LoginRequiredMixin, ListView):
@@ -97,8 +98,18 @@ class Home(LoginRequiredMixin, ListView):
             result = None
         return result
 
+class ResultPage(LoginRequiredMixin, TemplateView):
+    template_name = "riasec/resultPage.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        try:
+            result = Riasec_result.objects.get(user=self.request.user)
+            context['result'] = result
+        except ObjectDoesNotExist:
+            None
+
         
         try:
             obj = Riasec_result.objects.filter(user=self.request.user).values(
@@ -130,8 +141,11 @@ class Home(LoginRequiredMixin, ListView):
                             if objects[x] == list(top3.values())[0]:
                                 top3[x] = objects[x]
                 context["top1"] = top1
+                context["top1len"] = range(len(top1))
                 context["top2"] = top2
+                context["top2len"] = range(len(top2))
                 context["top3"] = top3
+                context["top3len"] = range(len(top3))
                 if top1:
                     context["top1value"] = list(top1.values())[0]
                 if top2:
@@ -142,6 +156,7 @@ class Home(LoginRequiredMixin, ListView):
             pass
 
         return context
+
 
 
 class DeleteRecord(LoginRequiredMixin, DeleteView):
