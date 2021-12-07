@@ -1,0 +1,39 @@
+{% extends 'personalityTest/base.html' %}
+{% load static %}
+
+{% block title %}Edit Questions{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+<main class="container-fluid">
+
+    {% if rquestions %}
+    <br>
+    <h4>RIASEC  |  <a href="{% url 'personalityTest:rquestions_add' %}" class="btn btn-primary btn-sm me-3" type="button">+</a></h4>
+        {% for question in rquestions %}
+        {{ forloop.counter }}.)
+        <a href="{% url 'personalityTest:rquestions_detail' slug=question.slug %}" style="text-decoration:none;">{{question}}</a> -
+        <a href="{% url 'personalityTest:rquestions_edit' slug=question.slug %}">Edit</a> |
+        <a href="{% url 'personalityTest:rquestions_delete' slug=question.slug %}">Delete</a>
+        <br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <hr>
+    {% if pquestions %}
+    <br>
+    <h4>Personality  |  <a href="{% url 'personalityTest:pquestions_add' %}" class="btn btn-primary btn-sm me-3" type="button">+</a></h4>
+        {% for question in pquestions %}
+        {{ forloop.counter }}.)
+        <a href="{% url 'personalityTest:pquestions_detail' slug=question.slug %}" style="text-decoration:none;">{{question}}</a> -
+        <a href="{% url 'personalityTest:pquestions_edit' slug=question.slug %}">Edit</a> |
+        <a href="{% url 'personalityTest:pquestions_delete' slug=question.slug %}">Delete</a>
+        <br>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</main>
+{% endblock %}

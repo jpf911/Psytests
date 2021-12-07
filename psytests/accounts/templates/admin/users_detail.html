@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+<main class="container-fluid">
+
+    {% if users %}
+    <br>
+    <h4>Questions |  <a href="{% url 'personalityTest:questions_add' %}" class="btn btn-primary btn-sm me-3" type="button">+</a>
+</h4>
+        {% for user in users %}
+            {{user.id}}
+            {{user.user}}
+            {{user.date_of_birth}}
+            {{user.gender}}
+        <br>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</main>
+{% endblock %}

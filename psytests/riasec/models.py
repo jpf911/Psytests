@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _ #used for changing name in admin
 
@@ -16,11 +17,16 @@ class RIASEC_Test(models.Model):
         ('C','Conventional'),
     ]
     question=models.TextField()
+    slug = models.SlugField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=100, choices=category_choices)
 
     def __str__(self):
         return str(self.question)
+
+    def save(self,*args, **kwargs):
+            self.slug=slugify(self.question)
+            return super(RIASEC_Test, self).save(*args, **kwargs)
 
 class Riasec_result (models.Model):
     class Meta:

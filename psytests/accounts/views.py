@@ -1,14 +1,15 @@
 from django.shortcuts import render,redirect, reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user
-
+from .models import Profile
 from riasec.models import Riasec_result
 from personalityTest.models import Result
+from personalityTest.views import SuperUserCheck
 # Create your views here.
 
 @unauthenticated_user
@@ -106,8 +107,8 @@ class StatPage(TemplateView):
 
         return context
 
-class UsersResults(TemplateView):
-    template_name = 'accounts/results.html'
+class UsersResults(SuperUserCheck,TemplateView):
+    template_name = 'admin/results.html'
     model=Riasec_result,Result
 
     def get_context_data(self, **kwargs):
@@ -117,4 +118,13 @@ class UsersResults(TemplateView):
             context['personalityTest_result']=Result.objects.all()
         except ObjectDoesNotExist:
             pass
+        return context
+
+class UserDetailView(SuperUserCheck,DetailView):
+    template_name = 'admin/users_detail.html'
+    model=Profile
+    context_object_name = 'users'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context

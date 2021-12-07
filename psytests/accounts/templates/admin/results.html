@@ -8,10 +8,13 @@
     {% include 'partials/_navbar.html' %}
 </header>
 <main class="container-fluid">
-    <div class="row mt-5">
+    <div class="row justify-content-center">
+    <div class="col-auto">
+        <h1 class="mt-4 text-center">User Results</h1>
     {% if riasec_result or personalityTest_result %}
-    <h2>RIASEC Result</h2>
-    <table border="1">
+    <h2 class="mt-4">RIASEC</h2>
+    <table class="table align-middle table-striped table-hover table-responsive-lg">
+        <thead class="table-dark">
         <tr>
             <th>User ID</th>
             <th>User</th>
@@ -23,25 +26,24 @@
             <th>Conventional</th>
             <th>Date Created</th>
         </tr>
+        </thead>
         {% for result in riasec_result %}
-        <tr>
+        <tr data-href=" {% url 'accounts:user_detail' result.pk %} ">
             <td>{{ result.id }}</td>
             <td>{{ result.user }}</td>
-            <td>{{ result.realistic }}</td>
-            <td>{{ result.investigative }}</td>
-            <td>{{ result.artistic }}</td>
-            <td>{{ result.social }}</td>
-            <td>{{ result.enterprising }}</td>
-            <td>{{ result.conventional }}</td>
+            <td>{{ result.realistic|floatformat:1 }}</td>
+            <td>{{ result.investigative|floatformat:1 }}</td>
+            <td>{{ result.artistic|floatformat:1 }}</td>
+            <td>{{ result.social|floatformat:1 }}</td>
+            <td>{{ result.enterprising|floatformat:1 }}</td>
+            <td>{{ result.conventional|floatformat:1 }}</td>
             <td>{{ result.date_created }}</td>
         </tr>
         {% endfor %}
     </table>
-        <br>
-        <hr>
-        <br>
-        <h2>Personality Test Result</h2>
-    <table border="1">
+        <h2 class="mt-5">Personality Test</h2>
+    <table class="table align-middle table-striped table-hover table-responsive-xl">
+        <thead class="table-dark">
         <tr>
             <th>ID</th>
             <th>User</th>
@@ -53,8 +55,9 @@
             <th>Prediction</th>
             <th>Date Created</th>
         </tr>
+        </thead>
          {% for result in personalityTest_result %}
-        <tr>
+        <tr data-href="{% url 'accounts:user_detail' result.pk %}">
             <td>{{ result.id }}</td>
             <td>{{ result.user }}</td>
             <td>{{ result.extroversion }}</td>
@@ -68,6 +71,7 @@
         {% endfor %}
     </table>
     {% endif %}
+    </div>
     </div>
 </main>
 
