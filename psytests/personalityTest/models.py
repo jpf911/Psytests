@@ -29,7 +29,7 @@ class Questionnaire(models.Model):
     key = models.CharField(max_length=10, null=True, blank=True, choices=key_choices)
 
     def __str__(self):
-        return f"{str(self.question)} {str(self.id)}"
+        return f"{str(self.question)}"
 
     def save(self,*args, **kwargs):
         return super(Questionnaire, self).save(*args, **kwargs)
