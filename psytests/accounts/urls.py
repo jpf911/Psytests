@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    DeleteUser,
     StatPage,
     UsersResults,
     registerPage,
