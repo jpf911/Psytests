@@ -7,7 +7,7 @@
 <header>
     {% include 'partials/_navbar.html' %}
 </header>
-<div class="container-fluid">
+<main class="container-fluid">
     <div class="row">
         {% if messages %}
         <div class="bg-danger text-white text-center">
@@ -16,404 +16,101 @@
             {% endfor %}
         </div>
         {% endif %}
-        {% if results %}
-        <div class="d-flex justify-content-between mt-2 mb-2">
-            <h1>Your Personality Record</h1>
+        {% if not results %}
+        <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center pt-bg mb-5"
+            style="background-image: url({% static 'images/pt-bg.jpg' %});">
+            <div class="container">
+                <div class="row justify-content-start">
+
+                    <h1 class="display-4">Hello, {{user.username}}</h1>
+                    <p class="lead">Discover your personality with the test, powered by machine learning.</p>
+                    <div class="d-flex">
+                        <p><a class="btn pt-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
+                        <p><a class="btn pt-btn btn-lg mx-1" href="{% url 'personalityTest:test' %}" role="button">Take
+                                a test</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="accordion accordion-flush mb-3 mt-2" id="accordion_id">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="heading_id">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse_{{forloop.counter}}" aria-expanded="false"
-                        aria-controls="collapseOne">
-                        <div class="d-flex justify-content-between">
-                            <div> click to see result</div>
-                        </div>
-                    </button>
-                </h2>
-                <div id="collapse_{{forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading_id"
-                    data-bs-parent="#accordion_id">
-                    <div class="accordion-body">
-                        <div>
-                            <div>
-                                <p class="d-flex justify-content-end text-muted mb-0">Last test:
-                                    {{results.date_created}}
-                                </p>
-                            </div>
-                            <div>
-                                <div>
-                                    <div class="mb-4 text-center">
-                                        <h1>Result</h1>
-                                    </div>
-                                    {% include 'personalityTest/result.html' %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% else %}
-            <div class="jumbotron jumbotron-fluid vh-91p3 d-flex align-items-center pt-bg"
-                style="background-image: url({% static 'images/pt-bg.jpg' %});">
-                <div class="container">
-                    <div class="row justify-content-start">
-
-                        <h1 class="display-4">Hello, {{user.username}}</h1>
-                        <p class="lead">Discover your personality with the test, powered by a machine learning.</p>
-                        <div class="d-flex">
-                            <p><a class="btn pt-btn btn-lg mx-1" href="#learnmore" role="button">Learn more</a></p>
-                            <p><a class="btn pt-btn btn-lg mx-1" href="{% url 'personalityTest:test' %}"
-                                    role="button">Take
-                                    a test</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
+        {% endif %}
+    </div>
+    {% if results %}
+    <div class="m-r-50 my-3  text-end">
+        <a class="btn pt-btn" href="{% url 'personalityTest:result' %}">See result</a>
+    </div>
+    {% endif %}
+    <div class="row px-5" id="learnmore">
+        <div class="dfn-box p-5 mb-3 m-0">
+            <h1 class="">The Big Five Personality Traits</h1>
+            <p>The Big Five Model, also known as the Five-Factor Model, is the most widely accepted personality
+                theory held by psychologists today. The theory states that personality can be boiled down to five
+                core factors, known by the acronym CANOE or OCEAN</p>
         </div>
-        <div class="row p-5" id="learnmore">
-            <div class="dfn-box p-5">
-                <h1 class="">The Big Five Personality Traits</h1>
-                <p>The Big Five Model, also known as the Five-Factor Model, is the most widely accepted personality
-                    theory held by psychologists today. The theory states that personality can be boiled down to five
-                    core factors, known by the acronym CANOE or OCEAN</p>
-            </div>
-            <div class="row traits-box">
-                <div class="col-md-6 p-3">
-                    <h2>Conscientiousness</h2>
-                    <p>Conscientiousness describes a person’s ability to regulate their impulse control in order to
-                        engage
-                        in goal-directed behaviors (Grohol, 2019). It measures elements such as control, inhibition, and
-                        persistency of behavior.</p>
-                    <div>
-                        <div class="text-center">
-                            <h4>Conscientiousness vs. Lack of Direction</h4>
-                        </div>
-                        <p>Those who score high on conscientiousness can be described as organized, disciplined,
-                            detail-oriented, thoughtful, and careful. They also have good impulse control, which allows
-                            them
-                            to
-                            complete tasks and achieve goals.
+        {% include 'personalityTest/traits/conscientious.html' %}
+        {% include 'personalityTest/traits/agreeable.html' %}
+        {% include 'personalityTest/traits/extroversion.html' %}
+        {% include 'personalityTest/traits/openness.html' %}
+        {% include 'personalityTest/traits/neurotic.html' %}
 
-                        </p>
-                        <p>
-                            Those who score low on conscientiousness may struggle with impulse control, leading to
-                            difficulty in
-                            completing tasks and fulfilling goals.
-                        </p>
-                        <p>
-                            They tend to be more disorganized and may dislike too much structure. They may also engage
-                            in
-                            more
-                            impulsive and careless behavior.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 p-3 align-self-center">
-                    <div class="row">
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>High</h5>
-                                <ul>
-                                    <li>Competence</li>
-                                    <li>Organized</li>
-                                    <li>Dutifulness</li>
-                                    <li>Achievement striving</li>
-                                    <li>Self-disciplined</li>
-                                    <li>Deliberation</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>Low</h5>
-                                <ul>
-                                    <li>Incompetent</li>
-                                    <li>Disorganized</li>
-                                    <li>Careless</li>
-                                    <li>Procrastinates</li>
-                                    <li>Indiscipline</li>
-                                    <li>Impulsive</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+    </div>
+    <div class="row traits-box m-4">
+        <div class="text-center my-4">
+            <h2>Different Clusters from Machine Learning</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="chart-container mx-auto" style="position: relative; height: 50vh; width: 80vh">
+                    <h5 class="m-4">Cluster 1</h5>
+                    <canvas id="cluster1"></canvas>
+                    {% include 'personalityTest/clusters/cluster1.html' %}
                 </div>
             </div>
-            <div class="row traits-box">
-                <div class="col-md-6 p-3">
-                    <h2>Agreeableness</h2>
-                    <p>Agreeableness refers to how people tend to treat relationships with others. Unlike extraversion
-                        which
-                        consists of the pursuit of relationships, agreeableness focuses on people’s orientation and
-                        interactions with others (Ackerman, 2017).</p>
-                    <div>
-                        <div class="text-center">
-                            <h4>Agreeableness vs. Antagonism</h4>
-                        </div>
-                        <p>Those high in agreeableness can be described as soft-hearted, trusting, and well-liked. They
-                            are
-                            sensitive to the needs of others and are helpful and cooperative. People regard them as
-                            trustworthy and altruistic.
-                        </p>
-                        <p>
-                            Those low in agreeableness may be perceived as suspicious, manipulative, and uncooperative.
-                            They
-                            may be antagonistic when interacting with others, making them less likely to be well-liked
-                            and
-                            trusted.
-                        </p>
-                    </div>
+            <div class="col-sm-6">
+                <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                    <h5 class="m-4">Cluster 2</h5>
+                    <canvas id="cluster2"></canvas>
 
-                </div>
-                <div class="col-md-6 p-3 align-self-center">
-                    <div class="row">
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>High</h5>
-                                <ul>
-                                    <li>Trust (forgiving)</li>
-                                    <li>Straightforwardness</li>
-                                    <li>Altruism (enjoys helping)</li>
-                                    <li>Compliance</li>
-                                    <li>Modesty</li>
-                                    <li>Sympathetic</li>
-                                    <li>Empathy</li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>Low</h5>
-                                <ul>
-                                    <li>Sceptical</li>
-                                    <li>Demanding</li>
-                                    <li>Insults and belittles others</li>
-                                    <li>Stubborn</li>
-                                    <li>Show-off</li>
-                                    <li>Unsympathetic</li>
-                                    <li>Doesn't care about how other people feel</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row traits-box">
-                <div class="col-md-6 p-3">
-                    <h2>Extraversion</h2>
-                    <p>Extraversion reflects the tendency and intensity to which someone seeks interaction with their
-                        environment, particularly socially. It encompasses the comfort and assertiveness levels of
-                        people in
-                        social situations.</p>
-                    <p>Additionally, it also reflects the sources from which someone draws energy.</p>
-                    <div>
-                        <div class="text-center">
-                            <h4>Extraversion vs. Introversion</h4>
-                        </div>
-                        <p>Those high on extraversion are generally assertive, sociable, fun-loving, and outgoing. They
-                            thrive in social situations and feel comfortable voicing their opinions. They tend to gain
-                            energy and become excited from being around others.
-                        </p>
-                        <p>Those who score low in extraversion are often referred to as introverts. These people tend to
-                            be
-                            more reserved and quieter. They prefer listening to others rather than needing to be heard.
-                        </p>
-                        <p>Introverts often need periods of solitude in order to regain energy as attending social
-                            events
-                            can be very tiring for them. Of importance to note is that introverts do not necessarily
-                            dislike
-                            social events, but instead find them tiring.</p>
-                    </div>
-
-                </div>
-                <div class="col-md-6 p-3 align-self-center">
-                    <div class="row">
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>High</h5>
-                                <ul>
-                                    <li>Sociable</li>
-                                    <li>Energized by social interaction</li>
-                                    <li>Excitement-seeking</li>
-                                    <li>Enjoys being the center of attention</li>
-                                    <li>Outgoing</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>Low</h5>
-                                <ul>
-                                    <li>Prefers solitude</li>
-                                    <li>Fatigued by too much social interaction</li>
-                                    <li>Reflective</li>
-                                    <li>Dislikes being the center of attention</li>
-                                    <li>Reserved</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row traits-box">
-                <div class="col-md-6 p-3">
-                    <h2>Openness to Experience</h2>
-                    <p>Openness to experience refers to one’s willingness to try new things as well as engage in
-                        imaginative
-                        and intellectual activities. It includes the ability to “think outside of the box.”</p>
-                    <div>
-                        <div class="text-center">
-                            <h4>Openness vs. Closedness to Experience</h4>
-                        </div>
-                        <p>Those who score high on openness to experience are perceived as creative and artistic. They
-                            prefer variety and value independence. They are curious about their surroundings and enjoy
-                            traveling and learning new things.
-                        </p>
-                        <p>
-                            People who score low on openness to experience prefer routine. They are uncomfortable with
-                            change and trying new things so they prefer the familiar over the unknown. As they are
-                            practical
-                            people, they often find it difficult to think creatively or abstractly.
-                        </p>
-                    </div>
-
-                </div>
-                <div class="col-md-6 p-3 align-self-center">
-                    <div class="row">
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>High</h5>
-                                <ul>
-                                    <li>Curious</li>
-                                    <li>Imaginative</li>
-                                    <li>Creative</li>
-                                    <li>Open to trying new things</li>
-                                    <li>Unconventional</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>Low</h5>
-                                <ul>
-                                    <li>Predictable</li>
-                                    <li>Not very imaginative</li>
-                                    <li>Dislikes change</li>
-                                    <li>Prefer routine</li>
-                                    <li>Traditional</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row traits-box">
-                <div class="col-md-6 p-3">
-                    <h2>Neuroticism</h2>
-                    <p>Neuroticism describes the overall emotional stability of an individual through how they perceive
-                        the
-                        world. It takes into account how likely a person is to interpret events as threatening or
-                        difficult.
-                    </p>
-                    <p>It also includes one’s propensity to experience negative emotions.</p>
-                    <div>
-                        <div class="text-center">
-                            <h4>Neuroticism vs. Emotional Stability</h4>
-                        </div>
-                        <p>Those who score high on neuroticism often feel anxious, insecure and self-pitying. They are
-                            often
-                            perceived as moody and irritable. They are prone to excessive sadness and low self-esteem.
-                        </p>
-                        <p>
-                            Those who score low on neuroticism are more likely to calm, secure and self-satisfied. They
-                            are
-                            less likely to be perceived as anxious or moody. They are more likely to have high
-                            self-esteem
-                            and remain resilient.
-                        </p>
-                    </div>
-
-                </div>
-                <div class="col-md-6 p-3 align-self-center">
-                    <div class="row">
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>High</h5>
-                                <ul>
-                                    <li>Anxious</li>
-                                    <li>Angry hostility (irritable)</li>
-                                    <li>Experiences a lot of stress</li>
-                                    <li>Self-consciousness (shy)</li>
-                                    <li>Vulnerability</li>
-                                    <li>Experiences dramatic shifts in mood</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mini-box p-3">
-                                <h5>Low</h5>
-                                <ul>
-                                    <li>Doesn't worry much</li>
-                                    <li>Calm</li>
-                                    <li>Emotionally stable</li>
-                                    <li>Confident</li>
-                                    <li>Resilient</li>
-                                    <li>Rarely feels sad or depressed</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'personalityTest/clusters/cluster2.html' %}
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="chart-container mx-auto" style="position: relative; height: 50vh; width: 80vh">
-                        <h3 class="m-4">Cluster 1</h3>
-                        <canvas id="cluster1"></canvas>
-                        {% include 'personalityTest/clusters/cluster1.html' %}
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
-                        <h3 class="m-4">Cluster 2</h3>
-                        <canvas id="cluster2"></canvas>
-
-                        {% include 'personalityTest/clusters/cluster2.html' %}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
-                        <h3 class="m-4">Cluster 3</h3>
-                        <canvas id="cluster3"></canvas>
-
-                        {% include 'personalityTest/clusters/cluster3.html' %}
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
-                        <h3 class="m-4">Cluster 4</h3>
-                        <canvas id="cluster4"></canvas>
-
-                        {% include 'personalityTest/clusters/cluster4.html' %}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+            <div class="col-sm-6">
                 <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
-                    <h3 class="m-4">Cluster 5</h3>
-                    <canvas id="cluster5"></canvas>
+                    <h5 class="m-4">Cluster 3</h5>
+                    <canvas id="cluster3"></canvas>
 
-                    {% include 'personalityTest/clusters/cluster5.html' %}
+                    {% include 'personalityTest/clusters/cluster3.html' %}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                    <h5 class="m-4">Cluster 4</h5>
+                    <canvas id="cluster4"></canvas>
+
+                    {% include 'personalityTest/clusters/cluster4.html' %}
                 </div>
             </div>
         </div>
-        </main>
-        {% endblock %}
+        <div class="row mb-5">
+            <div class="chart-container mx-auto" style="height: 50vh; width: 80vh">
+                <h5 class="m-4">Cluster 5</h5>
+                <canvas id="cluster5"></canvas>
+                {% include 'personalityTest/clusters/cluster5.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="text-center my-5">
+        <a href="#top" class="back-to-top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-arrow-up"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+            </svg>
+            <h5>Back to top</h5>
+        </a>
+    </div>
+</main>
+{% include 'partials/footer.html' %}
+    {% endblock %}

@@ -4,7 +4,6 @@
         data:{
           labels:['Realistic', 'Investigative', 'Artistic', 'Social', 'Enterprising', 'Conventional'],
           datasets:[{
-            label:'Result',
             data:[
               {{result.realistic|floatformat:1}},
               {{result.investigative|floatformat:1}},
@@ -37,16 +36,17 @@
           legend:{
             display:true,
             position:'right',
+            fontSize: 5,
             labels:{
               fontColor:'#000'
             }
           },
           layout:{
             padding:{
-              left:50,
-              right:0,
+              left:0,
+              right:50,
               bottom:0,
-              top:0
+              top:0,
             }
           },
           tooltips:{

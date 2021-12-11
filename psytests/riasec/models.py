@@ -14,7 +14,7 @@ class RIASEC_Test(models.Model):
         ('A','Artistic'),
         ('S','Social'),
         ('E','Enterprising'),
-        ('C','Conventional'),
+        ('C', 'Conventional'),
     ]
     question=models.TextField()
     slug = models.SlugField(null=True)

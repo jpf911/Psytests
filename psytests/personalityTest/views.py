@@ -62,7 +62,11 @@ class TestView(LoginRequiredMixin, TemplateView):
             score = float(self.request.POST.get(f"{id}"))
             question = Questionnaire.objects.get(pk=id)
 
-            lis.append(score)
+            if question.key == '0':
+                if score == 5:
+                    score = 1
+                if score == 4:
+                    score = 2
 
             if question.category == "EXT":
                 ext.append(score)
@@ -74,6 +78,9 @@ class TestView(LoginRequiredMixin, TemplateView):
                 csn.append(score)
             if question.category == "OPN":
                 opn.append(score)
+
+            lis.append(score)
+            print(question.key)
 
         res = int(model.predict([lis])) + 1
 
@@ -122,6 +129,29 @@ class TestView(LoginRequiredMixin, TemplateView):
 
         return HttpResponseRedirect(reverse("personalityTest:home"))
 
+class ResultView(LoginRequiredMixin, TemplateView):
+    template_name = "personalityTest/resultPage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context["cluster1"] = Cluster.objects.get(cluster="Cluster 1")
+            context["cluster2"] = Cluster.objects.get(cluster="Cluster 2")
+            context["cluster3"] = Cluster.objects.get(cluster="Cluster 3")
+            context["cluster4"] = Cluster.objects.get(cluster="Cluster 4")
+            context["cluster5"] = Cluster.objects.get(cluster="Cluster 5")
+            context["results"] = Result.objects.get(user=self.request.user)
+        except ObjectDoesNotExist:
+            pass
+
+        try:
+            context['personalityTest_result'] = Result.objects.get(user=self.request.user)
+            obj_prediction = Result.objects.get(user=self.request.user)
+            context['prediction'] = obj_prediction.prediction
+        except ObjectDoesNotExist:
+            pass
+        
+        return context
 
 class DeleteRecord(LoginRequiredMixin,DeleteView):
     model = Result
@@ -161,7 +191,7 @@ class QuestionsListView(SuperUserCheck,TemplateView):
 class RQuestionsDetailView(SuperUserCheck, DetailView):
     model = RIASEC_Test
     template_name = "questions/rquestions_detail.html"
-    context_object_name = 'questions'
+    context_object_name = 'question'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -171,7 +201,7 @@ class RQuestionsDetailView(SuperUserCheck, DetailView):
 class PQuestionsDetailView(SuperUserCheck, DetailView):
     model = Questionnaire
     template_name = "questions/pquestions_detail.html"
-    context_object_name = 'questions'
+    context_object_name = 'question'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

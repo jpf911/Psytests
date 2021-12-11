@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user
-from .models import Profile
+from django.db.models import F
 from riasec.models import Riasec_result
 from personalityTest.models import Result
 from personalityTest.views import SuperUserCheck
@@ -87,8 +87,11 @@ class StatPage(TemplateView):
                             if objects[x] == list(top3.values())[0]:
                                 top3[x] = objects[x]
                 context["top1"] = top1
+                context["top1len"] = range(len(top1))
                 context["top2"] = top2
+                context["top2len"] = range(len(top2))
                 context["top3"] = top3
+                context["top3len"] = range(len(top3))
                 if top1:
                     context["top1value"] = list(top1.values())[0]
                 if top2:
@@ -107,9 +110,10 @@ class StatPage(TemplateView):
 
         return context
 
+
 class UsersResults(SuperUserCheck,TemplateView):
     template_name = 'admin/results.html'
-    model=Riasec_result,Result
+    model= Riasec_result,Result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -120,11 +124,15 @@ class UsersResults(SuperUserCheck,TemplateView):
             pass
         return context
 
-class UserDetailView(SuperUserCheck,DetailView):
+class UserDetailView(SuperUserCheck,TemplateView):
     template_name = 'admin/users_detail.html'
-    model=Profile
-    context_object_name = 'users'
+    model= Riasec_result,Result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        try:
+            context['riasec_results']=Riasec_result.objects.filter(pk=self.kwargs.get('pk'))
+            context['personalityTest_results']=Result.objects.filter(pk=self.kwargs.get('pk'))
+        except ObjectDoesNotExist:
+            pass
         return context

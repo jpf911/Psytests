@@ -24,8 +24,9 @@ urlpatterns = [
     path('', HomePageView.as_view(), name="homepage"),
     path('psytest/', include('accounts.urls')), #Connects to psytest folder urls.py
     path('riasec/',include('riasec.urls')), #Connects to riasec folder urls.py
-    path('personalityTest/',include('personalityTest.urls')), #Connects to riasec folder urls.py
+    path('personalityTest/',include('personalityTest.urls')), #Connects to personalityTest folder urls.py
     path('accounts/', include('allauth.urls')),
+    path('administration/', include('administration.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

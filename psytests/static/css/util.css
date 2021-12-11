@@ -2264,3 +2264,12 @@
     transition: 10s;
 }
 
+.back-to-top {
+    text-decoration: none;
+    color: #008080;
+}
+
+.back-to-top:hover {
+    color: #008080;
+    text-shadow: 0px 4px 4px rgba(0,0,0,0.2);
+}
