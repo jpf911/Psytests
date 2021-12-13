@@ -51,7 +51,11 @@ input[type='checkbox']:checked{
 }
 
 .login-google-social {
+<<<<<<< HEAD
     font-size: 15px;
+=======
+  font-size: 15px;
+>>>>>>> 0ff5674b98dcbc30577bfda5d0e3fbbcd4c81083
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -127,5 +131,22 @@ input[type='checkbox']:checked{
 .title-style {
     background: #008080;
     color: white;
+    border: none;
+}
+input[class='form-control']:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0,128,128, 0.3);
+  border: none;
+  border-color: #008080;
+}
+
+select[class='form-select']:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0,128,128, 0.3);
+  border: none;
+  border-color: #008080;
+}
+
+
+input[type='checkbox']:focus{
+    box-shadow: 0 0 0 0.25rem rgba(0,128,128, 0.2);
     border: none;
 }

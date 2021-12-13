@@ -1,9 +1,16 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render,redirect, reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from django.views.generic import TemplateView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.list import ListView
+from django.urls import reverse_lazy
+
+from accounts.models import Profile
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user
 from django.db.models import F
@@ -50,7 +57,7 @@ def logoutUser(request):
     logout(request)
     return redirect('accounts:login')
 
-class StatPage(TemplateView):
+class StatPage(LoginRequiredMixin, TemplateView):
     template_name = 'stats/stats.html'
 
     def get_context_data(self, **kwargs):
@@ -126,7 +133,7 @@ class UsersResults(SuperUserCheck,TemplateView):
 
 class UserDetailView(SuperUserCheck,TemplateView):
     template_name = 'admin/users_detail.html'
-    model= Riasec_result,Result
+    model= Riasec_result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

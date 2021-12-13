@@ -43,3 +43,6 @@
     background: #008080;
 }
 
+.svg:hover {
+    color: gray;
+}

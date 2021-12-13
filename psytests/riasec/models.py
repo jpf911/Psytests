@@ -41,5 +41,4 @@ class Riasec_result (models.Model):
     enterprising = models.FloatField (default=0)
     conventional = models.FloatField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
-
     
