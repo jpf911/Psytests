@@ -7,4 +7,7 @@ class ResultAdmin(admin.ModelAdmin):
     list_filter = ['user']
 
 admin.site.register(Riasec_result, ResultAdmin)
-admin.site.register(RIASEC_Test)
+
+@admin.register(RIASEC_Test)
+class AuthorAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('question',),}

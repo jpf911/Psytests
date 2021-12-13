@@ -5,10 +5,14 @@ from .views import (
     ResultView,
     TestView,
     QuestionsListView,
-    QuestionsDetailView,
-    QuestionsCreateView,
-    QuestionsEditView,
-    DeleteQuestions,
+    RQuestionsDetailView,
+    RQuestionsCreateView,
+    RQuestionsEditView,
+    RDeleteQuestions,
+    PQuestionsDetailView,
+    PQuestionsCreateView,
+    PQuestionsEditView,
+    PDeleteQuestions,
 )
 
 
@@ -19,10 +23,14 @@ urlpatterns = [
     path('result/', ResultView.as_view(), name='result'),
     path('delete/<username>/<str:pk>/', DeleteRecord.as_view(), name='delete'),
     path('questions/',QuestionsListView.as_view(),name='questions' ),
-    path('questions/create/',QuestionsCreateView.as_view(),name='questions_add' ),
-    path('questions/<slug:slug>/edit',QuestionsEditView.as_view(),name='questions_edit' ),
-    path('questions/<slug:slug>/',QuestionsDetailView.as_view(),name='questions_detail' ),
-    path('questions/<slug:slug>/delete', DeleteQuestions.as_view(), name='questions_delete'),
+    path('questions/create/riasec/', RQuestionsCreateView.as_view(), name='rquestions_add'),
+    path('questions/create/personality/', PQuestionsCreateView.as_view(), name='pquestions_add'),
+    path('questions/<slug:slug>/riasec/edit', RQuestionsEditView.as_view(), name='rquestions_edit'),
+    path('questions/<slug:slug>/personality/edit', PQuestionsEditView.as_view(), name='pquestions_edit'),
+    path('questions/<slug:slug>/riasec/', RQuestionsDetailView.as_view(), name='rquestions_detail'),
+    path('questions/<slug:slug>/personality/', PQuestionsDetailView.as_view(), name='pquestions_detail'),
+    path('questions/<slug:slug>/riasec/delete', RDeleteQuestions.as_view(), name='rquestions_delete'),
+    path('questions/<slug:slug>/personality/delete', PDeleteQuestions.as_view(), name='pquestions_delete'),
 ]
 
 

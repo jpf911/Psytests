@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+<main class="container-fluid">
+    {% if riasec_results %}
+    {% for riasec_result in riasec_results %}
+    <h1>{{riasec_result.user|capfirst}}'s RIASEC Results</h1>
+    <div class="row">
+        <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+    <div class="row m-t-50 justify-content-center mb-5">
+        {% include 'stats/riasec-scripts/pieChart.html' %}
+        {% include 'stats/riasec-scripts/riasec_barChart.html' %}
+
+        {% endfor %}
+        {% elif personalityTest_results%}
+        {% for personalityTest_result in personalityTest_results %}
+        <h1>{{personalityTest_result.user|capfirst}}'s Personality Test Results</h1>
+        <div class="row">
+            <h3 class="text-center">{{personalityTest_result.prediction}}</h3>
+            <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+                <canvas id="predictionBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+    {% include 'stats/personalityTest-scripts/predictionBarChart.html' %}
+    {% endfor %}
+    {% endif %}
+</main>
+{% endblock %}
+

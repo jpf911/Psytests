@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     #local
     'accounts',
+    'administration',
     'riasec.apps.RiasecConfig',
     'personalityTest.apps.PersonalitytestConfig',
     

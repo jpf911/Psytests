@@ -2,12 +2,15 @@ from django.db import models
 from django.db.models.fields import CharField
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class Questionnaire(models.Model):
 
     class Meta:
-        ordering = ('-id',)
+        verbose_name = _('Questionnaire')
+        verbose_name_plural = _('Questionnaires')
+        # ordering = ('-id',)
 
     category_choices =[
         ('EXT','Extroversion'),
@@ -32,6 +35,7 @@ class Questionnaire(models.Model):
         return f"{str(self.question)}"
 
     def save(self,*args, **kwargs):
+        self.slug = slugify(self.question)
         return super(Questionnaire, self).save(*args, **kwargs)
 
 
@@ -55,3 +59,6 @@ class Result(models.Model):
     openness = models.FloatField (default=0)
     prediction = models.ForeignKey(Cluster, on_delete=models.CASCADE, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{str(self.user)}"
