@@ -14,29 +14,28 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-8 login-bg" style="background-image: url({% static 'images/login-bg4.jpg' %});"></div>
-        <!--        <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade col-8 login-bg" data-bs-ride="carousel">-->
-        <!--          <div class="carousel-inner">-->
-        <!--            <div class="carousel-item active" data-bs-interval="10000">-->
-        <!--              <img src="{% static 'images/login-bg.jpg' %}" class="d-block w-100" alt="...">-->
-        <!--            </div>-->
-        <!--            <div class="carousel-item active" data-bs-interval="10000">-->
-        <!--              <img src="{% static 'images/login-bg1.jpg' %}" class="d-block w-100" alt="...">-->
-        <!--            </div>-->
-        <!--              <div class="carousel-item active" data-bs-interval="10000">-->
-        <!--              <img src="{% static 'images/login-bg2.jpg' %}" class="d-block w-100" alt="...">-->
-        <!--            </div>-->
-        <!--              <div class="carousel-item active" data-bs-interval="10000">-->
-        <!--              <img src="{% static 'images/login-bg3.jpg' %}" class="d-block w-100" alt="...">-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--</div>-->
-        <div class="col-4 py-5 px-auto vh-100">
-            <div class="w-75 text-left mx-auto m-t-100 mb-5">
+    <div class="row" style="background-color:mintcream;">
+        <div class="col-8 login-bg vh-100" style="background-image: url({% static 'images/login-bg4.jpg' %});"></div>
+<!--                <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade col-8 login-bg" data-bs-ride="carousel">-->
+<!--                  <div class="carousel-inner">-->
+<!--                    <div class="carousel-item active" data-bs-interval="10000">-->
+<!--                      <img src="{% static 'images/login-bg.jpg' %}" class="d-block w-100" alt="...">-->
+<!--                    </div>-->
+<!--                    <div class="carousel-item" data-bs-interval="10000">-->
+<!--                      <img src="{% static 'images/login-bg1.jpg' %}" class="d-block w-100" alt="...">-->
+<!--                    </div>-->
+<!--                      <div class="carousel-item" data-bs-interval="10000">-->
+<!--                      <img src="{% static 'images/login-bg2.jpg' %}" class="d-block w-100" alt="...">-->
+<!--                    </div>-->
+<!--                      <div class="carousel-item" data-bs-interval="10000">-->
+<!--                      <img src="{% static 'images/login-bg3.jpg' %}" class="d-block w-100" alt="...">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--        </div>-->
+        <div class="col-4 align-self-center mx-auto px-auto" >
+            <div class="w-75 mx-auto">
                 <h1 class=" text-center border rounded-3 p-2 title-style text-white ">Login to Continue</h1>
-                <form class="p-4 p-md-5 border rounded-3 bg-light" action="{% url 'accounts:login' %}" method="post">
-
+                <form class=" p-4 border rounded-3 bg-light" action="{% url 'accounts:login' %}" method="post">
                     {% csrf_token %}
                     <div class="form-floating mb-3">
                         <input type="email/username" class="form-control" id="username" placeholder="example@email.com"
@@ -59,15 +58,15 @@
                     <button class="btn-style btn w-100 fs-17 mt-4 p-2 rounded-pill">Login</button>
                     <div class="separator mt-4 "> OR</div>
                     <!--                                        <div class="flex-c-m m-4">-->
-                    <div class="d-flex align-items-start flex-column">
+                    <div class="d-flex align-items-start flex-column mt-3 ">
                         <a href="{% provider_login_url 'google'%}"
-                           class="login-google-social social-bg2 btn-lg flex-c-m m-1 btn w-100 fs-17 mt-4 p-4  rounded-pill"
+                           class="login-google-social social-bg2 flex-c-m m-1 btn w-100 p-4  rounded-pill"
                            type="button"><img
                                 src="{% static 'images/google.png' %}" alt="googleicon" id="google-icon"> Continue with
                             Google
                         </a>
                         <a href="{% provider_login_url 'facebook' method='js_sdk' %}"
-                           class="login-fb-social social-bg1 flex-c-m m-1 btn btn-lg w-100 fs-17 mt-4 p-4 mr-5 rounded-pill"
+                           class="login-fb-social social-bg1 flex-c-m m-1 btn w-100 p-4 rounded-pill mt-2"
                            type="button">
                             <svg id="fb-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                  fill="currentColor"
