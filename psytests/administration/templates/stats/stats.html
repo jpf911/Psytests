@@ -1,26 +1,44 @@
 {% extends "stats/base.html" %}
 
-{% block title %}{{ request.user|title }} | Stats{% endblock %}
+{% block title %}Stats{% endblock %}
 
 {% block content %}
 <header>
     {% include 'partials/_navbar.html' %}
 </header>
 <main class="container">
-    <div class="row mt-5">
+    <div class="row mt-3">
+        
         <div class="d-flex align-items-start">
             <div class="col-2">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                        aria-selected="true">Profile</button>
                     <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
                         aria-selected="true">Career Path</button>
-                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                    <button class="nav-link" id="v-pills-personality-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-personality" type="button" role="tab" aria-controls="v-pills-personality"
                         aria-selected="false">Personality</button>
                 </div>
             </div>
             <div class="col-10 border p-5">
                 <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show" id="v-pills-profile" role="tabpanel"
+                        aria-labelledby="v-pills-profile-tab">
+                        <div>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-info m-1">Message</button>
+                                <button class="btn btn-warning m-1">Set-Schedule</button>
+                                <button class="btn btn-success m-1">Approve</button>
+                            </div>
+                            <p>Username: {{user.username}}</p>
+                            <p>First Name: {{user.first_name}}</p>
+                            <p>Last Name: {{user.last_name}}</p>
+                            <p>Email: {{user.email}}</p>
+                        </div>
+                    </div>
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                         aria-labelledby="v-pills-home-tab">
                         {% if riasec_result %}
@@ -36,33 +54,23 @@
                                     </svg></a>
                                 <!-- Modal -->
                                 {% include 'stats/riasec_components/delete_modal.html' %}
-                                <a href="{% url 'riasec:test' %}" class="btn btn-take-test" data-bs-toggle="modal"
-                                    data-bs-target="#riasec_take">Take the test again
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                                        <path fill-rule="evenodd"
-                                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                                    </svg>
-                                </a>
                                 {% include 'stats/riasec_components/take-test-modal.html' %}
                             </div>
                             <div class="text-center m-b-80">
                                 <h2>Summary</h2>
                             </div>
                             <div class="col-3 align-self-center">
-                                <p id="r"> <span class="bg-color-a p-2">Realistic</span> =
+                                <p class="p-2" id="r"> <span class="bg-color-a p-2">Realistic</span> =
                                     {{riasec_result.realistic|floatformat:1}}</p>
-                                <p id="i"><span class="bg-color-b p-2">Investigative</span> =
+                                <p class="p-2" id="i"><span class="bg-color-b p-2">Investigative</span> =
                                     {{riasec_result.investigative|floatformat:1}}</p>
-                                <p id="a"><span class="bg-color-c p-2">Artistic</span> =
+                                <p class="p-2" id="a"><span class="bg-color-c p-2">Artistic</span> =
                                     {{riasec_result.artistic|floatformat:1}}</p>
-                                <p id="s"><span class="bg-color-d p-2">Social</span> =
+                                <p class="p-2" id="s"><span class="bg-color-d p-2">Social</span> =
                                     {{riasec_result.social|floatformat:1}}</p>
-                                <p id="e"><span class="bg-color-e p-2">Enterprising</span> =
+                                <p class="p-2" id="e"><span class="bg-color-e p-2">Enterprising</span> =
                                     {{riasec_result.enterprising|floatformat:1}}</p>
-                                <p id="c"><span class="bg-color-f p-2">Conventional</span> =
+                                <p class="p-2" id="c"><span class="bg-color-f p-2">Conventional</span> =
                                     {{riasec_result.conventional|floatformat:1}}</p>
                             </div>
                             <div class="col">
@@ -125,8 +133,8 @@
                         <p>No result found</p>
                         {% endif %}
                     </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                        aria-labelledby="v-pills-profile-tab">
+                    <div class="tab-pane fade" id="v-pills-personality" role="tabpanel"
+                        aria-labelledby="v-pills-personality-tab">
                         {% if personalityTest_result %}
                         <div class="d-flex justify-content-end">
                             <a href="#" class="btn btn-danger me-3" type="button" data-bs-toggle="modal"
@@ -139,16 +147,6 @@
                                 </svg></a>
                             <!-- Modal -->
                             {% include 'stats/personalityTest_components/delete_modal.html' %}
-                            <a href="{% url 'personalityTest:test' %}" class="btn btn-take-test" type="button"
-                                data-bs-toggle="modal" data-bs-target="#personalityTest_take">Take the test again
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </a>
                             {% include 'stats/personalityTest_components/take-test-modal.html' %}
                         </div>
                         <div class="text-center m-b-80">

@@ -1,5 +1,5 @@
 {% extends 'administration/base.html' %}
-
+{% load static %}
 {% block title %}My Schedules{% endblock %}
 
 {% block content %}
@@ -28,6 +28,7 @@
             </div>
             <div class="col-8 pt-5">
                 <h3>Upcoming</h3>
+                {% if upcoming %}
                 <div>
                     <table class="table">
                         <thead>
@@ -83,6 +84,16 @@
                         </tbody>
                       </table>
                 </div>
+                {% else %}
+                <div class="text-center">
+                  <img class="w-75" src="{% static 'images/no-sched.png' %}" alt="">
+                  <div>
+                    <h3>
+                      no upcoming appointments
+                    </h3>
+                  </div>
+                </div>
+                {% endif %}
                 {% if is_paginated %}
       <nav aria-label="Page navigation" class="m-5">
         <ul class="pagination justify-content-end">
