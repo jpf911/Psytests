@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Thank You
+{% endblock %}
+
+{% block content %}
+<div class="text-center w-50 mx-auto">
+    <div class="mt-5">
+        <img src="{% static 'images/processing.png' %}" alt="" class="w-75">
+        <div class="text-center mt-5">
+            <h1>Awesome!</h1>
+            <h3>Your answer is submitted and will undergo process</h3>
+            <p>click<a href="{% url 'assessment' %}" class="link-teal"> here</a> to continue</p> 
+        </div>
+    </div>
+</div>
+{% endblock %}

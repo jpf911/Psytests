@@ -43,10 +43,15 @@ class Assessment(LoginRequiredMixin, NotifCount, TemplateView):
         context = super().get_context_data(**kwargs)
         try:
             context['personalityTest_results']=Result.objects.get(user=self.request.user)
+        except ObjectDoesNotExist:
+            pass
+
+        try:
             context['riasec_results']=Riasec_result.objects.get(user=self.request.user)
         except ObjectDoesNotExist:
             pass
+
         return context
 
 class ThankYou(LoginRequiredMixin, TemplateView):
-    template_name = 'thanks.html'
+    template_name = 'awesome.html'
