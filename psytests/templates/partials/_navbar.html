@@ -18,6 +18,7 @@
         </div>
         <div class="navbar-nav">
             {% if user.is_authenticated or request.user.is_superuser %}
+            <h1>{{request.user.Profile.is_approved}}</h1>
             <a href="{% url 'administration:unapproved-users' %}" class="svg position-relative my-auto me-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-card-checklist color-teal" viewBox="0 0 16 16">
                     <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
@@ -40,8 +41,6 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     {% if request.user.is_superuser %}
                     <a  class="dropdown-item"  href="{% url 'administration:home' %}">Admin</a>
-                    <a  class="dropdown-item"  href="{% url 'accounts:results' %}">User Results</a>
-                    <a  class="dropdown-item"  href="{% url 'personalityTest:questions' %}">Edit Questions</a>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'accounts:stats' %}"> Your Stats</a></li>
                     <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>
