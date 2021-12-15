@@ -51,11 +51,8 @@ input[type='checkbox']:checked{
 }
 
 .login-google-social {
-<<<<<<< HEAD
     font-size: 15px;
-=======
   font-size: 15px;
->>>>>>> 0ff5674b98dcbc30577bfda5d0e3fbbcd4c81083
     width: 36px;
     height: 36px;
     border-radius: 50%;

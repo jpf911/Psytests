@@ -9,10 +9,6 @@
 <main class="container">
     <div class='admin-div'>
         <small>Administration</small>
-        <div class="d-flex">
-            <a href="" class="text-white">users</a>
-            <a href="" class="text-white">superusers</a>
-        </div>
     </div>
     <div class="row justify-content-center mt-5">
         <div class="w-50 d-flex justify-content-center flex-wrap">
@@ -25,7 +21,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="" class="m-2 admin-selection">
+                <a href="{% url 'administration:rquestions' %}" class="m-2 admin-selection">
                     <div class="text-center">
                         <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/150/008080/external-question-online-learning-vitaliy-gorbachev-fill-vitaly-gorbachev.png"/>
                         <div class="text-center">
@@ -33,7 +29,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="" class="m-2 admin-selection">
+                <a href="{% url 'administration:pquestions' %}" class="m-2 admin-selection">
                     <div class="text-center">
                         <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/150/008080/external-question-online-learning-vitaliy-gorbachev-fill-vitaly-gorbachev.png"/>
                         <div class="text-center">
@@ -43,7 +39,7 @@
                 </a>
             
             
-            <a href="" class="m-2 admin-selection">
+            <a href="{% url 'administration:results' %}" class="m-2 admin-selection">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -55,7 +51,6 @@
                     </div>
                 </div>
             </a>
-        
     </div>
     </div>
 </main>

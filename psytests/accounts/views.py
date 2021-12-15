@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render,redirect, reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -6,18 +5,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic.edit import DeleteView, UpdateView
-from django.views.generic.list import ListView
-from django.urls import reverse_lazy
-
-from accounts.models import Profile
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user
-from django.db.models import F
 from riasec.models import Riasec_result
 from personalityTest.models import Result
-from personalityTest.views import SuperUserCheck
 # Create your views here.
+from administration.views import SuperUserCheck
+
 
 @unauthenticated_user
 def loginPage(request):
@@ -132,7 +126,7 @@ class UsersResults(SuperUserCheck,TemplateView):
         return context
 
 class UserDetailView(SuperUserCheck,TemplateView):
-    template_name = 'admin/users_detail.html'
+    template_name = 'admin/users_details.html'
     model= Riasec_result
 
     def get_context_data(self, **kwargs):

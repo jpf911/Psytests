@@ -12,3 +12,4 @@ class AdminScheduledConsultation(models.Model):
 
     def __str__(self):
         return f'manage by {self.managed_by.user.username} to {self.user.user.username}'
+

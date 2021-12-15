@@ -1,21 +1,15 @@
 from django.urls import reverse
-from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
+from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import View
-from django.shortcuts import redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
-from .forms import AddPQuestionsForm,AddRQuestionsForm
 
 import joblib
-
 import pandas as pd
 
 from personalityTest.models import Questionnaire, Result, Cluster
-from riasec.models import RIASEC_Test
 
 
 class PersonalityTestHomeView(LoginRequiredMixin, TemplateView):
@@ -32,9 +26,8 @@ class PersonalityTestHomeView(LoginRequiredMixin, TemplateView):
             context["results"] = Result.objects.get(user=self.request.user)
         except ObjectDoesNotExist:
             pass
-        
-        
         return context
+
 
 
 class TestView(LoginRequiredMixin, TemplateView):
@@ -168,108 +161,3 @@ class DeleteRecord(LoginRequiredMixin,DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super(DeleteRecord, self).delete(request, *args, **kwargs)
-
-class SuperUserCheck(UserPassesTestMixin, View):
-    def test_func(self):
-        return self.request.user.is_superuser
-
-class UserAccessMixin(PermissionRequiredMixin):
-    def dispatch(self, request, *args, **kwargs):
-        if (not self.request.user.is_authenticated):
-            return  redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
-        if not self.has_permission():
-            return redirect('')
-        return super(UserAccessMixin,self).dispatch(request,*args,**kwargs)
-
-class QuestionsListView(SuperUserCheck,TemplateView):
-
-    model = Questionnaire, RIASEC_Test
-    template_name = "questions/questions.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pquestions'] = Questionnaire.objects.all()
-        context['rquestions'] = RIASEC_Test.objects.all()
-        return context
-
-class RQuestionsDetailView(SuperUserCheck, DetailView):
-    model = RIASEC_Test
-    template_name = "questions/rquestions_detail.html"
-    context_object_name = 'question'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        #post= RIASEC_Test.objects.filter(slug=self.kwargs.get('slug'))
-        return context
-
-class PQuestionsDetailView(SuperUserCheck, DetailView):
-    model = Questionnaire
-    template_name = "questions/pquestions_detail.html"
-    context_object_name = 'question'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post= Questionnaire.objects.filter(slug=self.kwargs.get('slug'))
-        return context
-
-class RQuestionsCreateView(UserAccessMixin, CreateView):
-    permission_required = 'can_create'
-    model =RIASEC_Test
-    form_class = AddRQuestionsForm
-    template_name = 'questions/rquestions_add.html'
-    success_url = reverse_lazy('personalityTest:questions')
-
-    def form_valid(self, form):
-        return super(RQuestionsCreateView, self).form_valid(form)
-
-class PQuestionsCreateView(UserAccessMixin,CreateView):
-    permission_required = 'can_create'
-    model = Questionnaire
-    form_class = AddPQuestionsForm
-    template_name = 'questions/pquestions_add.html'
-    success_url = reverse_lazy('personalityTest:questions')
-
-    def form_valid(self, form):
-        return super(PQuestionsCreateView, self).form_valid(form)
-
-
-class RQuestionsEditView(UserAccessMixin,UpdateView):
-    permission_required = 'can_edit'
-    model=RIASEC_Test
-    form_class = AddRQuestionsForm
-    template_name = 'questions/rquestions_add.html'
-    success_url = reverse_lazy('personalityTest:questions')
-
-class PQuestionsEditView(UserAccessMixin, UpdateView):
-    permission_required = 'can_edit'
-    model= Questionnaire
-    form_class = AddPQuestionsForm
-    template_name = 'questions/pquestions_add.html'
-    success_url = reverse_lazy('personalityTest:questions')
-
-
-class RDeleteQuestions(UserAccessMixin,DeleteView):
-    permission_required = 'can_delete'
-    model = RIASEC_Test
-    success_message = "question deleted successfully."
-    success_url = reverse_lazy("personalityTest:questions")
-
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super(RDeleteQuestions, self).delete(request, *args, **kwargs)
-
-class PDeleteQuestions(UserAccessMixin, DeleteView):
-    permission_required = 'can_delete'
-    model = Questionnaire
-    success_message = "question deleted successfully."
-    success_url = reverse_lazy("personalityTest:questions")
-
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super(PDeleteQuestions, self).delete(request, *args, **kwargs)

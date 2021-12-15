@@ -1,21 +1,33 @@
-{% extends "base.html" %}
-{% block title %}RIASEC Question Details{% endblock %}
+{% extends 'personalityTest/base.html' %}
+{% load static %}
+
+{% block title %}Edit RIASEC Questions{% endblock %}
+
 {% block content %}
 <header>
     {% include 'partials/_navbar.html' %}
 </header>
 <main class="container-fluid">
-<div class="container mt-5" style="max-width:800px">
-                <div class="w-75 border border-2 p-4 mb-2 ">
-    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h2 class="display-4">"{{question.question|capfirst}}"</h2>
-            <h3 class="text-muted">{{question.get_category_display}}</h3>
-        </div>
-                    <hr>
- <div class="d-flex justify-content-center align-items-center">
+
+    {% if rquestions %}
+    <div class="d-flex justify-content-center  ">
+        <div class="container-test">
+            <h1>RIASEC <a href="{% url 'administration:rquestions_add' %}" class="btn btn-primary btn-sm me-3"
+                          type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                     class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg>
+                Add Question</a></h1>
+            <hr>
+            {% for question in rquestions %}
+            <div class="d-flex align-items-center">
+                {{ forloop.counter }}.)
+                <a class=" ms-1 text-dark" href="{% url 'administration:rquestions_detail' slug=question.slug %}"
+                   style="text-decoration:none;"> {{question|capfirst}}</a>
                 <a class="text-secondary ms-3 btn-block" style="text-decoration:none;"
-                   href="{% url 'personalityTest:rquestions_edit' slug=question.slug %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                   href="{% url 'administration:rquestions_edit' slug=question.slug %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-pencil-square" viewBox="0 0 16 16">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                         <path fill-rule="evenodd"
@@ -25,7 +37,7 @@
                 <a href="#" class="btn   btn-sm btn-block" type="button" data-bs-toggle="modal"
                    data-bs-target="#rquestions_delete{{question.id}}">
                     <svg xmlns="http://www.w3.org/2000/svg"
-                         width="25" height="25" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                         width="18" height="18" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
                         <path
                                 d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                         <path fill-rule="evenodd"
@@ -33,9 +45,11 @@
                     </svg>
                 </a>
             </div>
-            {% include 'personalityTest/components/rquestion_delete_modal.html' %}
-    </div>
+            {% include 'administration/components/rquestion_delete_modal.html' %}
+            <br>
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </main>
-
 {% endblock %}

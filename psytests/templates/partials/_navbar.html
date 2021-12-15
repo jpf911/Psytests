@@ -17,10 +17,11 @@
             {% if user.is_authenticated %}
             {% if request.user.is_superuser %}
             <a href="{% url 'administration:schedules' %}" class="svg position-relative my-auto me-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-event-fill color-teal" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                     class="bi bi-calendar-event-fill color-teal" viewBox="0 0 16 16">
                     <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
-                  </svg>
-                  {% if notif_count %}
+                </svg>
+                {% if notif_count %}
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{notif_count}}
                     <span class="visually-hidden">unread messages</span>
@@ -28,11 +29,12 @@
                 {% endif %}
             </a>
             <a href="{% url 'administration:user-results' %}" class="svg position-relative my-auto me-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-card-checklist color-teal" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                     class="bi bi-card-checklist color-teal" viewBox="0 0 16 16">
                     <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
                     <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
-                  </svg>
-                  {% if unapproved_users %}
+                </svg>
+                {% if unapproved_users %}
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{unapproved_users}}
                     <span class="visually-hidden">unread messages</span>
@@ -42,14 +44,15 @@
             {% endif %}
             <div class="btn-group">
                 <button type="button" class="btn nav-user" data-bs-toggle="dropdown" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill color-teal" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-person-fill color-teal" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                      </svg>
+                    </svg>
                     <small>{{request.user.username|capfirst}}</small>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     {% if request.user.is_superuser %}
-                    <a  class="dropdown-item"  href="{% url 'administration:home' %}">Admin</a>
+                    <li><a class="dropdown-item" href="{% url 'administration:home' %}">Admin</a></li>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'accounts:stats' %}"> Your Stats</a></li>
                     <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>
@@ -58,5 +61,5 @@
             {% else %}
             <a class="btn login-btn-color" href="{% url 'accounts:login' %}"><strong>Login / Sign Up</strong></a>
             {% endif %}
-        </div>
+    </div>
 </nav>

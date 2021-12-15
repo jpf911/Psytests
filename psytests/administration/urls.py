@@ -1,5 +1,29 @@
 from django.urls import path
-from .views import HistorySchedules, Home, MissedSchedules, ResetSchedule, UpcomingSchedules, UserDetailUpdate, UserManagement, UserResults, UserSchedules, approve_user
+
+from .views import (
+    Home,
+    UsersResults,
+    UserDetailView,
+    RQuestionsTemplateView,
+    PQuestionsTemplateView,
+    RQuestionsDetailView,
+    PQuestionsDetailView,
+    RQuestionsCreateView,
+    PQuestionsCreateView,
+    RQuestionsEditView,
+    PQuestionsEditView,
+    RDeleteQuestions,
+    PDeleteQuestions,
+    HistorySchedules,
+    MissedSchedules,
+    ResetSchedule,
+    UpcomingSchedules,
+    UserDetailUpdate,
+    UserManagement,
+    UserResults,
+    UserSchedules,
+    approve_user
+)
 
 
 app_name='administration'
@@ -15,4 +39,16 @@ urlpatterns=[
     path('schedules/history/', HistorySchedules.as_view(), name='history-schedules'),
     path('schedules/<int:pk>/reset-schedule/', ResetSchedule.as_view(), name='reset-schedule'),
     path('approve-user/', approve_user, name='approve-user'),
+    path('results/', UsersResults.as_view(), name='results'),
+    path('results/<int:pk>/', UserDetailView.as_view(), name='user_detail'),
+    path('rquestions/', RQuestionsTemplateView.as_view(), name='rquestions'),
+    path('pquestions/', PQuestionsTemplateView.as_view(), name='pquestions'),
+    path('rquestions/create/riasec/', RQuestionsCreateView.as_view(), name='rquestions_add'),
+    path('pquestions/create/personality/', PQuestionsCreateView.as_view(), name='pquestions_add'),
+    path('rquestions/<slug:slug>/riasec/edit', RQuestionsEditView.as_view(), name='rquestions_edit'),
+    path('pquestions/<slug:slug>/personality/edit', PQuestionsEditView.as_view(), name='pquestions_edit'),
+    path('rquestions/<slug:slug>/riasec/', RQuestionsDetailView.as_view(), name='rquestions_detail'),
+    path('pquestions/<slug:slug>/personality/', PQuestionsDetailView.as_view(), name='pquestions_detail'),
+    path('rquestions/<slug:slug>/riasec/delete', RDeleteQuestions.as_view(), name='rquestions_delete'),
+    path('pquestions/<slug:slug>/personality/delete', PDeleteQuestions.as_view(), name='pquestions_delete'),
 ]
