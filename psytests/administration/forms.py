@@ -1,4 +1,7 @@
 from django import forms
+from django.forms.widgets import SelectDateWidget
+
+from administration.models import AdminScheduledConsultation
 
 
 class SearchForm(forms.Form):
@@ -6,3 +9,14 @@ class SearchForm(forms.Form):
         'class': 'form-control',
         'placeholder': 'Search the username of the user',
     }))
+
+class ScheduleDateForm(forms.ModelForm):
+
+    scheduled_date = forms.DateTimeField(required=True, widget=forms.DateTimeInput(attrs={
+        'type': 'datetime-local',
+        'class': 'form-control'
+    })) 
+
+    class Meta:
+        model = AdminScheduledConsultation
+        fields = ['scheduled_date']

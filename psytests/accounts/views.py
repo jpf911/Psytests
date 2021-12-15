@@ -143,3 +143,5 @@ class UserDetailView(SuperUserCheck,TemplateView):
         except ObjectDoesNotExist:
             pass
         return context
+
+
