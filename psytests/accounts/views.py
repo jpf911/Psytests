@@ -145,3 +145,4 @@ class UserDetailView(SuperUserCheck,TemplateView):
         return context
 
 
+

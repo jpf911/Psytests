@@ -1,5 +1,4 @@
 from django import forms
-from django.forms.widgets import SelectDateWidget
 
 from administration.models import AdminScheduledConsultation
 

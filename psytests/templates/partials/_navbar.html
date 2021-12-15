@@ -4,20 +4,17 @@
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{% url 'riasec:home' %}" class="navlink">
-                        RIASEC Test
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'personalityTest:home' %}" class="navlink">
-                        Personality Test
+                    <a href="{% url 'assessment' %}" class="navlink">
+                        Assessment
+                        <img src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/20/000000/external-test-online-education-itim2101-lineal-color-itim2101.png"/>
                     </a>
                 </li>
             </ul>
             {% endif %}
         </div>
         <div class="navbar-nav">
-            {% if user.is_authenticated or request.user.is_superuser %}
+            {% if user.is_authenticated %}
+            {% if request.user.is_superuser %}
             <a href="{% url 'administration:schedules' %}" class="svg position-relative my-auto me-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-event-fill color-teal" viewBox="0 0 16 16">
                     <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
@@ -41,6 +38,7 @@
                 </span>
                 {% endif %}
             </a>
+            {% endif %}
             <div class="btn-group">
                 <button type="button" class="btn nav-user" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill color-teal" viewBox="0 0 16 16">
@@ -51,8 +49,6 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     {% if request.user.is_superuser %}
                     <a  class="dropdown-item"  href="{% url 'administration:home' %}">Admin</a>
-                    <a  class="dropdown-item"  href="{% url 'accounts:results' %}">User Results</a>
-                    <a  class="dropdown-item"  href="{% url 'personalityTest:questions' %}">Edit Questions</a>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'accounts:stats' %}"> Your Stats</a></li>
                     <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Assessment{% endblock %}
+
+{% block content %}
+<header>
+    {% include 'partials/_navbar.html' %}
+</header>
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-2 m-4 p-0">
+            <div class="border-1-round-box p-3">
+                <h3>Status:</h3>
+                <p>
+                    Personality Test
+                    {% if personalityTest_results %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="green" class="bi bi-check" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                      </svg>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                    {% endif %}
+                </p>
+                <p>
+                    Career Test
+                    {% if riasec_results %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="green" class="bi bi-check" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                      </svg>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-6 p-4 m-4 border-1-round-box">
+            <div class="row justify-content-center">
+                {% if personalityTest_results and riasec_results %}
+                <div class="text-center">
+                    <img src="{% static 'images/thanks.png' %}" alt="" class="w-75">
+                </div>
+
+                <div>
+                    <div class="m-t-75 text-center">
+                        <h5>Contact us here for more information</h5>
+                        <p>...</p>
+                        <p>...</p>
+                        <p>...</p>
+                        <p>...</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center mb-5">
+                    <h3>Take test</h3>
+                </div>
+                <div class="col">
+                    <a href="{% url 'personalityTest:test' %}" class="text-center link-teal {% if personalityTest_results %}disabled-links{% endif %}">
+                        <div>
+                            <img src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-psychology-university-courses-wanicon-lineal-color-wanicon.png"/>
+                        </div>
+                        <div {% if personalityTest_results %}class="text-muted"{% endif %}>
+                            Personality Test
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'riasec:test' %}" class="text-center link-teal {% if riasec_results %}disabled-links{% endif %}"">
+                        <div>
+                            <img src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/64/000000/external-skills-business-recruitment-itim2101-lineal-color-itim2101-1.png"/>                        </div>
+                        <div {% if personalityTest_results %}class="text-muted"{% endif %}>
+                            Career Test
+                        </div>
+                    </a>
+                </div>
+                <div class="m-t-50">
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="25" fill="currentColor" class="bi bi-exclamation-circle text-primary" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                          </svg>
+                        <strong>Note:</strong> 
+                    </p>
+                    <ul>
+                        <li>Both test is required to take. </li>
+                        <li>Understand and answer each questions honestly</li>
+                    </ul>
+                    
+                </div>
+                {% endif %}
+                
+            </div>
+
+        </div>
+    </div>
+</main>
+{% endblock %}

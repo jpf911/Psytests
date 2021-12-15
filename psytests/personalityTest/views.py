@@ -1,6 +1,5 @@
-from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import TemplateView, DetailView, ListView, UpdateView, CreateView
+from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import redirect_to_login
@@ -10,7 +9,6 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import AddPQuestionsForm,AddRQuestionsForm
-from django.shortcuts import get_object_or_404
 
 import joblib
 
@@ -45,6 +43,12 @@ class TestView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["questions"] = Questionnaire.objects.all()
+
+        try:
+            context['existed'] = Result.objects.get(user=self.request.user)
+        except ObjectDoesNotExist:
+            pass
+
         return context
 
     def post(self, *args, **kwargs):
@@ -127,7 +131,7 @@ class TestView(LoginRequiredMixin, TemplateView):
             )
             result.save()
 
-        return HttpResponseRedirect(reverse("personalityTest:home"))
+        return redirect('thank-you')
 
 class ResultView(LoginRequiredMixin, TemplateView):
     template_name = "personalityTest/resultPage.html"
