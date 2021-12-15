@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms.forms import Form
 from django.forms.widgets import Select, SelectDateWidget
-from .models import Profile
+
+from datetime import datetime
+
+now = datetime.today()
 
 class CreateUserForm(UserCreationForm):
     def __init__(self, *args, **kwargs) -> None:
@@ -22,7 +24,7 @@ class CreateUserForm(UserCreationForm):
             ('F', 'Female'),
         )
     
-    date_of_birth = forms.DateField(widget=SelectDateWidget(years=range(1950,2021),attrs={
+    date_of_birth = forms.DateField(widget=SelectDateWidget(years=range(1950,now.year),attrs={
         'type': 'date',
         'class': 'form-select'
     }))

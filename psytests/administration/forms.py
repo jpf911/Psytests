@@ -1,6 +1,10 @@
 from django import forms
 from personalityTest.models import Questionnaire
 from riasec.models import RIASEC_Test
+from django.forms.widgets import SelectDateWidget
+
+from administration.models import AdminScheduledConsultation
+
 
 class SearchForm(forms.Form):
     name = forms.CharField(required=False, widget=forms.TextInput(attrs={
@@ -8,11 +12,11 @@ class SearchForm(forms.Form):
         'placeholder': 'Search username',
     }))
 
-class AddRQuestionsForm(forms.ModelForm):
 
+class AddRQuestionsForm(forms.ModelForm):
     class Meta:
         model = RIASEC_Test
-        fields=('question','category')
+        fields = ('question', 'category')
 
         category_choices = [
             ('R', 'Realistic'),
@@ -22,16 +26,16 @@ class AddRQuestionsForm(forms.ModelForm):
             ('E', 'Enterprising'),
             ('C', 'Conventional'),
         ]
-        widgets={
+        widgets = {
             'question': forms.TextInput(attrs={'class': 'form-control'}),
-            'category': forms.Select(attrs={'class': 'form-control'},choices=category_choices),
+            'category': forms.Select(attrs={'class': 'form-control'}, choices=category_choices),
         }
 
 
 class AddPQuestionsForm(forms.ModelForm):
     class Meta:
         model = Questionnaire
-        fields = ('question', 'category','key')
+        fields = ('question', 'category', 'key')
 
         category_choices = [
             ('EXT', 'Extroversion'),
@@ -51,3 +55,14 @@ class AddPQuestionsForm(forms.ModelForm):
             'category': forms.Select(attrs={'class': 'form-control'}, choices=category_choices),
             'key': forms.Select(attrs={'class': 'form-control'}, choices=key_choices),
         }
+
+
+class ScheduleDateForm(forms.ModelForm):
+    scheduled_date = forms.DateTimeField(required=True, widget=forms.DateTimeInput(attrs={
+        'type': 'datetime-local',
+        'class': 'form-control'
+    }))
+
+    class Meta:
+        model = AdminScheduledConsultation
+        fields = ['scheduled_date']

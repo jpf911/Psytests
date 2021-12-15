@@ -1,44 +1,234 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends "stats/base.html" %}
 
-{% block title %}User Details{% endblock %}
+{% block title %}{{ user|title }} | Stats{% endblock %}
 
 {% block content %}
 <header>
     {% include 'partials/_navbar.html' %}
 </header>
-<main class="container-fluid">
-    {% if riasec_results %}
-    {% for riasec_result in riasec_results %}
-    <h1>{{riasec_result.user|capfirst}}'s RIASEC Results</h1>
-    <div class="row">
-        <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
-            <canvas id="barChart"></canvas>
-        </div>
-    </div>
-    <div class="row">
-        <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
-            <canvas id="pieChart"></canvas>
-        </div>
-    </div>
-    <div class="row m-t-50 justify-content-center mb-5">
-        {% include 'stats/riasec-scripts/pieChart.html' %}
-        {% include 'stats/riasec-scripts/riasec_barChart.html' %}
-        {% endfor %}
-        {% endif %}
-        {% if personalityTest_results%}
-        {% for personalityTest_result in personalityTest_results %}
-        <h1>{{personalityTest_result.user|capfirst}}'s Personality Test Results</h1>
-        <div class="row">
-            <h3 class="text-center">{{personalityTest_result.prediction}}</h3>
-            <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
-                <canvas id="predictionBarChart"></canvas>
+<main class="container">
+
+
+    <div class="row mt-5">
+        <div class="d-flex align-items-start">
+            <div class="col-12 border p-5">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                        aria-labelledby="v-pills-home-tab">
+                        {% if riasec_results %}
+                        <div class="row">
+                            <div class="d-flex justify-content-end">
+                                <a href="#" class="btn btn-danger me-3" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#riasec_delete"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                    </svg></a>
+                                <!-- Modal -->
+                                {% include 'stats/riasec_components/delete_modal.html' %}
+                                <a href="{% url 'riasec:test' %}" class="btn btn-take-test" data-bs-toggle="modal"
+                                    data-bs-target="#riasec_take">Take the test again
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                        <path fill-rule="evenodd"
+                                            d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </a>
+                                {% include 'stats/riasec_components/take-test-modal.html' %}
+                            </div>
+                            <div class="text-center m-b-80">
+                                <h2>Summary</h2>
+                            </div>
+                            <div class="col-3 align-self-center">
+                                <p id="r"> <span class="bg-color-a p-2">Realistic</span> =
+                                    {{riasec_results.realistic|floatformat:1}}</p>
+                                <p id="i"><span class="bg-color-b p-2">Investigative</span> =
+                                    {{riasec_results.investigative|floatformat:1}}</p>
+                                <p id="a"><span class="bg-color-c p-2">Artistic</span> =
+                                    {{riasec_results.artistic|floatformat:1}}</p>
+                                <p id="s"><span class="bg-color-d p-2">Social</span> =
+                                    {{riasec_results.social|floatformat:1}}</p>
+                                <p id="e"><span class="bg-color-e p-2">Enterprising</span> =
+                                    {{riasec_results.enterprising|floatformat:1}}</p>
+                                <p id="c"><span class="bg-color-f p-2">Conventional</span> =
+                                    {{riasec_results.conventional|floatformat:1}}</p>
+                            </div>
+                            <div class="col">
+                                <div class="chart-container mx-auto" style="height: 75vh; width: 75vh">
+                                    <canvas id="pieChart"></canvas>
+                                </div>
+                                {% include 'stats/riasec-scripts/pieChart.html' %}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row justify-content-center mt-5">
+                            <div class="chart-container" style="height:50vh; width:50vw">
+                                <canvas id="barChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="row m-t-50 justify-content-center mb-5">
+                            <div class="col-4">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Top 1</h5>
+                                        <ul>
+                                            {% for obj in top1 %}
+                                            <li>{{obj|title}}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if top2 %}
+                            <div class="col-4">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Top 2</h5>
+                                        {% for obj in top2 %}
+                                        <li>{{obj|title}}</li>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if top3 %}
+                            <div class="col-4">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Top 3</h5>
+                                        {% for obj in top3 %}
+                                        <li>{{obj|title}}</li>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% include 'riasec/scripts/piechart.html' %}
+                        {% include 'riasec/scripts/barchart.html' %}
+                        {% include 'riasec/carousels/top1.html' %}
+                        {% include 'riasec/carousels/top2.html' %}
+                        {% include 'riasec/carousels/top3.html' %}
+                    </div>
+                   {% elif personalityTest_results %}
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                        aria-labelledby="v-pills-profile-tab">
+                        <div class="d-flex justify-content-end">
+                            <a href="#" class="btn btn-danger me-3" type="button" data-bs-toggle="modal"
+                                data-bs-target="#personalityTest_delete"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                </svg></a>
+                            <!-- Modal -->
+                            {% include 'stats/personalityTest_components/delete_modal.html' %}
+                            <a href="{% url 'personalityTest:test' %}" class="btn btn-take-test" type="button"
+                                data-bs-toggle="modal" data-bs-target="#personalityTest_take">Take the test again
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                            {% include 'stats/personalityTest_components/take-test-modal.html' %}
+                        </div>
+                        <div class="text-center m-b-80">
+                            <h2>Summary</h2>
+                        </div>
+                        {{obj_prediction.extroversion}}
+                        <div class="row">
+                            <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+                                <canvas id="predictionBarChart"></canvas>
+                            </div>
+                        </div>
+                        {% include 'stats/personalityTest-scripts/predictionBarChart.html' %}
+
+                        <table class="table w-50 mx-auto">
+                            <thead>
+                                <th>Extroversion</th>
+                                <th>Neurotic</th>
+                                <th>Agreeable</th>
+                                <th>Conscientious</th>
+                                <th>Openness</th>
+                                <th>Prediction</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{s.extroversion}}</td>
+                                    <td>{{personalityTest_results.neurotic}}</td>
+                                    <td>{{personalityTest_results.agreeable}}</td>
+                                    <td>{{personalityTest_results.conscientious}}</td>
+                                    <td>{{personalityTest_results.openness}}</td>
+                                    <td>{{personalityTest_results.prediction}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center my-5">
+                            <h2>{{personalityTest_result.prediction}}</h2>
+                        </div>
+                        <div class="row">
+                            <div class="chart-container mx-auto" style="position: relative; height:50vh; width:50vw">
+                                <canvas id="clusterBarChart"></canvas>
+                            </div>
+                        </div>
+                        {% include 'stats/personalityTest-scripts/clusterBarChart.html' %}
+                        <div class="text-center my-5">
+                            <h2>The Big Five Personality Traits</h2>
+                        </div>
+                        <div id="traitscarousel" class="carousel carousel-dark slide" data-bs-interval="false">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#traitscarousel" data-bs-slide-to="0" class="active"
+                                    aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#traitscarousel" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#traitscarousel" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></button>
+                                <button type="button" data-bs-target="#traitscarousel" data-bs-slide-to="3"
+                                    aria-label="Slide 4"></button>
+                                <button type="button" data-bs-target="#traitscarousel" data-bs-slide-to="4"
+                                    aria-label="Slide 5"></button>
+                            </div>
+                            <div class="carousel-inner pb-5">
+                                <div class="carousel-item active" data-bs-interval="false">
+                                    {% include 'personalityTest/traits/conscientious.html' %}
+                                </div>
+                                <div class="carousel-item" data-bs-interval="false">
+                                    {% include 'personalityTest/traits/agreeable.html' %}
+                                </div>
+                                <div class="carousel-item" data-bs-interval="false">
+                                    {% include 'personalityTest/traits/extroversion.html' %}
+                                </div>
+                                <div class="carousel-item" data-bs-interval="false">
+                                    {% include 'personalityTest/traits/openness.html' %}
+                                </div>
+                                <div class="carousel-item" data-bs-interval="false">
+                                    {% include 'personalityTest/traits/neurotic.html' %}
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#traitscarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#traitscarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        {% else %}
+                        <p>No result found</p>
+                        {% endif %}
+                    </div>
             </div>
         </div>
     </div>
-    {% include 'stats/personalityTest-scripts/predictionBarChart.html' %}
-    {% endfor %}
-    {% endif %}
 </main>
 {% endblock %}
-

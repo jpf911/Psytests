@@ -2252,6 +2252,7 @@
 .color-white {
     color:white;
 }
+
 .back-link {
     color: #008080;
     margin: 3px;
@@ -2276,4 +2277,23 @@
 
 a {
     text-decoration: none;
+}
+
+.item-badge-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.link-teal {
+    text-decoration: none;
+    color: rgba(0,128,128);
+}
+
+.link-teal:hover {
+    color: rgb(0, 80, 80);
+}
+
+.no-round-box {
+    border-radius: 25px;
+    box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.2);
 }

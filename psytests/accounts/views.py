@@ -10,6 +10,8 @@ from .decorators import unauthenticated_user
 from riasec.models import Riasec_result
 from personalityTest.models import Result
 # Create your views here.
+from administration.views import SuperUserCheck
+
 
 @unauthenticated_user
 def loginPage(request):
@@ -107,6 +109,33 @@ class StatPage(LoginRequiredMixin, TemplateView):
         except ObjectDoesNotExist:
             pass
 
+        return context
+
+
+class UsersResults(SuperUserCheck,TemplateView):
+    template_name = 'admin/results.html'
+    model= Riasec_result,Result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['riasec_result']=Riasec_result.objects.all()
+            context['personalityTest_result']=Result.objects.all()
+        except ObjectDoesNotExist:
+            pass
+        return context
+
+class UserDetailView(SuperUserCheck,TemplateView):
+    template_name = 'admin/users_details.html'
+    model= Riasec_result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['riasec_results']=Riasec_result.objects.filter(pk=self.kwargs.get('pk'))
+            context['personalityTest_results']=Result.objects.filter(pk=self.kwargs.get('pk'))
+        except ObjectDoesNotExist:
+            pass
         return context
 
 
