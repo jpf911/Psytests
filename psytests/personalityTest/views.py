@@ -1,18 +1,25 @@
 from django.urls import reverse
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.views.generic import TemplateView
 =======
 from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
 >>>>>>> 86974052695f3dd791fa26a8d9dad54eeb78fb5b
+=======
+from django.views.generic import TemplateView
+>>>>>>> cb0fb85cc6070eebef8de542ec403e8f4b9fbbeb
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.urls import reverse_lazy
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 from .forms import AddPQuestionsForm,AddRQuestionsForm
 >>>>>>> 86974052695f3dd791fa26a8d9dad54eeb78fb5b
+=======
+>>>>>>> cb0fb85cc6070eebef8de542ec403e8f4b9fbbeb
 
 import joblib
 import pandas as pd

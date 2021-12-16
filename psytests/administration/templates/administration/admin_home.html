@@ -1,5 +1,5 @@
 {% extends 'administration/base.html' %}
-
+{% load static %}
 {% block title %}User Management{% endblock %}
 
 {% block content %}
@@ -15,7 +15,15 @@
                 
                 <a href="{% url 'administration:user-management' %}" class="m-2 admin-selection">
                     <div class="text-center">
-                        <img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/150/008080/external-management-management-kiranshastry-solid-kiranshastry-1.png"/>
+                        <img class="svg-120 m-2" src="{% static 'icons/management.png' %}" alt="">
+                        <div class="text-center">
+                            <p class="fs-20">User Management</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="m-2 admin-selection">
+                    <div>
+                        <img class="svg-120 m-2" src="{% static 'icons/management.png' %}" alt="">
                         <div class="text-center">
                             <p class="fs-20">User Management</p>
                         </div>
@@ -23,7 +31,7 @@
                 </a>
                 <a href="{% url 'administration:rquestions' %}" class="m-2 admin-selection">
                     <div class="text-center">
-                        <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/150/008080/external-question-online-learning-vitaliy-gorbachev-fill-vitaly-gorbachev.png"/>
+                        <img class="svg-120 m-2" src="{% static 'icons/riasec.png' %}" alt="">
                         <div class="text-center">
                             <p class="fs-20">RIASEC Questionnaire</p>
                         </div>
@@ -31,7 +39,7 @@
                 </a>
                 <a href="{% url 'administration:pquestions' %}" class="m-2 admin-selection">
                     <div class="text-center">
-                        <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/150/008080/external-question-online-learning-vitaliy-gorbachev-fill-vitaly-gorbachev.png"/>
+                        <img class="svg-120 m-2" src="{% static 'icons/personality.png' %}" alt="">
                         <div class="text-center">
                             <p class="fs-20">Personality Test Questionnaire</p>
                         </div>
@@ -39,18 +47,7 @@
                 </a>
             
             
-            <a href="{% url 'administration:results' %}" class="m-2 admin-selection">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                    </svg>
-                    <div class="text-center">
-                        <p class="fs-20">User Management</p>
-                    </div>
-                </div>
-            </a>
+            
     </div>
     </div>
 </main>

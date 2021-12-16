@@ -2311,3 +2311,21 @@ p {
 .disabled-links {
     pointer-events: none;
 }
+
+.svg-30 {
+    width: 30px;
+    height: 30px;
+}
+.svg-22 {
+    width: 22px;
+    height: 22px;
+}
+
+.svg-120 {
+    width: 120px;
+    height: 120px;
+}
+.img-150 {
+    width: 150px;
+    height: 150px;
+}

@@ -105,6 +105,68 @@ class UserResults(LoginRequiredMixin, SuperUserCheck, NotifCount, ListView):
 
         return context
 
+class UserDetailView(SuperUserCheck, DetailView):
+    template_name = 'stats/stats.html'
+    model = User
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['riasec_result'] = Riasec_result.objects.get(user__username=self.kwargs.get('user'), user__id=self.kwargs.get('pk'))
+            Riasec_result.objects.get(user__username=self.kwargs.get('user'), user__id=self.kwargs.get('pk'))
+            obj = Riasec_result.objects.filter(user__username=self.kwargs.get('user'), user__id=self.kwargs.get('pk')).values(
+                "realistic",
+                "investigative",
+                "artistic",
+                "social",
+                "enterprising",
+                "conventional",
+            ).first()
+            if obj is not None:
+                objects = dict(sorted(obj.items(), key=lambda item: item[1], reverse=True))
+                top1 = {}
+                top2 = {}
+                top3 = {}
+                for x in objects:
+                    if not top1:
+                        top1[x] = objects[x]
+                    else:
+                        if objects[x] == list(top1.values())[0]:
+                            top1[x] = objects[x]
+                        if top2:
+                            if objects[x] < list(top2.values())[0] and not top3:
+                                top3[x] = objects[x]
+                                continue
+                        if objects[x] < list(top1.values())[0] and not top3:
+                            top2[x] = objects[x]
+                        if top3:
+                            if objects[x] == list(top3.values())[0]:
+                                top3[x] = objects[x]
+                context["top1"] = top1
+                context["top1len"] = range(len(top1))
+                context["top2"] = top2
+                context["top2len"] = range(len(top2))
+                context["top3"] = top3
+                context["top3len"] = range(len(top3))
+                if top1:
+                    context["top1value"] = list(top1.values())[0]
+                if top2:
+                    context["top2value"] = list(top2.values())[0]
+                if top3:
+                    context["top3value"] = list(top3.values())[0]
+        except ObjectDoesNotExist:
+            pass
+
+        try:
+            print(self.kwargs.get('user'), 'THIS IS OBJECT')
+            context['personalityTest_result'] = Result.objects.get(user__username=self.kwargs.get('user'), user__id=self.kwargs.get('pk'))
+            obj_prediction = Result.objects.get(user__username=self.kwargs.get('user'), user__id=self.kwargs.get('pk'))
+            context['prediction'] = obj_prediction.prediction
+        except ObjectDoesNotExist:
+            pass
+
+        return context
 
 def approve_user(request):
     get_pk = request.POST["value"]
@@ -218,78 +280,6 @@ class PDeleteQuestions(UserAccessMixin, DeleteView):
         messages.success(self.request, self.success_message)
         return super(PDeleteQuestions, self).delete(request, *args, **kwargs)
 
-class UsersResults(SuperUserCheck, TemplateView):
-    template_name = 'administration/admin/results.html'
-    model = Riasec_result, Result
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['riasec_result'] = Riasec_result.objects.all()
-            context['personalityTest_result'] = Result.objects.all()
-        except ObjectDoesNotExist:
-            pass
-        return context
-
-class UserDetailView(SuperUserCheck, DetailView):
-    template_name = 'administration/admin/users_detail.html'
-    model = Riasec_result
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['riasec_results'] = Riasec_result.objects.get(id=self.kwargs.get('pk'))
-            Riasec_result.objects.get(id=self.kwargs.get('pk'))
-            obj = Riasec_result.objects.filter(id=self.kwargs.get('pk')).values(
-                "realistic",
-                "investigative",
-                "artistic",
-                "social",
-                "enterprising",
-                "conventional",
-            ).first()
-            if obj is not None:
-                objects = dict(sorted(obj.items(), key=lambda item: item[1], reverse=True))
-                top1 = {}
-                top2 = {}
-                top3 = {}
-                for x in objects:
-                    if not top1:
-                        top1[x] = objects[x]
-                    else:
-                        if objects[x] == list(top1.values())[0]:
-                            top1[x] = objects[x]
-                        if top2:
-                            if objects[x] < list(top2.values())[0] and not top3:
-                                top3[x] = objects[x]
-                                continue
-                        if objects[x] < list(top1.values())[0] and not top3:
-                            top2[x] = objects[x]
-                        if top3:
-                            if objects[x] == list(top3.values())[0]:
-                                top3[x] = objects[x]
-                context["top1"] = top1
-                context["top1len"] = range(len(top1))
-                context["top2"] = top2
-                context["top2len"] = range(len(top2))
-                context["top3"] = top3
-                context["top3len"] = range(len(top3))
-                if top1:
-                    context["top1value"] = list(top1.values())[0]
-                if top2:
-                    context["top2value"] = list(top2.values())[0]
-                if top3:
-                    context["top3value"] = list(top3.values())[0]
-        except ObjectDoesNotExist:
-            pass
-
-        try:
-            context['personalityTest_results'] = Result.objects.get(id=self.kwargs.get('pk'))
-            obj_prediction = Result.objects.get(id=self.kwargs.get('pk'))
-            context['prediction'] = obj_prediction.prediction
-        except ObjectDoesNotExist:
-            pass
-
-        return context
 
 
 class UserSchedules(LoginRequiredMixin, SuperUserCheck, NotifCount, ListView):
