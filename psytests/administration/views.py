@@ -309,10 +309,9 @@ class UserSchedules(LoginRequiredMixin, SuperUserCheck, NotifCount, ListView):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()
         today = queryset.filter(scheduled_date__date=now.date())
-
         soon = today.filter(scheduled_date__time__gt=now.time())
         upcoming = queryset.filter(scheduled_date__date__gt=now.date())
-        late = today.filter(scheduled_date__time__lt=now.time())
+        late = queryset.filter(scheduled_date__lt=now.today())
         history = AdminScheduledConsultation.objects.filter(
             managed_by__user=self.request.user, is_done=True
         )

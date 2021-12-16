@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg px-5 border-bottom">
     <a class="navbar-brand navlink-brand" href="{% url 'homepage' %}">PSYTEST</a>
+<<<<<<< HEAD
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
@@ -19,6 +20,22 @@
     <div class="navbar-nav">
         {% if user.is_authenticated or request.user.is_superuser %}
         <h1>{{request.user.Profile.is_approved}}</h1>
+=======
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'assessment' %}" class="navlink">
+                        Assessment
+                        <img src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/20/000000/external-test-online-education-itim2101-lineal-color-itim2101.png"/>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            {% if request.user.is_superuser %}
             <a href="{% url 'administration:schedules' %}" class="svg position-relative my-auto me-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                      class="bi bi-calendar-event-fill color-teal" viewBox="0 0 16 16">
@@ -44,6 +61,7 @@
                 </span>
                 {% endif %}
             </a>
+            {% endif %}
             <div class="btn-group">
                 <button type="button" class="btn nav-user" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -55,6 +73,7 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     {% if request.user.is_superuser %}
                     <li><a class="dropdown-item" href="{% url 'administration:home' %}">Admin</a></li>
+                    <a  class="dropdown-item"  href="{% url 'administration:home' %}">Admin</a>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'accounts:stats' %}"> Your Stats</a></li>
                     <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>

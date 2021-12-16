@@ -1,7 +1,10 @@
 from django import forms
+<<<<<<< HEAD
 from personalityTest.models import Questionnaire
 from riasec.models import RIASEC_Test
 from django.forms.widgets import SelectDateWidget
+=======
+>>>>>>> 86974052695f3dd791fa26a8d9dad54eeb78fb5b
 
 from administration.models import AdminScheduledConsultation
 

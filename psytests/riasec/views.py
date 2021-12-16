@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
@@ -83,7 +83,7 @@ def evaluate(request):
         )
         result.save()
 
-    return HttpResponseRedirect(reverse("riasec:result"))
+    return redirect('thank-you')
 
 
 class Home(LoginRequiredMixin, ListView):
