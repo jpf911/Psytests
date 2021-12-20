@@ -160,7 +160,6 @@ class UserDetailView(SuperUserCheck,FormMixin, DetailView):
 
     def get_success_url(self):
         return reverse_lazy('administration:user_detail', kwargs={'user': self.kwargs['user'], 'pk': self.kwargs['pk']})
-        # return HttpResponseRedirect(self.request.path_info)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -248,8 +247,8 @@ class UserDetailView(SuperUserCheck,FormMixin, DetailView):
         subject = self.request.POST.get('subject')
         message = self.request.POST.get('message')
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['jerwin2000@gmail.com',]
-        send_mail(subject, message, email_from, recipient_list)
+        recipient_list = ['obj.user.email',]
+        send_mail(subject, message, email_from, recipient_list, fail_silently=True)
         return super().form_valid(form)
 
 def approve_user(request, user, pk):
