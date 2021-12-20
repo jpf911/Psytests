@@ -431,10 +431,13 @@ class ResetSchedule(LoginRequiredMixin, SuperUserCheck, UpdateView):
     form_class = ScheduleDateForm
     success_url = reverse_lazy("administration:schedules")
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = AdminScheduledConsultation.objects.get(id=self.kwargs['pk'])
         return context
+
+    
 
     
 

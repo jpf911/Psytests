@@ -73,9 +73,10 @@ class ScheduleDateForm(forms.ModelForm):
     user = forms.ModelChoiceField(required=True, queryset=Profile.objects.all(), widget=forms.HiddenInput(attrs={
         'class': 'form-select'
     }))
+    is_done = forms.BooleanField(required=True, initial=False, widget=forms.HiddenInput())
 
 
     class Meta:
         model = AdminScheduledConsultation
-        fields = ['scheduled_date', 'managed_by', 'user']
+        fields = ['scheduled_date', 'managed_by', 'user', 'is_done']
 
