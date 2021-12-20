@@ -1,13 +1,43 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg px-5 border-bottom">
     <a class="navbar-brand navlink-brand" href="{% url 'homepage' %}">PSYTEST</a>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'riasec:home' %}" class="navlink">
+                    RIASEC Test
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'personalityTest:home' %}" class="navlink">
+                    Personality Test
+                </a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+    <div class="navbar-nav">
+        {% if user.is_authenticated or request.user.is_superuser %}
+        <h1>{{request.user.Profile.is_approved}}</h1>
+=======
+=======
+>>>>>>> cb0fb85cc6070eebef8de542ec403e8f4b9fbbeb
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
+<<<<<<< HEAD
+                    <a href="{% url 'assessment' %}" class="navlink">
+                        Assessment
+                        <img src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/20/000000/external-test-online-education-itim2101-lineal-color-itim2101.png"/>
+=======
                     
                     <a href="{% url 'assessment' %}" class="navlink">
                         <span>Assessment</span>
+>>>>>>> cb0fb85cc6070eebef8de542ec403e8f4b9fbbeb
                     </a>
                 </li>
             </ul>
@@ -53,6 +83,10 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     {% if request.user.is_superuser %}
                     <li><a class="dropdown-item" href="{% url 'administration:home' %}">Admin</a></li>
+<<<<<<< HEAD
+                    <a  class="dropdown-item"  href="{% url 'administration:home' %}">Admin</a>
+=======
+>>>>>>> cb0fb85cc6070eebef8de542ec403e8f4b9fbbeb
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'accounts:stats' %}"> Your Stats</a></li>
                     <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a></li>

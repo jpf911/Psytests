@@ -1,11 +1,13 @@
 from django.urls import reverse
 from django.shortcuts import redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView, UpdateView, CreateView
+
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.urls import reverse_lazy
+
 
 import joblib
 import pandas as pd

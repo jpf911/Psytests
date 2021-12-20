@@ -15,7 +15,13 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row" style="background-color:mintcream;">
+
         <div class="col-8 login-bg vh-100" style="background-image: url({% static 'images/bg-login.jpg' %});"></div>
+        <div class="col-4 align-self-center mx-auto px-auto">
+            <div class="w-75 mx-auto">
+                <h1 class=" text-center border rounded-3 p-2 title-style text-white ">Login to Continue</h1>
+                <form class=" p-4 border rounded-3 bg-light" action="{% url 'accounts:login' %}" method="post">
+
         <div class="col-4 align-self-center mx-auto">
             <div class="w-75 mx-auto">
                 <h1 class=" text-center border rounded-3 p-2 title-style text-white ">Login to Continue</h1>
@@ -45,6 +51,8 @@
                     <button class="btn-style btn w-100 fs-17 mt-4 p-2 rounded-pill">Login</button>
                     <div class="separator mt-4 "> OR</div>
                     <div class="d-flex align-items-start flex-column mt-3 ">
+                    <div class="d-flex align-items-start flex-column mt-3">
+                    <div class="d-flex align-items-start flex-column mt-3 ">
                         <a href="{% provider_login_url 'google'%}"
                            class="login-google-social social-bg2 flex-c-m mt-2 btn w-100 p-4 rounded-pill"
                            type="button"><img
@@ -72,7 +80,6 @@
                 <div class="mt-2 text-center">
                     <small>By clicking Sign up, you agree to the terms of use.</small>
                 </div>
-                <!-- Social Media FB Login Button ni siya -->
             </div>
         </div>
     </div>

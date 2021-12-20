@@ -1,8 +1,11 @@
 from django import forms
 from accounts.models import Profile
+
 from personalityTest.models import Questionnaire
 from riasec.models import RIASEC_Test
 
+from personalityTest.models import Questionnaire
+from riasec.models import RIASEC_Test
 from administration.models import AdminScheduledConsultation
 
 
