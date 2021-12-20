@@ -45,12 +45,16 @@
                 </div>
 
                 <div>
-                    <div class="m-t-75 text-center">
-                        <h5>Contact us here for more information</h5>
-                        <p>...</p>
-                        <p>...</p>
-                        <p>...</p>
-                        <p>...</p>
+                    <div class="m-t-50">
+                        <div class="text-center">
+                            <h2>Your answer is being evaluated</h2>
+                            <h5>Contact us here for more information</h5>
+                        </div>
+                        <div class="text-center">
+                            <p>...</p>
+                            <p>...</p>
+                            <p>...</p>
+                        </div>
                     </div>
                 </div>
                 {% else %}
@@ -60,7 +64,7 @@
                 <div class="col">
                     <a href="{% url 'personalityTest:test' %}" class="text-center link-teal {% if personalityTest_results %}disabled-links{% endif %}">
                         <div>
-                            <img src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-psychology-university-courses-wanicon-lineal-color-wanicon.png"/>
+                            <img src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/120/000000/external-psychology-university-courses-wanicon-lineal-color-wanicon.png"/>
                         </div>
                         <div {% if personalityTest_results %}class="text-muted"{% endif %}>
                             Personality Test
@@ -68,9 +72,10 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="{% url 'riasec:test' %}" class="text-center link-teal {% if riasec_results %}disabled-links{% endif %}"">
+                    <a href="{% url 'riasec:test' %}" class="text-center link-teal {% if riasec_results %}disabled-links{% endif %}">
                         <div>
-                            <img src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/64/000000/external-skills-business-recruitment-itim2101-lineal-color-itim2101-1.png"/>                        </div>
+                            <img src="https://img.icons8.com/external-itim2101-lineal-color-itim2101/120/000000/external-skills-business-recruitment-itim2101-lineal-color-itim2101-1.png"/>
+                        </div>
                         <div {% if riasec_results %}class="text-muted"{% endif %}>
                             Career Test
                         </div>
@@ -78,14 +83,14 @@
                 </div>
                 <div class="m-t-50">
                     <p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="25" fill="currentColor" class="bi bi-exclamation-circle text-primary" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-circle text-primary" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                             <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
                           </svg>
                         <strong>Note:</strong> 
                     </p>
                     <ul>
-                        <li>Both test is required to take. </li>
+                        <li>Both test is needed inorder to validate. </li>
                         <li>Understand and answer each questions honestly</li>
                     </ul>
                     

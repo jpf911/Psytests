@@ -19,12 +19,22 @@ Update
             <h3>Reset Date Scheduled</h3>
         </div>
         <div class="no-round-box p-4">
+            <div class="mb-3">
+                <p>Name: {{user.user.user.first_name}} {{user.user.user.last_name}}</p>
+            </div>
             <form method="post">
                 {% csrf_token %}
-                <div class="input-group">
-                    {{form.scheduled_date}}
-                    <input type="submit" class="btn teal-btn" value="Submit">
+                {{form.user}}
+                <div class="w-50 mb-2 input-group">
+                    <label for="managed_by" class="input-group-text">Assign to:</label>
+                    {{form.managed_by}}
                 </div>
+
+            <div class="input-group">
+                <label for="scheduled_date" class="input-group-text">Set Date:</label>
+                {{form.scheduled_date}}
+                <input type="submit" class="btn teal-btn" value="Submit">
+            </div>
             </form>
         </div>
     </div>

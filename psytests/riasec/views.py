@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
+from accounts.models import Profile
+
+from personalityTest.models import Result
 from .models import RIASEC_Test, Riasec_result
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
@@ -27,6 +29,7 @@ def testPage(request):
 
 @login_required(login_url="accounts:login")
 def evaluate(request):
+    name = request.user
     r = []
     i = []
     a = []
@@ -82,6 +85,17 @@ def evaluate(request):
             conventional=c,
         )
         result.save()
+
+    try:
+        obj = Result.objects.get(user__username=name)
+        obj2 = Riasec_result.objects.get(user__username=name)
+
+        if obj and obj2:
+            obj3 = Profile.objects.get(user__username=name)
+            obj3.is_assigned = False
+            obj3.save()
+    except ObjectDoesNotExist:
+            pass
 
     return redirect('thank-you')
 
@@ -168,5 +182,11 @@ class DeleteRecord(LoginRequiredMixin, DeleteView):
         return self.post(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
+        try:
+           obj = Profile.objects.get(user__username=self.kwargs.get('username'))
+           obj.is_assigned = None
+           obj.save()
+        except ObjectDoesNotExist:
+            pass
         messages.success(self.request, self.success_message)
         return super(DeleteRecord, self).delete(request, *args, **kwargs)

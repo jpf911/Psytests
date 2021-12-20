@@ -50,7 +50,7 @@
               <td>{{user.user.user.last_name}}</td>
               <td>{{user.scheduled_date.time}}</td>
               <td>
-                <a href="">
+                <a href="{% url 'administration:user_detail' user.user.user.username user.user.user.pk %}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#5F4B8BFF"
                     class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"

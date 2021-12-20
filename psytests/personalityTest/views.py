@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,8 +9,10 @@ from django.urls import reverse_lazy
 
 import joblib
 import pandas as pd
+from accounts.models import Profile
 
 from personalityTest.models import Questionnaire, Result, Cluster
+from riasec.models import Riasec_result
 
 
 class PersonalityTestHomeView(LoginRequiredMixin, TemplateView):
@@ -124,6 +127,17 @@ class TestView(LoginRequiredMixin, TemplateView):
             )
             result.save()
 
+        try:
+            obj = Result.objects.get(user__username=name)
+            obj2 = Riasec_result.objects.get(user__username=name)
+
+            if obj and obj2:
+                obj3 = Profile.objects.get(user__username=name)
+                obj3.is_assigned = False
+                obj3.save()
+        except ObjectDoesNotExist:
+            pass
+
         return redirect('thank-you')
 
 class ResultView(LoginRequiredMixin, TemplateView):
@@ -159,5 +173,12 @@ class DeleteRecord(LoginRequiredMixin,DeleteView):
         return self.post(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
+        try:
+           obj = Profile.objects.get(user__username=self.kwargs.get('username'))
+           obj.is_assigned = None
+           obj.save()
+        except ObjectDoesNotExist:
+            pass
+
         messages.success(self.request, self.success_message)
         return super(DeleteRecord, self).delete(request, *args, **kwargs)

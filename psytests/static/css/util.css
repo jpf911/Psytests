@@ -2329,3 +2329,13 @@ p {
     width: 150px;
     height: 150px;
 }
+
+.btn-teal {
+    color: white;
+    background: teal;
+}
+
+.btn-teal:hover {
+    background-color: rgb(0,100,100);
+    color: white;
+}

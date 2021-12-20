@@ -1,4 +1,5 @@
 from django import forms
+from accounts.models import Profile
 from personalityTest.models import Questionnaire
 from riasec.models import RIASEC_Test
 
@@ -57,11 +58,21 @@ class AddPQuestionsForm(forms.ModelForm):
 
 
 class ScheduleDateForm(forms.ModelForm):
+
     scheduled_date = forms.DateTimeField(required=True, widget=forms.DateTimeInput(attrs={
         'type': 'datetime-local',
         'class': 'form-control'
     }))
 
+    managed_by = forms.ModelChoiceField(required=True, queryset=Profile.objects.filter(user__is_superuser=True), widget=forms.Select(attrs={
+        'class': 'form-select'
+    }))
+    user = forms.ModelChoiceField(required=True, queryset=Profile.objects.all(), widget=forms.HiddenInput(attrs={
+        'class': 'form-select'
+    }))
+
+
     class Meta:
         model = AdminScheduledConsultation
-        fields = ['scheduled_date']
+        fields = ['scheduled_date', 'managed_by', 'user']
+

@@ -29,9 +29,18 @@
                         aria-labelledby="v-pills-profile-tab">
                         <div>
                             <div class="d-flex justify-content-end">
-                                <button class="btn btn-info m-1">Message</button>
-                                <button class="btn btn-warning m-1">Set-Schedule</button>
-                                <button class="btn btn-success m-1">Approve</button>
+                                <button class="btn btn-info m-1" type="button" data-bs-toggle="modal" data-bs-target="#message">New message</button>
+                                {% include 'stats/components/message-modal.html' %}
+                                {% if not done %}
+                                {% if scheduled %}
+                                <a href="{% url 'administration:reset-schedule' admin.pk %}" class="btn btn-warning m-1">Reset-Schedule</a>
+                                {% else %}
+                                <a href="{% url 'administration:set-schedule' user.username %}" class="btn btn-warning m-1">Set-Schedule</a>
+                                {% endif %}
+                                    <a href="#" class="btn btn-success m-1" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#approve">Approve</a>
+                                    {% include 'stats/components/delete-modal.html' %}
+                                {% endif %}
                             </div>
                             <p>Username: {{user.username}}</p>
                             <p>First Name: {{user.first_name}}</p>
@@ -54,7 +63,6 @@
                                     </svg></a>
                                 <!-- Modal -->
                                 {% include 'stats/riasec_components/delete_modal.html' %}
-                                {% include 'stats/riasec_components/take-test-modal.html' %}
                             </div>
                             <div class="text-center m-b-80">
                                 <h2>Summary</h2>
@@ -147,7 +155,6 @@
                                 </svg></a>
                             <!-- Modal -->
                             {% include 'stats/personalityTest_components/delete_modal.html' %}
-                            {% include 'stats/personalityTest_components/take-test-modal.html' %}
                         </div>
                         <div class="text-center m-b-80">
                             <h2>Summary</h2>

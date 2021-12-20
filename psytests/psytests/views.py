@@ -1,43 +1,34 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+
 from accounts.models import Profile
 
 from administration.models import AdminScheduledConsultation
 
 import datetime
+from administration.views import SuperUserCheck
 from personalityTest.models import Result
+from psytests.forms import ContactForm
+
+from django.core.mail import send_mail
+from django.conf import settings
 
 from riasec.models import Riasec_result
 
 now = datetime.datetime.today()
 
-class NotifCount():
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['unapproved_users'] = Profile.objects.filter(is_approved=False).count()
-        notif_count = AdminScheduledConsultation.objects.filter(
-            managed_by__user=self.request.user,
-            is_done=False,
-            scheduled_date__date=now.date(),
-            scheduled_date__time__gt=now.time()
-        ).count() + AdminScheduledConsultation.objects.filter(
-            managed_by__user=self.request.user,
-            is_done=False,
-            scheduled_date__lt=now.today()
-        ).count()
-        context["notif_count"] =  notif_count if notif_count is not None else None
-
-        return context
-
-
-class HomePageView(NotifCount, TemplateView):
+class HomePageView(SuperUserCheck, TemplateView):
     template_name = 'homepage.html'
 
     
-class Assessment(LoginRequiredMixin, NotifCount, TemplateView):
+class Assessment(LoginRequiredMixin, FormView):
     template_name = 'assessment.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('homepage')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,6 +43,7 @@ class Assessment(LoginRequiredMixin, NotifCount, TemplateView):
             pass
 
         return context
+
 
 class ThankYou(LoginRequiredMixin, TemplateView):
     template_name = 'awesome.html'

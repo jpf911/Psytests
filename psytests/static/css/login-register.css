@@ -23,8 +23,8 @@ input[type='checkbox']:checked{
 .soical-bg2 {background: #fff;}
 
 .login-bg {
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat:no-repeat;
+    background-size:cover;
     background-position: center;
     z-index: 1;
   }
