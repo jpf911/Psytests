@@ -17,18 +17,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import  settings
 from django.conf.urls.static import static
-from psytests.views import Assessment, HomePageView, ThankYou
+from psytests.views import Assessment, DataPrivacyConsent, HomePageView, Awesome
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name="homepage"),
     path('assessment/', Assessment.as_view(), name="assessment"),
-    path('thankyou/', ThankYou.as_view(), name="thank-you"),
+    path('awesome/', Awesome.as_view(), name="awesome"),
+    path('<str:test>/data/privacy/consent', DataPrivacyConsent.as_view(), name="consent"),
     path('psytest/', include('accounts.urls')), #Connects to psytest folder urls.py
     path('career/',include('riasec.urls')), #Connects to riasec folder urls.py
     path('personality/',include('personalityTest.urls')), #Connects to personalityTest folder urls.py
     path('accounts/', include('allauth.urls')),
     path('administration/', include('administration.urls')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

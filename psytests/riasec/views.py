@@ -97,7 +97,7 @@ def evaluate(request):
     except ObjectDoesNotExist:
             pass
 
-    return redirect('thank-you')
+    return redirect('awesome')
 
 
 class Home(LoginRequiredMixin, ListView):
@@ -172,21 +172,3 @@ class ResultPage(LoginRequiredMixin, TemplateView):
         return context
 
 
-
-class DeleteRecord(LoginRequiredMixin, DeleteView):
-    model = Riasec_result
-    success_url = reverse_lazy("riasec:home")
-    success_message = "record deleted successfully."
-
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        try:
-           obj = Profile.objects.get(user__username=self.kwargs.get('username'))
-           obj.is_assigned = None
-           obj.save()
-        except ObjectDoesNotExist:
-            pass
-        messages.success(self.request, self.success_message)
-        return super(DeleteRecord, self).delete(request, *args, **kwargs)

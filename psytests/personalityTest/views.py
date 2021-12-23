@@ -140,7 +140,7 @@ class TestView(LoginRequiredMixin, TemplateView):
         except ObjectDoesNotExist:
             pass
 
-        return redirect('thank-you')
+        return redirect('awesome')
 
 class ResultView(LoginRequiredMixin, TemplateView):
     template_name = "personalityTest/resultPage.html"
@@ -165,22 +165,3 @@ class ResultView(LoginRequiredMixin, TemplateView):
             pass
         
         return context
-
-class DeleteRecord(LoginRequiredMixin,DeleteView):
-    model = Result
-    success_url = reverse_lazy("personalityTest:home")
-    success_message = "record deleted successfully."
-
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        try:
-           obj = Profile.objects.get(user__username=self.kwargs.get('username'))
-           obj.is_assigned = None
-           obj.save()
-        except ObjectDoesNotExist:
-            pass
-
-        messages.success(self.request, self.success_message)
-        return super(DeleteRecord, self).delete(request, *args, **kwargs)

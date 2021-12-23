@@ -15,6 +15,7 @@ class Profile(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=6, choices=gender_choices, null=True, blank=True)
     is_assigned = models.BooleanField(null=True)
+    is_result = models.BooleanField(default=False)
     
     def __str__(self):
         return self.user.username

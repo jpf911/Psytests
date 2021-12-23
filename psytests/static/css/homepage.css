@@ -12,12 +12,25 @@
     margin: 0px;
 }
 
-.carousel-bg {
+.carousel-bg-left {
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 70% auto;
+    background-position: left;
+    height: 92vh;
+  }
+.carousel-bg-right {
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+    background-position: right;
+    height: 92vh;
+  }
+.carousel-bg-right {
+    background-repeat: no-repeat;
+    background-size: 50% auto;
     background-position: center;
     height: 92vh;
   }
+
 .move-header1 {
     position: relative;
     top: 200px;px;

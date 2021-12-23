@@ -1,62 +1,87 @@
 {% extends 'accounts/base.html' %}
 
 
-
-
 {% block title %}Register{% endblock %}
 
 {% block content%}
-<div class="row justify-content-center register">
-    <div class="col-6">
-        <h3>Register</h3>
-    
-        <form method="post">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col">
-                    <label for="">{{form.first_name.label}}</label>
-                    {{form.first_name}}
-                </div>
-                <div class="col">
-                    <label for="">{{form.last_name.label}}</label>
-                    {{form.last_name}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="">{{form.gender.label}}</label>
-                    {{form.gender}}
-                </div>
-                <div class="col">
-                    <label for="">{{form.date_of_birth.label}}</label>
-                    <div class="input-group">{{form.date_of_birth}}</div>
-                </div>
-            </div>
-            <label for="">{{form.username.label}}</label>
-            {{form.username}}
+<main class="container-fluid">
+    <div class="row justify-content-center register">
+        <div class="col-6">
+            <h3>Register</h3>
 
-            <label for="">{{form.email.label}}</label>
-            {{form.email}}
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <label for="">{{form.first_name.label}}</label>
+                        {{form.first_name}}
+                        <p class="text-danger ms-3">{{form.first_name.errors }}</p>
+                    </div>
+                    <div class="col">
+                        <label for="">{{form.last_name.label}}</label>
+                        {{form.last_name}}
+                        <p class="text-danger ms-3">{{form.last_name.errors }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">{{form.gender.label}}</label>
+                        {{form.gender}}
+                    </div>
+                    <div class="col">
+                        <label for="">{{form.date_of_birth.label}}</label>
+                        <div class="input-group">{{form.date_of_birth}}</div>
+                        {{form.date_of_birth.errors}}
+                    </div>
+                </div>
+                <label for="">{{form.username.label}}</label>
+                {{form.username}}
+                {% if form.username.errors %}
+                {{form.username.errors}}
+                <div class="alert alert-secondary">
+                    <ul>
+                        <li>Usernames can consist of lowercase and capitals</li>
+                        <li>Usernames can consist of alphanumeric characters</li>
+                        <li>Usernames can consist of underscore and hyphens and spaces</li>
+                        <li>Cannot be two underscores, two hypens or two spaces in a row</li>
+                        <li>Cannot have a underscore, hypen or space at the start or end</li>
+                    </ul>
+                </div>
+                {% endif %}
 
-            <div class="row">
-                <div class="col">
-                    <label for="">{{form.password1.label}}</label>
-                    {{form.password1}}
+                <label for="">{{form.email.label}}</label>
+                {{form.email}}
+                {{form.email.errors}}
+
+                <div class="row">
+                    <div class="col">
+                        <label for="">{{form.password1.label}}</label>
+                        {{form.password1}}
+                        {{form.password1.errors}}
+                    </div>
+                    <div class="col">
+                        <label for="">{{form.password2.label}}</label>
+                        {{form.password2}}
+                        {{form.password2.errors}}
+                    </div>
+                    {% if form.password1.errors %}
+                    <div class="alert alert-secondary">
+                        <p>Password should be:</p>
+                        <ul>
+                            <li>Minimum to eight characters</li>
+                            <li>At least one uppercase letter</li>
+                            <li>One lowercase letter and one
+                                number</li>
+                        </ul>
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="col">
-                    <label for="">{{form.password2.label}}</label>
-                    {{form.password2}}
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Submit" class="btn btn-style w-100 mt-3">
                 </div>
-            </div>
-            {% for message in messages %}
-            <p id="messages">{{message}}</p>
-            {% endfor %}
-            {{form.errors}}
-            <div class="d-flex justify-content-center">
-                <input type="submit" value="Submit" class="btn btn-style w-100 mt-3">
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+</main>
 
 {% endblock %}

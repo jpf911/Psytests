@@ -19,26 +19,13 @@
         <div id="carouselcontrols" class="carousel slide text-center d-flex align-items-center" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="carousel-bg" style="background-image: url({% static 'images/carousel-1.jpg' %})">
-                        <div class="move-header1 typing-demo">
-                            <h1 class="fs-190">Hello
-                                <!-- <span class="fs-100 badge bottom-0 end-0">{{ user.get_username|capfirst }}</span> -->
-                            </h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-bg" style="background-image: url({% static 'images/carousel-1.jpg' %})">
-                        <div class="move-header2">
-                            <h1>Team 4titude</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, veritatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-bg" style="background-image: url({% static 'images/carousel-1.jpg' %})">
-                        <div class="move-header3">
-                            <h1>Thank You</h1>
+                    <div class="row carousel-bg-left" style="background-image: url({% static 'images/launch.png' %})">
+                        <div class="col-6"></div>
+                        <div class="col-6 align-self-center">
+                            <div>
+                                <p class="fs-75">Hello, {{request.user.first_name|title}}</p>
+                                <span class="lead">How are you doing?</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,9 +40,9 @@
             </button>
         </div>
     </div>
-    <div class="row vh-100">
+    <!-- <div class="row vh-100">
         Another content
-    </div>
+    </div> -->
 </div>
 
 <footer>

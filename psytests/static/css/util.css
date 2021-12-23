@@ -2298,6 +2298,11 @@ a {
     box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.2);
 }
 
+.border-1 {
+    border: 1px solid rgba(0,128,128);
+    box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.2);
+}
+
 .border-1-round-box {
     border: 1px solid rgba(0,128,128);
     border-radius: 25px;
@@ -2327,7 +2332,15 @@ p {
 }
 .img-150 {
     width: 150px;
-    height: 150px;
+    height: auto;
+}
+.img-300 {
+    width: 300px;
+    height: auto;
+}
+.img-75p {
+    width: 75%;
+    height: auto;
 }
 
 .btn-teal {
@@ -2338,4 +2351,8 @@ p {
 .btn-teal:hover {
     background-color: rgb(0,100,100);
     color: white;
+}
+
+.errorlist li {
+    color: red;
 }

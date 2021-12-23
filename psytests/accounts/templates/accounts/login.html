@@ -11,14 +11,22 @@
 
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row" style="background-color:mintcream;">
+<div class="container-fluid p-0">
+    <div class="row vh-100 login-bg" style="background-color:mintcream; background-image: url({% static 'images/login-bg.png' %});">
 
-        <div class="col-8 login-bg vh-100" style="background-image: url({% static 'images/bg-login.jpg' %});"></div>
+        <div class="col-8 align-self-end">
+            <div class="text-end">
+                <div class="p-b-175">
+                    <h1>Welcome to PSYTEST</h1>
+                    <p class="fs-20 lead">{{day}}, {{date}}</p>
+                </div>
+            </div>
+
+        </div>
 
         <div class="col-4 align-self-center mx-auto">
             <div class="w-75 mx-auto">
-                <h1 class=" text-center border rounded-3 p-2 title-style text-white ">Login to Continue</h1>
+                <h3 class=" text-center p-2 color-teal">Login to Continue</h3>
                 <form class="p-4 border rounded-3 bg-light" action="{% url 'accounts:login' %}" method="post">
                     {% csrf_token %}
                     <div class="form-floating mb-3">
@@ -31,37 +39,34 @@
                             name='password' required>
                         <label for="password" class="text-muted">password</label>
                     </div>
-                    <div class="d-flex justify-content-between custom-control custom-checkbox ">
+                    <div class="d-flex justify-content-between custom-control custom-checkbox mb-4">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="remember-me" value="rememberme">
                             <label class="form-check-label text-muted" for="remember-me">Remember me</label>
                         </div>
-                        <div class="alert"></div>
                         <a href="#" class="fs-15">Forgot Password?</a>
                     </div>
-                    <button class="btn-style btn w-100 fs-17 mt-4 p-2 rounded-pill">Login</button>
-                    <div class="separator mt-4 "> OR</div>
-                            <div class="d-flex align-items-center flex-column ">
-                                <a href="{% provider_login_url 'google'%}"
-                                    class="login-google-social social-bg2 flex-c-m mt-2 btn w-100 p-4 rounded-pill"
-                                    type="button"><img src="{% static 'images/google.png' %}" alt="googleicon"
-                                        id="google-icon">
-                                    <span>
-                                        Continue with Google
-                                    </span>
-                                </a>
-                                <a href="{% provider_login_url 'facebook' method='js_sdk' %}"
-                                    class="login-fb-social social-bg1 flex-c-m mt-2 btn w-100 p-4 rounded-pill"
-                                    type="button">
-                                    <svg id="fb-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                        fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                                    </svg>
-                                    <span>
-                                        Continue with Facebook
-                                    </span>
-                                </a>
+                    <button class="btn-style btn w-100 fs-17 p-2 rounded-pill">Login</button>
+                    <div class="separator mt-4 ">OR</div>
+                    <div class="d-flex flex-column ">
+                        <a href="{% provider_login_url 'google'%}"
+                            class="login-google-social social-bg2 flex-c-m mt-2 btn w-100 p-4 rounded-pill"
+                            type="button"><img src="{% static 'images/google.png' %}" alt="googleicon" id="google-icon">
+                            <span>
+                                Continue with Google
+                            </span>
+                        </a>
+                        <a href="{% provider_login_url 'facebook' method='js_sdk' %}"
+                            class="login-fb-social social-bg1 flex-c-m mt-2 btn w-100 p-4 rounded-pill" type="button">
+                            <svg id="fb-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                            </svg>
+                            <span>
+                                Continue with Facebook
+                            </span>
+                        </a>
                     </div>
                 </form>
                 {% for message in messages %}
@@ -76,4 +81,5 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

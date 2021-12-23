@@ -25,6 +25,7 @@ Set Schedule
             <form method="post">
                 {% csrf_token %}
                     {{form.user}}
+                    {{form.is_done}}
                     <div class="w-50 mb-2 input-group">
                         <label for="managed_by" class="input-group-text">Assign to:</label>
                         {{form.managed_by}}

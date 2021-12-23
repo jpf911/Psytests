@@ -1,19 +1,25 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.http.response import HttpResponse
 from django.shortcuts import render,redirect, reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user
-from riasec.models import Riasec_result
-from personalityTest.models import Result
 # Create your views here.
-from administration.views import SuperUserCheck
 
+from datetime import datetime
 
-@unauthenticated_user
+UserModel = get_user_model()
+now = datetime.today()
+
 def loginPage(request):
     if request.method == 'POST':
         username=request.POST.get('username')
@@ -26,117 +32,61 @@ def loginPage(request):
             return HttpResponseRedirect(reverse('homepage'))
         else:
             messages.error(request, 'Username or Password is incorrect')
-    return render(request,'accounts/login.html')
+    return render(request,'accounts/login.html',{
+        'day': now.strftime('%A'),
+        'date': now.strftime('%B %d')
+    })
 
-@unauthenticated_user
 def registerPage(request):
     if request.method == 'POST':
         form=CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
             user.refresh_from_db()
             user.profile.date_of_birth = form.cleaned_data.get('date_of_birth')
             user.profile.gender = form.cleaned_data.get('gender')
             user.save()
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
-            return redirect('homepage')
+
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your account.'
+            message = render_to_string('accounts/acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
+            
     else:
         form = CreateUserForm()
     context = {'form': form}
     return render(request,'accounts/register.html',context)
 
+
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = UserModel._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
 def logoutUser(request):
     logout(request)
     return redirect('accounts:login')
 
-class StatPage(LoginRequiredMixin, TemplateView):
-    template_name = 'stats/stats.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['riasec_result'] = Riasec_result.objects.get(user=self.request.user)
-            Riasec_result.objects.get(user=self.request.user)
-            obj = Riasec_result.objects.filter(user=self.request.user).values(
-                "realistic",
-                "investigative",
-                "artistic",
-                "social",
-                "enterprising",
-                "conventional",
-            ).first()
-            if obj is not None:
-                objects = dict(sorted(obj.items(), key=lambda item: item[1], reverse=True))
-                top1 = {}
-                top2 = {}
-                top3 = {}
-                for x in objects:
-                    if not top1:
-                        top1[x] = objects[x]
-                    else:
-                        if objects[x] == list(top1.values())[0]:
-                            top1[x] = objects[x]
-                        if top2:
-                            if objects[x] < list(top2.values())[0] and not top3:
-                                top3[x] = objects[x]
-                                continue
-                        if objects[x] < list(top1.values())[0] and not top3:
-                            top2[x] = objects[x]
-                        if top3:
-                            if objects[x] == list(top3.values())[0]:
-                                top3[x] = objects[x]
-                context["top1"] = top1
-                context["top1len"] = range(len(top1))
-                context["top2"] = top2
-                context["top2len"] = range(len(top2))
-                context["top3"] = top3
-                context["top3len"] = range(len(top3))
-                if top1:
-                    context["top1value"] = list(top1.values())[0]
-                if top2:
-                    context["top2value"] = list(top2.values())[0]
-                if top3:
-                    context["top3value"] = list(top3.values())[0] 
-        except ObjectDoesNotExist:
-            pass
-
-        try:
-            context['personalityTest_result'] = Result.objects.get(user=self.request.user)
-            obj_prediction = Result.objects.get(user=self.request.user)
-            context['prediction'] = obj_prediction.prediction
-        except ObjectDoesNotExist:
-            pass
-
-        return context
-
-
-class UsersResults(SuperUserCheck,TemplateView):
-    template_name = 'admin/results.html'
-    model= Riasec_result,Result
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['riasec_result']=Riasec_result.objects.all()
-            context['personalityTest_result']=Result.objects.all()
-        except ObjectDoesNotExist:
-            pass
-        return context
-
-class UserDetailView(SuperUserCheck,TemplateView):
-    template_name = 'admin/users_details.html'
-    model= Riasec_result
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['riasec_results']=Riasec_result.objects.filter(pk=self.kwargs.get('pk'))
-            context['personalityTest_results']=Result.objects.filter(pk=self.kwargs.get('pk'))
-        except ObjectDoesNotExist:
-            pass
-        return context
 
 
 

@@ -1,15 +1,15 @@
 from django.urls import path
 from .views import (
-    StatPage,
     registerPage,
     loginPage,
     logoutUser,
+    activate,
 )
 
 app_name='accounts'
 urlpatterns = [
-    path('stats/', StatPage.as_view(), name='stats'),
     path('register/', registerPage, name='register'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
     path('login/', loginPage, name='login'),
     path('logout/',logoutUser,name='logout'),
 ]
