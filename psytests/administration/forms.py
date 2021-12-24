@@ -31,7 +31,7 @@ class AddRQuestionsForm(forms.ModelForm):
         ]
         widgets = {
             'question': forms.TextInput(attrs={'class': 'form-control'}),
-            'category': forms.Select(attrs={'class': 'form-control'}, choices=category_choices),
+            'category': forms.Select(attrs={'class': 'form-select'}, choices=category_choices),
         }
 
 
@@ -55,8 +55,8 @@ class AddPQuestionsForm(forms.ModelForm):
 
         widgets = {
             'question': forms.TextInput(attrs={'class': 'form-control'}),
-            'category': forms.Select(attrs={'class': 'form-control'}, choices=category_choices),
-            'key': forms.Select(attrs={'class': 'form-control'}, choices=key_choices),
+            'category': forms.Select(attrs={'class': 'form-select'}, choices=category_choices),
+            'key': forms.Select(attrs={'class': 'form-select'}, choices=key_choices),
         }
 
 

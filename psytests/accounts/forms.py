@@ -71,13 +71,13 @@ class CreateUserForm(UserCreationForm):
         fields = ['first_name', 'last_name','gender','date_of_birth','username','email','password1','password2', 'is_superuser']
 
     def clean_first_name(self):
-        if not self.cleaned_data.get('first_name').isalpha():
+        if not self.cleaned_data.get('first_name').replace(" ", "").isalpha():
             raise ValidationError("it shouldn't contain numbers")
         
         return self.cleaned_data.get('first_name')
 
     def clean_last_name(self):
-        if not self.cleaned_data.get('last_name').isalpha():
+        if not self.cleaned_data.get('last_name').replace(" ", "").isalpha():
             raise ValidationError("it shouldn't contain numbers")
         
         return self.cleaned_data.get('last_name')

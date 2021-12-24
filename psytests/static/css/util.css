@@ -2356,3 +2356,22 @@ p {
 .errorlist li {
     color: red;
 }
+
+a.page-link {
+    color: #008080;
+}
+a.page-link:hover {
+    color: #008080;
+}
+a.page-link:focus {
+    box-shadow: none;
+}
+
+.form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0,128,128, 0.2);
+    border: none;
+}
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0,128,128, 0.2);
+    border: none;
+}

@@ -403,6 +403,7 @@ def deleteRecord(request, p_pk, p_user, r_pk, r_user):
             pass
         
         obj.is_assigned = None
+        obj.is_result = False
         obj.save()
     except ObjectDoesNotExist:
         pass
@@ -417,48 +418,19 @@ def deleteRecord(request, p_pk, p_user, r_pk, r_user):
     return redirect("homepage")
 
 
-class RQuestionsTemplateView(SuperUserCheck, TemplateView):
-
+class RQuestionsTemplateView(SuperUserCheck, ListView):
     model = RIASEC_Test
     template_name = "administration/questions/rquestions.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["rquestions"] = RIASEC_Test.objects.all()
-        return context
+    context_object_name = 'rquestions'
+    paginate_by = 10
 
 
-class PQuestionsTemplateView(SuperUserCheck, TemplateView):
-
+class PQuestionsTemplateView(SuperUserCheck, ListView):
     model = Questionnaire
     template_name = "administration/questions/pquestions.html"
+    context_object_name = 'pquestions'
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["pquestions"] = Questionnaire.objects.all()
-        return context
-
-
-class RQuestionsDetailView(SuperUserCheck, DetailView):
-    model = RIASEC_Test
-    template_name = "administration/rquestions/rquestions_detail.html"
-    context_object_name = "question"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # post= RIASEC_Test.objects.filter(slug=self.kwargs.get('slug'))
-        return context
-
-
-class PQuestionsDetailView(SuperUserCheck, DetailView):
-    model = Questionnaire
-    template_name = "administration/pquestions/pquestions_detail.html"
-    context_object_name = "question"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post = Questionnaire.objects.filter(slug=self.kwargs.get("slug"))
-        return context
 
 
 class RQuestionsCreateView(UserAccessMixin, CreateView):

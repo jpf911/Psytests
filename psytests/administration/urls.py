@@ -8,8 +8,6 @@ from .views import (
     UserDetailView,
     RQuestionsTemplateView,
     PQuestionsTemplateView,
-    RQuestionsDetailView,
-    PQuestionsDetailView,
     RQuestionsCreateView,
     PQuestionsCreateView,
     RQuestionsEditView,
@@ -51,8 +49,6 @@ urlpatterns=[
     path('pquestions/create/personality/', PQuestionsCreateView.as_view(), name='pquestions_add'),
     path('rquestions/<slug:slug>/riasec/edit', RQuestionsEditView.as_view(), name='rquestions_edit'),
     path('pquestions/<slug:slug>/personality/edit', PQuestionsEditView.as_view(), name='pquestions_edit'),
-    path('rquestions/<slug:slug>/riasec/', RQuestionsDetailView.as_view(), name='rquestions_detail'),
-    path('pquestions/<slug:slug>/personality/', PQuestionsDetailView.as_view(), name='pquestions_detail'),
     path('rquestions/<slug:slug>/riasec/delete', RDeleteQuestions.as_view(), name='rquestions_delete'),
     path('pquestions/<slug:slug>/personality/delete', PDeleteQuestions.as_view(), name='pquestions_delete'),
 ]
