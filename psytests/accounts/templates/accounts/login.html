@@ -14,7 +14,7 @@
 <div class="container-fluid p-0">
     <div class="row vh-100 login-bg" style="background-color:mintcream; background-image: url({% static 'images/login-bg.png' %});">
 
-        <div class="col-8 align-self-end">
+        <div class="col-lg-8 col-sm-6 col-md-0 align-self-end">
             <div class="text-end">
                 <div class="p-b-175">
                     <h1>Welcome to PSYTEST</h1>
@@ -24,7 +24,7 @@
 
         </div>
 
-        <div class="col-4 align-self-center mx-auto">
+        <div class="col-lg-4 col-sm-6 col-md-6 align-self-center mx-auto">
             <div class="w-75 mx-auto">
                 <h3 class=" text-center p-2 color-teal">Login to Continue</h3>
                 <form class="p-4 border rounded-3 bg-light" action="{% url 'accounts:login' %}" method="post">
@@ -39,12 +39,12 @@
                             name='password' required>
                         <label for="password" class="text-muted">password</label>
                     </div>
-                    <div class="d-flex justify-content-between custom-control custom-checkbox mb-4">
-                        <div class="form-check form-check-inline">
+                    <div class="d-flex justify-content-end custom-control custom-checkbox mb-4">
+                        <!-- <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="remember-me" value="rememberme">
                             <label class="form-check-label text-muted" for="remember-me">Remember me</label>
-                        </div>
-                        <a href="#" class="fs-15">Forgot Password?</a>
+                        </div> -->
+                        <a href="{% url 'password_reset' %}" class="fs-15">Forgot Password?</a>
                     </div>
                     <button class="btn-style btn w-100 fs-17 p-2 rounded-pill">Login</button>
                     <div class="separator mt-4 ">OR</div>

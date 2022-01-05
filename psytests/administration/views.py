@@ -384,6 +384,16 @@ def approve_user(request, user, pk):
     except:
         pass
 
+    obj = Profile.objects.get(user__username=user)
+    print(request.GET.get('user'), 'Print User' )
+    subject = 'Well done!'
+    message = 'Your result is now available. Go to website and click Assessment>View Result'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [
+        obj.user.email,
+    ]
+    send_mail(subject, message, email_from, recipient_list, fail_silently=True)
+
     return redirect("administration:history-schedules")
 
 
@@ -568,10 +578,19 @@ class ResetSchedule(LoginRequiredMixin, SuperUserCheck, UpdateView):
         return initial
 
     def form_valid(self, form):
+        form.save()
         obj = AdminScheduledConsultation.objects.get(id=self.kwargs["pk"])
         target = Profile.objects.get(user__username=obj.user.user.username)
         target.is_assigned = True
         target.save()
+
+        subject = 'Schedule Reset'
+        message = f'Hello, there have been changes in schedule. Your new consultation time will be followed on {obj.scheduled_date.strftime("%d %B, %Y  %H:%M%p")}'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [
+            target.user.email,
+        ]
+        send_mail(subject, message, email_from, recipient_list, fail_silently=True)
 
         return super().form_valid(form)
 
@@ -591,11 +610,21 @@ class SetSchedule(LoginRequiredMixin, SuperUserCheck, CreateView):
         return initial
 
     def form_valid(self, form):
+        form.save()
         obj = Profile.objects.get(user__username=self.kwargs["username"])
+        obj_x = AdminScheduledConsultation.objects.get(user=obj)
         obj.is_assigned = True
         obj.save()
+        
+        subject = 'Consultation Notice'
+        message = f'Hello, you are asked to report in guidance office for consultation. Your schedule is set to {obj_x.scheduled_date.strftime("%d %B, %Y  %H:%M%p")}'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [
+            obj.user.email,
+        ]
+        send_mail(subject, message, email_from, recipient_list, fail_silently=True)
 
-        return super(SetSchedule, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

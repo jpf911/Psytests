@@ -1,9 +1,10 @@
-from typing import Pattern
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.forms.widgets import Select, SelectDateWidget
+
+from django.contrib.auth.forms import PasswordResetForm, PasswordChangeForm
 
 from django.utils import timezone
 
@@ -166,3 +167,38 @@ class UpdateUserForm(forms.ModelForm):
     class Meta:
         model=User
         fields = ['first_name', 'last_name','username','email','is_superuser']
+
+class CustomizedPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Type your email address'
+    }))
+
+class CustomizedPasswordResetConfirmForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Old password'
+    }))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Type here'
+    }))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Type here'
+    }))
+
+    def clean_new_password1(self):
+        pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+        new_password1 = self.cleaned_data.get('new_password1')
+        result = re.match(pattern, new_password1)
+        if not result:
+            raise ValidationError('Invalid Password')
+        
+        return new_password1
+
+    def clean_new_password2(self):
+        if self.cleaned_data.get('new_password2') != self.cleaned_data.get('new_password1'):
+            raise ValidationError("Confirmation password doesn't match")
+
+        return self.cleaned_data.get('new_password2')
