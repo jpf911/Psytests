@@ -5,37 +5,39 @@
 
 {% block content%}
 <main class="container-fluid">
-    <div class="row justify-content-center register">
-        <div class="col-6">
-            <h3>Register</h3>
+    <div class="row justify-content-center mt-3">
+        <div class="col-sm-8 col-xs-6 p-4 border-1-round-box">
+            <h3 class="mb-4">Register</h3>
 
             <form method="post">
                 {% csrf_token %}
-                <div class="row">
-                    <div class="col">
+                <div class="row mb-3">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="">{{form.first_name.label}}</label>
                         {{form.first_name}}
                         <p class="text-danger ms-3">{{form.first_name.errors }}</p>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="">{{form.last_name.label}}</label>
                         {{form.last_name}}
                         <p class="text-danger ms-3">{{form.last_name.errors }}</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
+                <div class="row mb-3">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="">{{form.gender.label}}</label>
                         {{form.gender}}
                     </div>
-                    <div class="col">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="">{{form.date_of_birth.label}}</label>
                         <div class="input-group">{{form.date_of_birth}}</div>
                         {{form.date_of_birth.errors}}
                     </div>
                 </div>
-                <label for="">{{form.username.label}}</label>
-                {{form.username}}
+                <div class="mb-3">
+                    <label for="">{{form.username.label}}</label>
+                    {{form.username}}
+                </div>
                 {% if form.username.errors %}
                 {{form.username.errors}}
                 <div class="alert alert-secondary">
@@ -48,18 +50,19 @@
                     </ul>
                 </div>
                 {% endif %}
+                <div class="mb-3">
+                    <label for="">{{form.email.label}}</label>
+                    {{form.email}}
+                    {{form.email.errors}}
+                </div>
 
-                <label for="">{{form.email.label}}</label>
-                {{form.email}}
-                {{form.email.errors}}
-
-                <div class="row">
-                    <div class="col">
+                <div class="row mb-3">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="">{{form.password1.label}}</label>
                         {{form.password1}}
                         {{form.password1.errors}}
                     </div>
-                    <div class="col">
+                    <div class="col-sm-6 col-xs-6">
                         <label for="">{{form.password2.label}}</label>
                         {{form.password2}}
                         {{form.password2.errors}}
