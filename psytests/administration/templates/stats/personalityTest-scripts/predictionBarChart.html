@@ -6,9 +6,9 @@
   Chart.defaults.global.defaultFontColor = '#777';
 
   let predictionBarChart = new Chart(predictionbarChart, {
-    type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+    type: 'bar',
     data: {
-      labels: ['extroversion', 'neurotic', 'agreeable', 'conscientious', 'openness'],
+      labels: ['E', 'N', 'A', 'C', 'O'],
       datasets: [{
         label: 'Result',
 
@@ -52,7 +52,7 @@
         left: 0,
           right: 0,
             bottom: 0,
-              top: 0
+              top: 0,
       }
     },
     tooltips: {

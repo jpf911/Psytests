@@ -1,49 +1,118 @@
-.carousel-control-next-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    transform: rotate(-90deg);
+.img-responsive {
+  border-radius: 15px ;
+}
+.banner
+ {
+  padding: 6em 0 4em 0;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.banner
+ h1 {
+  margin-top: -0.125em;
+}
+.banner
+ .content {
+  -moz-flex-grow: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+  -moz-flex-shrink: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-shrink: 1;
+  flex-shrink: 1;
+  width: 50%;
+}
+.banner
+ .image {
+  -moz-flex-grow: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-grow: 0;
+  flex-grow: 0;
+  -moz-flex-shrink: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-shrink: 0;
+  flex-shrink: 0;
+  display: block;
+  margin: 0 0 2em 4em;
+  width: 50%;
+}
+.banner
+ .image img {
+  height: 100%;
+  -moz-object-fit: cover;
+  -webkit-object-fit: cover;
+  -ms-object-fit: cover;
+  object-fit: cover;
+  -moz-object-position: center;
+  -webkit-object-position: center;
+  -ms-object-position: center;
+  object-position: center;
+  width: 100%;
+}
+@media screen and (orientation: portrait) {
+  .banner
+   {
+    -moz-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+  }
+  .banner
+   h1 br {
+    display: none;
+  }
+  .banner
+   .content {
+    -moz-flex-grow: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-grow: 0;
+    flex-grow: 0;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-shrink: 0;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  .banner
+   .image {
+    -moz-flex-grow: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-grow: 0;
+    flex-grow: 0;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-shrink: 0;
+    flex-shrink: 0;
+    margin: 0 0 4em 0;
+    height: 25em;
+    max-height: 50vh;
+    min-height: 18em;
+    width: 100%;
+  }
+}
+@media screen and (orientation: portrait) and (max-width: 480px) {
+  .banner
+   .image {
+    max-height: 35vh;
+  }
 }
 
-.carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    transform: rotate(90deg);
-}
-.carousel {
-    padding: 0px;
-    margin: 0px;
-}
 
-.carousel-bg-left {
-    background-repeat: no-repeat;
-    background-size: 70% auto;
-    background-position: left;
-    height: 92vh;
+@media screen and (max-width:576px) {
+  .logo-100 {
+    height: 50px;
+    width: 50px;
+    margin: 3px;
   }
-.carousel-bg-right {
-    background-repeat: no-repeat;
-    background-size: 50% auto;
-    background-position: right;
-    height: 92vh;
+  .content {
+    padding: 0;
   }
-.carousel-bg-right {
-    background-repeat: no-repeat;
-    background-size: 50% auto;
-    background-position: center;
-    height: 92vh;
+  .banner{
+    padding: 10px;
+    padding-bottom: 25px;
   }
-
-.move-header1 {
-    position: relative;
-    top: 200px;px;
-    left:200px;
-  }
-.move-header2 {
-    position: relative;
-    top: 300px;
-    left:300px;
-  }
-.move-header3 {
-    position: relative;
-    top: 300px;px;
-    left:300px;
-  }
+}
 

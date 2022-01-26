@@ -1,3 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+
+p, span, a, button {
+    font-family: 'Montserrat', sans-serif;
+    font-variant: black;
+}
+
+ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-variant: black;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif', serif;
+}
+.noto-serif {
+    font-family: 'Noto Serif', serif;
+}
+
+
 /* Font Size */
 .fs-1 {font-size: 1px;}
 .fs-2 {font-size: 2px;}
@@ -2218,7 +2238,7 @@
 /* Vieport Height */
 
 .vh-100 {
-    height: 100vh;
+    height: 100%;
     margin: 0;
 }
 
@@ -2246,9 +2266,14 @@
 .bg-color-f {
     background: rgba(255, 159, 64, 0.6);
 }
+
+.bg-teal {
+    background-color: teal;
+}
 .color-teal {
     color: #008080;
 }
+
 .color-white {
     color:white;
 }
@@ -2325,6 +2350,26 @@ p {
     width: 22px;
     height: 22px;
 }
+.logo-150 {
+    height: 150px;
+    width: 150px;
+    margin:10px;
+  }
+.logo-75 {
+    height: 75px;
+    width: 75px;
+    margin:10px;
+  }
+.logo-100 {
+    height: 100px;
+    width: 100px;
+    margin:10px;
+  }
+.logo-50 {
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+  }
 
 .svg-120 {
     width: 120px;
@@ -2343,14 +2388,39 @@ p {
     height: auto;
 }
 
+.btn-outline-teal {
+    color: #008080;
+    border-color: #008080;
+}
+
+.btn-outline-teal:hover {
+    color: white;
+    background-color: #008080;
+}
+
+.btn-outline-teal:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .btn-teal {
     color: white;
     background: teal;
 }
 
+.bg-ashgray {
+    background-color: #b2beb5;
+}
+
 .btn-teal:hover {
     background-color: rgb(0,100,100);
     color: white;
+}
+
+.btn-teal:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
 }
 
 .errorlist li {

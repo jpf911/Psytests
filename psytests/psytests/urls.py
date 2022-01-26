@@ -33,7 +33,7 @@ urlpatterns = [
     path('assessment/', Assessment.as_view(), name="assessment"),
     path('awesome/', Awesome.as_view(), name="awesome"),
     path('<str:test>/data/privacy/consent', DataPrivacyConsent.as_view(), name="consent"),
-    path('psytest/', include('accounts.urls')), #Connects to psytest folder urls.py
+    path('auth/', include('accounts.urls')), #Connects to psytest folder urls.py
     path('career/',include('riasec.urls')), #Connects to riasec folder urls.py
     path('personality/',include('personalityTest.urls')), #Connects to personalityTest folder urls.py
     path('accounts/', include('allauth.urls')),

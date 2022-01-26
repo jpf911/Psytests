@@ -7,8 +7,8 @@
 </header>
 <main class="container">
     <div class="row justify-content-center mt-3">
-        <div class="col-4">
-            <h1>Users</h1>
+        <div class="col-sm-4 col-xs-6">
+            <h1>Users to Check</h1>
             <div class="list-group">
                 <a href="{% url 'administration:pending-users' %}" class="list-group-item item-badge-between link-teal">
                     Pending
@@ -22,24 +22,25 @@
 
             </div>
         </div>
-        <div class="col-8 pt-5">
+        <div class="col-sm-8 col-xs-6 pt-5">
             <div class="d-flex justify-content-between mb-2">
                 <h3>Assigned users</h3>
                 <form method='GET' class="w-75 my-auto">
-                    <div class="d-flex justify-content-end input-group">
+                    <div class="d-flex justify-content-end">
                         <div class="w-75">
                             {{form.name}}
                         </div>
-                        <button class="btn teal-btn" type='submit'>Search</button>
+                        <button class="btn teal-btn ms-2" type='submit'>Search</button>
                     </div>
                 </form>
             </div>
             <div>
                 {% if users %}
+                <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Username</th>
+                            <th>#</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Date Assigned</th>
@@ -50,7 +51,7 @@
                         {% for user in users %}
 
                         <tr>
-                            <td>{{user.user.user.username}}</td>
+                            <td>{{forloop.counter}}</td>
                             <td>{{user.user.user.first_name}}</td>
                             <td>{{user.user.user.last_name}}</td>
                             <td></td>
@@ -59,6 +60,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
 
                 {% else %}
                 <div class="text-center">

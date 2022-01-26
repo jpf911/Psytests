@@ -98,7 +98,7 @@ class UserManagement(LoginRequiredMixin, SuperUserCheck, ListView):
     template_name = "administration/user_management.html"
     model = User
     context_object_name = "users"
-    paginate_by = 2
+    paginate_by = 8
 
     def get_queryset(self):
         query = self.request.GET.get("name")
@@ -361,6 +361,33 @@ class UserDetailView(LoginRequiredMixin, UserDetailViewMixin, FormMixin, DetailV
         send_mail(subject, message, email_from, recipient_list, fail_silently=True)
         return super().form_valid(form)
 
+def send_msg(request, user):
+        obj = Profile.objects.get(user__username=user)
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [
+            obj.user.email,
+        ]
+        send_mail(subject, message, email_from, recipient_list, fail_silently=True)
+        return redirect('administration:pending-users')
+
+def return_user(request, user, pk):
+    try:
+        admin = AdminScheduledConsultation.objects.get(user__user__username=user)
+        admin.delete()
+    except ObjectDoesNotExist:
+        pass
+
+    try:
+        profile = Profile.objects.get(user__username=user)
+        profile.is_assigned = False
+        profile.is_result = None
+        profile.save()
+    except:
+        pass
+
+    return redirect("administration:pending-users")
 
 def approve_user(request, user, pk):
     try:
@@ -406,9 +433,7 @@ def deleteRecord(request, p_pk, p_user, r_pk, r_user):
 
         try:
             obj2 = AdminScheduledConsultation.objects.get(user=obj)
-            obj2.is_done = False
-            obj2.scheduled_date = None
-            obj2.save()
+            obj2.delete()
         except:
             pass
         

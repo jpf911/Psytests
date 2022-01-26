@@ -23,6 +23,8 @@ from .views import (
     UserSchedules,
     approve_user,
     deleteRecord,
+    return_user,
+    send_msg,
 )
 
 
@@ -35,7 +37,8 @@ urlpatterns=[
     path('pending-users/', PendingUsers.as_view(), name='pending-users'),
     path('assigned-users/', AssignedUsers.as_view(), name='assigned-users'),
     path('user-results/<user>/<int:pk>/', UserDetailView.as_view(), name='user_detail'),
-    path('user-results/<user>/<int:pk>/approved', approve_user, name='approve-user'),
+    path('user-results/<user>/<int:pk>/approve', approve_user, name='approve-user'),
+    path('user-results/<user>/<int:pk>/return', return_user, name='return-user'),
     path('user-results/delete/<int:r_pk>/<r_user>/<int:p_pk>/<p_user>/', deleteRecord, name='delete-record'),
     path('user-results/<username>/set-schedule/', SetSchedule.as_view(), name='set-schedule'),
     path('schedules/', UserSchedules.as_view(), name='schedules'),
@@ -51,4 +54,5 @@ urlpatterns=[
     path('pquestions/<slug:slug>/personality/edit', PQuestionsEditView.as_view(), name='pquestions_edit'),
     path('rquestions/<slug:slug>/riasec/delete', RDeleteQuestions.as_view(), name='rquestions_delete'),
     path('pquestions/<slug:slug>/personality/delete', PDeleteQuestions.as_view(), name='pquestions_delete'),
+    path('<user>/send-msg', send_msg, name='send-msg'),
 ]

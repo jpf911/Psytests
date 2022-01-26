@@ -6,35 +6,23 @@
 {% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-6 border-1 m-t-75 p-4">
+<div class="row justify-content-center p-3">
+    <div class="col-sm-6 col-xs-12 border-1 m-t-75 p-3">
         <div class="text-center">
             <h2>Data Privacy Consent</h2>
         </div>
-
         <div class="text-left p-3">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias eligendi molestiae ea fuga illo!
-                Molestias incidunt vero aspernatur animi unde eum quibusdam. Natus facere suscipit soluta, unde, non
-                dignissimos porro rerum qui quo sapiente repudiandae, quas dolor doloremque ex. Unde recusandae ratione
-                natus veritatis eos, magni repudiandae nostrum hic nemo sunt neque quam cupiditate, nam delectus labore
-                officia totam adipisci voluptatem est beatae laborum dolores incidunt. Ab in, architecto aspernatur quae
-            </p>
-            <br>
-            <ul>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quasi.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quasi.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quasi.</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quasi.</li>
-            </ul>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, iste veritatis fugiat fuga temporibus
-                expedita distinctio maiores illum quos voluptates ratione cupiditate adipisci quo quidem ipsa mollitia,
-                saepe commodi dolore eum, reiciendis quis modi consequatur? Debitis molestias aspernatur pariatur vel
+            <p>In submitting this form I agree to my details being used for the purposes of psychological test and analysis. The information will only be accessed by necessary
+                staff in-charge. I understand my data will be held securely and will not be distributed to third
+                parties. I have a right to change or access my information. I understand that when this information is
+                no longer required for this purpose, official administration procedure will be followed to dispose of my
+                data.
             </p>
         </div>
         <div class="text-center m-t-30">
             <a href="{% url 'assessment' %}" class="btn btn-secondary">Back</a>
-            <a href="{% if test == 'personality' %}{% url 'personalityTest:test' %}{% endif %}{% if test == 'career' %}{% url 'riasec:test' %}{% endif %}" class="btn btn-teal">Agree</a>
+            <a href="{% if test == 'personality' %}{% url 'personalityTest:test' %}{% endif %}{% if test == 'career' %}{% url 'riasec:test' %}{% endif %}"
+                class="btn btn-teal">Agree</a>
         </div>
     </div>
 </div>
